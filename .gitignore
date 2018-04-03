@@ -1,0 +1,53 @@
+# Compiled class file
+*.class
+
+# Log file
+*.log
+
+# BlueJ files
+*.ctxt
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+
+# Binary Files
+*.dat
+
+# Addition
+# Ignore all temporary files in the root directory
+*.[oa]
+
+# Single Module Project
+/.externalToolBuilders/
+/.settings/
+/.metadata/
+/.recommenders/
+/target/
+/bin/
+/build/
+/doc/
+/test-output/
+/allure-results/
+/.classpath
+/.project
+/.checkstyle
+/reports/
+/.idea/
+*.iml
+
+# Multi Modules Project
+/**/.externalToolBuilders/
+/**/.settings/
+/**/target/
+/**/doc/
