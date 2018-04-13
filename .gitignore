@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /target/
+=======
+target/
+>>>>>>> e52c3a1cb95524a5e794be3f8e450d9bfc6a0b7d
 !.mvn/wrapper/maven-wrapper.jar
 
 ### STS ###
@@ -8,7 +12,10 @@
 .project
 .settings
 .springBeans
+<<<<<<< HEAD
 .sts4-cache
+=======
+>>>>>>> e52c3a1cb95524a5e794be3f8e450d9bfc6a0b7d
 
 ### IntelliJ IDEA ###
 .idea
@@ -17,9 +24,18 @@
 *.ipr
 
 ### NetBeans ###
+<<<<<<< HEAD
 /nbproject/private/
 /build/
 /nbbuild/
 /dist/
 /nbdist/
 /.nb-gradle/
+=======
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+>>>>>>> e52c3a1cb95524a5e794be3f8e450d9bfc6a0b7d
