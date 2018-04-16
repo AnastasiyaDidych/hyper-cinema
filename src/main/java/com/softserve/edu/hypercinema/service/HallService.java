@@ -6,12 +6,16 @@ import java.util.List;
 
 public interface HallService {
 
+    void createHall(HallEntity hallEntity);
+
     List<HallEntity> selectAllHalls();
 
     HallEntity selectHallById(Long id);
 
     void updateHall(HallEntity hallEntity);
 
-    void deleteHallById(Long id);
+    void deleteHall(Long id);
+
+    void deleteHall(HallEntity hallEntity);
 
 }

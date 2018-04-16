@@ -6,12 +6,16 @@ import java.util.List;
 
 public interface SeatService {
 
+    void createSeat(SeatEntity seatEntity);
+
     List<SeatEntity> selectAllSeats();
 
     SeatEntity selectSeatById(Long id);
 
     void updateSeat(SeatEntity seatEntity);
 
-    void deleteSeatById(Long id);
+    void deleteSeat(Long id);
+
+    void deleteSeat(SeatEntity seatEntity);
 
 }
