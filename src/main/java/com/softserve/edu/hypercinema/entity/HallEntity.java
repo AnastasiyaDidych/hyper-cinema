@@ -5,6 +5,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -32,6 +34,8 @@ public class HallEntity {
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "hall_id")
-    private Set<SeatEntity> seat_list;
+//    private List<SeatEntity> seat_list; /*= new ArrayList<>();*/
+    private Set<SeatEntity> seat_list; /*= new HashSet<>();*/
+
 
 }
