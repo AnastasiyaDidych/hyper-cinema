@@ -6,27 +6,27 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
-@Entity (name = "Seat")
-@Table (name = "seat")
+@Entity
+@Table(name = "seat")
 @Getter
 @Setter
 @NoArgsConstructor
 public class SeatEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column (name = "id")
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
 
-    @Column (name = "row")
+    @Column(name = "row")
     private Integer row;
 
-    @Column (name = "number")
+    @Column(name = "number")
     private Integer number;
 
     /*??????????????????????????????????????*/
-    @ManyToOne (cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
-    @JoinColumn(name = "id")
-    private Integer hall_id;
+    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
+    @JoinColumn(name = "hall_id")
+    private HallEntity hallEntity;
 
 }

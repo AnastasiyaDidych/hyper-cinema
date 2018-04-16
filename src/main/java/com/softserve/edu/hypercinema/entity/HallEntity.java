@@ -10,7 +10,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-@Entity (name = "Hall")
+@Entity
 @Table (name = "hall")
 @Getter
 @Setter
@@ -21,7 +21,7 @@ public class HallEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 //    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    private Integer id;
+    private Long id;
 
     @Column (name = "name", nullable = false)
     private String name;
@@ -32,10 +32,8 @@ public class HallEntity {
     @Column (name = "type", nullable = false)
     private String type;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "hall_id")
-//    private List<SeatEntity> seat_list; /*= new ArrayList<>();*/
-    private Set<SeatEntity> seat_list; /*= new HashSet<>();*/
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "hallEntity")
 
+    private List<SeatEntity> seatEntities = new ArrayList<>();
 
 }
