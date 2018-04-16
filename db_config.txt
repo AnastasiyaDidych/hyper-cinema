@@ -1,5 +1,5 @@
-CREATE database `hyper-cinema`;
+CREATE database `hyper_cinema`;
 
 CREATE USER 'hyper_admin'@'localhost' IDENTIFIED BY 'hyper_pass';
-GRANT ALL ON `hyper-cinema`.* TO 'hyper_admin'@'localhost';
+GRANT ALL ON `hyper_cinema`.* TO 'hyper_admin'@'localhost';
 FLUSH PRIVILEGES;
