@@ -17,7 +17,6 @@ import com.softserve.edu.hypercinema.service.UserService;
 import javax.transaction.Transactional;
 import java.security.Principal;
 import java.util.ArrayList;
-import java.util.Optional;
 
 @Service
 @Transactional
@@ -58,12 +57,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void createUser(UserEntity userEntity) {
-        Optional<UserEntity> user = userRepository.findByEmail(userEntity.getEmail());
-        if (user.isPresent()) {
-            throw new UserAlreadyExistsException(String.format(USER_ALREADY_EXISTS_MESSAGE, userEntity.getEmail()));
-        }
-        //userEntity.setPassword(bCryptPasswordEncoder.encode(userEntity.getPassword()));
-        userEntity.setPassword(userEntity.getPassword());
+        userRepository.findByEmail(userEntity.getEmail()).ifPresent(u -> {
+            throw new UserAlreadyExistsException(String.format(USER_ALREADY_EXISTS_MESSAGE, u.getEmail()));
+        });
         ArrayList<RoleEntity> roleEntities = new ArrayList<>();
         roleEntities.add(roleRepository.findByName("ROLE_USER").get());
         userEntity.setRoles(roleEntities);
@@ -84,7 +80,6 @@ public class UserServiceImpl implements UserService {
         user.setPhone(userEntity.getPhone());
         if (StringUtils.isNotEmpty(userEntity.getPassword())) {
             //user.setPassword(bCryptPasswordEncoder.encode(userEntity.getPassword()));
-            userEntity.setPassword(userEntity.getPassword());
         }
         userRepository.save(user);
     }
