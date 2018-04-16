@@ -57,9 +57,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void createUser(UserEntity userEntity) {
-        userRepository.findByEmail(userEntity.getEmail()).ifPresent(u -> {
-            throw new UserAlreadyExistsException(String.format(USER_ALREADY_EXISTS_MESSAGE, u.getEmail()));
+        userRepository.findByEmail(userEntity.getEmail()).ifPresent(user -> {
+            throw new UserAlreadyExistsException(String.format(USER_ALREADY_EXISTS_MESSAGE, user.getEmail()));
         });
+        //user.setPassword(bCryptPasswordEncoder.encode(userEntity.getPassword()));
         ArrayList<RoleEntity> roleEntities = new ArrayList<>();
         roleEntities.add(roleRepository.findByName("ROLE_USER").get());
         userEntity.setRoles(roleEntities);
