@@ -1,32 +1,25 @@
 package com.softserve.ua.dto;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Data;
+import java.math.BigDecimal;
+import java.time.Duration;
+import java.time.LocalDate;
 
-@Getter
-@Setter
-@NoArgsConstructor
-public class MovieDto {
-    private long id;
+@Data
+public class MovieDto extends BaseDto{
+
     private String title;
+
     private String description;
+
+    private Duration duration;
+
     private String genre;
 
-    public MovieDto(long id, String title, String description, String genre) {
-        this.id = id;
-        this.title = title;
-        this.description = description;
-        this.genre = genre;
-    }
+    private LocalDate startRent;
 
-    @Override
-    public String toString() {
-        return "MovieDto{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", description='" + description + '\'' +
-                ", genre='" + genre + '\'' +
-                '}';
-    }
+    private int ageRating;
+
+    private BigDecimal price;
+
 }

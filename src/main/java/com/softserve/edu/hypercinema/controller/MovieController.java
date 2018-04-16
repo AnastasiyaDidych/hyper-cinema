@@ -1,5 +1,7 @@
 package com.softserve.ua.controller;
 
+import com.softserve.ua.convertor.MovieConverter;
+import com.softserve.ua.dto.MovieDto;
 import com.softserve.ua.entity.MovieEntity;
 import com.softserve.ua.repository.MovieRepository;
 import com.softserve.ua.service.MovieService;
@@ -17,11 +19,10 @@ public class MovieController {
     private MovieService movieService;
 
     @Autowired
-    private MovieRepository movieRepository;
-
+    private MovieConverter movieConverter;
 
     @GetMapping("/movies/random")
-    public List<MovieEntity> getRandom() {
+    public List<MovieDto> getRandom() {
         for(int i =1;i<=5;i++) {
             MovieEntity movieEntity = new MovieEntity();
             movieEntity.setTitle("title " + i);
@@ -30,10 +31,10 @@ public class MovieController {
             movieEntity.setEndRent(LocalDate.of(i,i,i));
             //MovieRentEntity movieRent = new MovieRentEntity(LocalDate.of(i,i,i),LocalDate.of(i,i,i));
             //movie.setMovieRent(movieRent);
-            movieRepository.save(movieEntity);
+            movieService.createMovie(movieEntity);
 
         }
-        return movieService.getAllMovies();
+        return movieConverter.convertToDto(movieService.getAllMovies());
     }
 
     @GetMapping("/movies")

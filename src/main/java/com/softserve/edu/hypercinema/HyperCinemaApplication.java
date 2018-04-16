@@ -13,15 +13,5 @@ public class HyperCinemaApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(HyperCinemaApplication.class, args);
-        EntityManagerFactory factory = Persistence.createEntityManagerFactory("JavaLv304");
-        EntityManager em = factory.createEntityManager();
-        em.getTransaction().begin();
-        Movie movie = new Movie("title","description", "duration", "genre");
-        em.persist(movie);
-
-        em.getTransaction().commit();
-
-        em.close();
-        factory.close();
     }
 }
