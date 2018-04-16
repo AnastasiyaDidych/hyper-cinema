@@ -3,3 +3,7 @@ CREATE database `hyper-cinema`;
 CREATE USER 'hyper_admin'@'localhost' IDENTIFIED BY 'hyper_pass';
 GRANT ALL ON `hyper-cinema`.* TO 'hyper_admin'@'localhost';
 FLUSH PRIVILEGES;
+
+USE `hyper-cinema`;
+INSERT INTO role (id, name) VALUES (1, 'ROLE_USER');
+INSERT INTO role (id, name) VALUES (2, 'ROLE_ADMIN');

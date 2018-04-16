@@ -1,4 +1,4 @@
-package config;
+package com.softserve.edu.hypercinema.config;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
@@ -11,5 +11,11 @@ public class AppConfig {
     public ModelMapper modelMapper() {
         return new ModelMapper();
     }
+
+
+    /*@Bean
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+        return new BCryptPasswordEncoder();
+    }*/
 
 }
