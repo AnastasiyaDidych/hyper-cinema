@@ -1,5 +1,6 @@
-package com.softserve.edu.hypercinema.convertor;
+package com.softserve.edu.hypercinema.converter.impl;
 
+import com.softserve.edu.hypercinema.converter.OrderConverter;
 import com.softserve.edu.hypercinema.dto.OrderDto;
 import com.softserve.edu.hypercinema.entity.OrderEntity;
 import org.modelmapper.ModelMapper;
@@ -7,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class OrderConvertorImpl implements OrderConvertor{
+public class OrderConverterImpl implements OrderConverter {
 
     @Autowired
     private ModelMapper modelMapper;

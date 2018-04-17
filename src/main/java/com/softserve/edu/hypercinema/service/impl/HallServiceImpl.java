@@ -23,12 +23,9 @@ public class HallServiceImpl implements HallService {
 
     private static final String HALL_NOT_FOUND_MESSAGE = "Could not find hall with id=";
 
-    private final HallRepository hallRepository;
-
     @Autowired
-    public HallServiceImpl(HallRepository hallRepository) {
-        this.hallRepository = hallRepository;
-    }
+    private  HallRepository hallRepository;
+
 
     @Override
     public void createHall(HallEntity hallEntity) {
