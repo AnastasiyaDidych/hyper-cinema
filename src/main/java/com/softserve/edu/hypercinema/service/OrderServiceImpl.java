@@ -1,9 +1,8 @@
 package com.softserve.edu.hypercinema.service;
 
-import com.softserve.edu.hypercinema.customexception.OrderNotFoundException;
+import com.softserve.edu.hypercinema.exception.OrderNotFoundException;
 import com.softserve.edu.hypercinema.entity.OrderEntity;
 import com.softserve.edu.hypercinema.repository.OrderRepository;
-import com.softserve.edu.hypercinema.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

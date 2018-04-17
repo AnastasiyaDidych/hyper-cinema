@@ -1,4 +1,4 @@
-package com.softserve.edu.hypercinema.customexception;
+package com.softserve.edu.hypercinema.exception;
 
 public class OrderNotFoundException extends OrderException {
     public OrderNotFoundException(){
