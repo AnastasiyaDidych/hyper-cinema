@@ -7,11 +7,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-/**
- * Created by VR
- * 23:11, 16.04.2018
- */
-
 @Component
 public class TicketConverterImpl implements TicketConverter {
 

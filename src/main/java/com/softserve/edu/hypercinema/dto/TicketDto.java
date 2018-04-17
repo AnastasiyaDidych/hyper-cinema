@@ -1,6 +1,5 @@
 package com.softserve.edu.hypercinema.dto;
 
-
 import com.softserve.edu.hypercinema.entity.OrderEntity;
 import com.softserve.edu.hypercinema.entity.PriceEntity;
 import com.softserve.edu.hypercinema.entity.SeatEntity;

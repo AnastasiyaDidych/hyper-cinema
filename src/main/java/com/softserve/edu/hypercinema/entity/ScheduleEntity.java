@@ -37,6 +37,10 @@ public class ScheduleEntity extends BaseEntity {
             cascade = CascadeType.ALL)
     List<SessionEntity> sessions;
 
+    @OneToMany(mappedBy = "hall",
+            cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    List<HallEntity> halls;
+
     @OneToMany(mappedBy = "schedule", cascade = CascadeType.ALL)
     private List<MovieEntity> movies;
 

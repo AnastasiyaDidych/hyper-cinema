@@ -4,11 +4,6 @@ import com.softserve.edu.hypercinema.entity.TicketEntity;
 
 import java.util.List;
 
-/**
- * Created by VR
- * 13:42, 16.04.2018
- */
-
 public interface TicketService {
 
     void createTicket(TicketEntity ticketEntity);
