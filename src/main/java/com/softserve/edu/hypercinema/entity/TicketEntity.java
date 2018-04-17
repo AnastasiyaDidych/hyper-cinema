@@ -1,37 +1,41 @@
 package com.softserve.edu.hypercinema.entity;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
-@Table (name = "tickets")
-public class TicketEntity extends BaseEntity {
-
+@Table(name = "ticket")
+@NoArgsConstructor
+@Getter
+@Setter
+public class TicketEntity extends BaseEntity{
 
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // + fucking shit
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-
-    //+ some fucking shit for mapping with another table
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+//    @NotEmpty
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "order_id", nullable = false)
     private OrderEntity order;
 
+//    @NotEmpty
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @JoinColumn(name = "session_id",  nullable = false)
+    private SessionEntity session;
 
-    public Integer getId() {
-        return id;
-    }
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "price_id")
+    private PriceEntity price;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+//    @NotEmpty
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @JoinColumn(name = "seat_id")
+    private SeatEntity seat;
 
-    public OrderEntity getOrder() {
-        return order;
-    }
-
-    public void setOrder(OrderEntity order) {
-        this.order = order;
-    }
 }
