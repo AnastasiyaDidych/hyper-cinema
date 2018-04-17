@@ -31,11 +31,7 @@ public class HallController {
 
     @PutMapping
     public void updateHall(@RequestBody HallDto hallDto) {
-        if (hallService.getHallById(hallDto.getId()) != null) {
             hallService.updateHall(hallConverter.convertToEntity(hallDto));
-        }else{
-            throw new HallNotFoundException();
-        }
     }
 
     @DeleteMapping("/{id}")

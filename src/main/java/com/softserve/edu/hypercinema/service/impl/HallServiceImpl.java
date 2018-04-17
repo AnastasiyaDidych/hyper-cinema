@@ -42,14 +42,17 @@ public class HallServiceImpl implements HallService {
 
 
     @Override
-
     public HallEntity getHallById(Long id) {
-        return hallRepository.findById(id).orElseThrow(() -> new HallNotFoundException(HALL_NOT_FOUND_MESSAGE + id))
+        return hallRepository.findById(id).orElseThrow(() -> new HallNotFoundException(HALL_NOT_FOUND_MESSAGE + id));
     }
 
     @Override
     public void updateHall(HallEntity hallEntity) {
-        hallRepository.save(hallEntity);
+        if (hallEntity.getId() != null) {
+            hallRepository.save(hallEntity);
+        }else{
+            throw new HallNotFoundException();
+        }
     }
 
     @Override
