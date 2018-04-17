@@ -17,11 +17,11 @@ public interface OrderService {
 
     List<OrderEntity> selectAllOrders();
 
-    OrderEntity selectOrderById(Integer id);
+    OrderEntity selectOrderById(Long id);
 
     void updateOrder(OrderEntity orderEntity);
 
-    void deleteOrder(Integer id);
+    void deleteOrder(Long id);
 
     void deleteOrder(OrderEntity orderEntity);
 }
