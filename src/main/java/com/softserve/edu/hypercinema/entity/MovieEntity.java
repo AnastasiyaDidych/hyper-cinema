@@ -16,7 +16,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Entity
 @Table(name = "movie")
-public class MovieEntity extends BaseEntity {
+public class MovieEntity extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -46,8 +46,16 @@ public class MovieEntity extends BaseEntity {
     @Column(columnDefinition = "DECIMAL(5,2)")
     private BigDecimal price;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH})
-    @JoinColumn(name = "schedule_id")
+    //+++
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id", insertable = false, updatable = false)
     private ScheduleEntity schedule;
+
+
+//    @OneToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.LAZY)
+//    @JoinColumn(name = "movie_rent_id", nullable = true)
+//    private MovieRentEntity movieRent;
+
+
 }
 

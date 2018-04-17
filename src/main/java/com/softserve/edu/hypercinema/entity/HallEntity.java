@@ -31,8 +31,9 @@ public class HallEntity extends BaseEntity {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "hall")
     private List<SeatEntity> seats;
 
+    //+++
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id", insertable=false, updatable=false)
+    @JoinColumn(name = "id", insertable = false, updatable = false)
     private ScheduleEntity schedule;
 
 }
