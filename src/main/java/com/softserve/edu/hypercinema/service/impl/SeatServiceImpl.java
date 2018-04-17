@@ -21,12 +21,8 @@ public class SeatServiceImpl implements SeatService {
 
     private static final String SEAT_NOT_FOUND_MESSAGE = "Could not find seat with id=";
 
-    private final SeatRepository seatRepository;
-
     @Autowired
-    public SeatServiceImpl(SeatRepository seatRepository) {
-        this.seatRepository = seatRepository;
-    }
+    private SeatRepository seatRepository;
 
     @Override
     public void createSeat(SeatEntity seatEntity) {
