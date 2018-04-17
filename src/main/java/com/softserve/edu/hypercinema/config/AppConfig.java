@@ -1,4 +1,4 @@
-package config;
+package com.softserve.edu.hypercinema.config;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
