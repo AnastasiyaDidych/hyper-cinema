@@ -1,8 +1,7 @@
 package com.softserve.edu.hypercinema.service.impl;
 
 import com.softserve.edu.hypercinema.entity.CoefficientEntity;
-import com.softserve.edu.hypercinema.exeption.CoefficientNotFoundExeption;
-import com.softserve.edu.hypercinema.exeption.ServiceExeption;
+import com.softserve.edu.hypercinema.exception.CoefficientNotFoundException;
 import com.softserve.edu.hypercinema.repository.CoefficientRepository;
 import com.softserve.edu.hypercinema.service.CoefficientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,7 @@ import java.util.List;
 @Transactional
 public class CoefficientServiceImpl implements CoefficientService {
 
-    private static final String COEFFICIENT_NOT_fOUND_EXEPTION = "Could not find coefficient with id= ";
+    private static final String COEFFICIENT_NOT_FOUND_EXCEPTION = "Could not find coefficient with id= ";
 
     @Autowired
     CoefficientRepository coefficientRepository;
@@ -27,7 +26,7 @@ public class CoefficientServiceImpl implements CoefficientService {
 
     @Override
     public CoefficientEntity findCoefficientById(Long id) {
-        return coefficientRepository.findById(id).orElseThrow(() -> new CoefficientNotFoundExeption(COEFFICIENT_NOT_fOUND_EXEPTION));
+        return coefficientRepository.findById(id).orElseThrow(() -> new CoefficientNotFoundException(COEFFICIENT_NOT_FOUND_EXCEPTION));
     }
 
     @Override
