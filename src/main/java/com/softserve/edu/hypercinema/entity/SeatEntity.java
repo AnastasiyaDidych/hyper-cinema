@@ -5,13 +5,16 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "seat")
 @Getter
 @Setter
 @NoArgsConstructor
-public class SeatEntity extends BaseEntity {
+
+public class SeatEntity extends BaseEntity{
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,8 +26,11 @@ public class SeatEntity extends BaseEntity {
     @Column(name = "number")
     private Integer number;
 
-    /*??????????????????????????????????????*/
-    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
+
+    @OneToMany(mappedBy = "seat")
+    private List<TicketEntity> tickets;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "hall_id")
     private HallEntity hall;
 

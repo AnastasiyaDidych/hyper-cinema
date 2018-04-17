@@ -1,6 +1,6 @@
-package com.softserve.edu.hypercinema.exceptions;
+package com.softserve.edu.hypercinema.exeption;
 
-public class AccessViolationException extends ServiceException {
+public class AccessViolationException extends ServiceExeption {
 
     public AccessViolationException() {
     }
@@ -8,5 +8,4 @@ public class AccessViolationException extends ServiceException {
     public AccessViolationException(String message) {
         super(message);
     }
-
 }

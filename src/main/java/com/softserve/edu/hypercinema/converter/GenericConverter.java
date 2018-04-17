@@ -6,6 +6,7 @@ import com.softserve.edu.hypercinema.entity.BaseEntity;
 import java.util.List;
 import java.util.stream.Collectors;
 
+
 public interface GenericConverter<D extends BaseDto, E extends BaseEntity> {
 
     E convertToEntity(D dto);

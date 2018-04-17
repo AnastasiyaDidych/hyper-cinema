@@ -16,6 +16,4 @@ public interface HallService {
 
     void deleteHall(Long id);
 
-    void deleteHall(HallEntity hallEntity);
-
 }

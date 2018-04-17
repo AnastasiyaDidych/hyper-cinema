@@ -1,4 +1,4 @@
-package com.softserve.edu.hypercinema.exceptions;
+package com.softserve.edu.hypercinema.exception;
 
 public class SeatNotFoundException extends ServiceException {
 

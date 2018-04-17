@@ -16,6 +16,4 @@ public interface SeatService {
 
     void deleteSeat(Long id);
 
-    void deleteSeat(SeatEntity seatEntity);
-
 }
