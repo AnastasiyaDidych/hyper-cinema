@@ -8,14 +8,12 @@ public interface HallService {
 
     void createHall(HallEntity hallEntity);
 
-    List<HallEntity> selectAllHalls();
+    List<HallEntity> getAllHalls();
 
-    HallEntity selectHallById(Long id);
+    HallEntity getHallById(Long id);
 
     void updateHall(HallEntity hallEntity);
 
     void deleteHall(Long id);
-
-    void deleteHall(HallEntity hallEntity);
 
 }

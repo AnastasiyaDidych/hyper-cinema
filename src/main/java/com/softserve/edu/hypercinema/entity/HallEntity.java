@@ -11,11 +11,11 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-@Table (name = "hall")
+@Table(name = "hall")
 @Getter
 @Setter
 @NoArgsConstructor
-public class HallEntity {
+public class HallEntity extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,17 +23,16 @@ public class HallEntity {
     @Column(name = "id")
     private Long id;
 
-    @Column (name = "name", nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column (name = "capacity", nullable = false)
-    private Integer capasity;
+    @Column(name = "capacity", nullable = false)
+    private Integer capacity;
 
-    @Column (name = "type", nullable = false)
+    @Column(name = "type", nullable = false)
     private String type;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "hallEntity")
-
-    private List<SeatEntity> seatEntities = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "hall")
+    private List<SeatEntity> seats;
 
 }

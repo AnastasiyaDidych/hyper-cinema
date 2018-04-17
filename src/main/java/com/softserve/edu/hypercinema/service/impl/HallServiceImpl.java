@@ -1,9 +1,10 @@
-package com.softserve.edu.hypercinema.service;
+package com.softserve.edu.hypercinema.service.impl;
 
 import com.softserve.edu.hypercinema.entity.HallEntity;
-import com.softserve.edu.hypercinema.exceptions.HallAlreadyExistException;
-import com.softserve.edu.hypercinema.exceptions.HallNotFoundException;
+import com.softserve.edu.hypercinema.exception.HallAlreadyExistException;
+import com.softserve.edu.hypercinema.exception.HallNotFoundException;
 import com.softserve.edu.hypercinema.repository.HallRepository;
+import com.softserve.edu.hypercinema.service.HallService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,23 +27,16 @@ public class HallServiceImpl implements HallService {
 
     @Override
     public void createHall(HallEntity hallEntity) {
-        Optional<HallEntity> hallEntity1 = hallRepository.findById(hallEntity.getId());
-        if(hallEntity1.isPresent()){
-            throw new HallAlreadyExistException();
-        }else{
             hallRepository.save(hallEntity);
-        }
     }
 
     @Override
-    public List<HallEntity> selectAllHalls() {
-        List<HallEntity> hallList = new ArrayList<>();
-        hallRepository.findAll().forEach(hallEntity -> hallList.add(hallEntity));
-        return hallList;
+    public List<HallEntity> getAllHalls() {
+        return hallRepository.findAll();
     }
 
     @Override
-    public HallEntity selectHallById(Long id) {
+    public HallEntity getHallById(Long id) {
         return hallRepository.findById(id).orElseThrow(() -> new HallNotFoundException());
     }
 
@@ -54,11 +48,6 @@ public class HallServiceImpl implements HallService {
     @Override
     public void deleteHall(Long id) {
         hallRepository.deleteById(id);
-    }
-
-    @Override
-    public void deleteHall(HallEntity hallEntity) {
-        hallRepository.delete(hallEntity);
     }
 
 }

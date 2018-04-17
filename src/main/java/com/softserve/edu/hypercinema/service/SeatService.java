@@ -8,14 +8,12 @@ public interface SeatService {
 
     void createSeat(SeatEntity seatEntity);
 
-    List<SeatEntity> selectAllSeats();
+    List<SeatEntity> getAllSeats();
 
-    SeatEntity selectSeatById(Long id);
+    SeatEntity getSeatById(Long id);
 
     void updateSeat(SeatEntity seatEntity);
 
     void deleteSeat(Long id);
-
-    void deleteSeat(SeatEntity seatEntity);
 
 }
