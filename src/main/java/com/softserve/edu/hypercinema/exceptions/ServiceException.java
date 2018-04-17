@@ -1,4 +1,4 @@
-package com.softserve.edu.hypercinema.exception;
+package com.softserve.edu.hypercinema.exceptions;
 
 public class ServiceException extends RuntimeException {
 
@@ -10,3 +10,4 @@ public class ServiceException extends RuntimeException {
     }
 
 }
+

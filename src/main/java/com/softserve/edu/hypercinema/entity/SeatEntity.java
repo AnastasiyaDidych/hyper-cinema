@@ -5,23 +5,15 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
-
-/**
- * Created by VR
- * 13:59, 14.04.2018
- */
 
 @Entity
 @Table(name = "seat")
-@NoArgsConstructor
 @Getter
 @Setter
+@NoArgsConstructor
 public class SeatEntity extends BaseEntity {
 
     @Id
-    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -33,5 +25,11 @@ public class SeatEntity extends BaseEntity {
 
     @OneToMany(mappedBy = "seat")
     private List<TicketEntity> tickets;
+  
+    /*??????????????????????????????????????*/
+    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
+    @JoinColumn(name = "hall_id")
+    private HallEntity hall;
+
 
 }

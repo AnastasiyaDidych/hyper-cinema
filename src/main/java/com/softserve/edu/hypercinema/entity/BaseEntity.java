@@ -1,16 +1,9 @@
 package com.softserve.edu.hypercinema.entity;
 
 import lombok.Data;
-
+import java.io.Serializable;
 import javax.persistence.MappedSuperclass;
 
-/**
- * Created by VR
- * 11:29, 14.04.2018
- */
-
-@MappedSuperclass
 @Data
-public class BaseEntity {
-
+public abstract class BaseEntity implements Serializable {
 }
