@@ -13,10 +13,15 @@ import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.List;
+
 
 @Service
 @Transactional
 public class HallServiceImpl implements HallService {
+
+
+    private static final String HALL_NOT_FOUND_MESSAGE = "Could not find hall with id=";
 
     private final HallRepository hallRepository;
 
@@ -32,12 +37,14 @@ public class HallServiceImpl implements HallService {
 
     @Override
     public List<HallEntity> getAllHalls() {
-        return hallRepository.findAll();
+          return hallRepository.findAll();
     }
 
+
     @Override
+
     public HallEntity getHallById(Long id) {
-        return hallRepository.findById(id).orElseThrow(() -> new HallNotFoundException());
+        return hallRepository.findById(id).orElseThrow(() -> new HallNotFoundException(HALL_NOT_FOUND_MESSAGE + id))
     }
 
     @Override
