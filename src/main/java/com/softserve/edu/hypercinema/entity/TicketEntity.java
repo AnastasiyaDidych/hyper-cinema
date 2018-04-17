@@ -7,11 +7,6 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 
-/**
- * Created by VR
- * 11:16, 14.04.2018
- */
-
 @Entity
 @Table(name = "ticket")
 @NoArgsConstructor

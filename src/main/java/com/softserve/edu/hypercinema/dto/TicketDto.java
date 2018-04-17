@@ -1,5 +1,8 @@
 package com.softserve.edu.hypercinema.dto;
 
+
+public class TicketDto extends BaseDto {
+
 import com.softserve.edu.hypercinema.entity.OrderEntity;
 import com.softserve.edu.hypercinema.entity.PriceEntity;
 import com.softserve.edu.hypercinema.entity.SeatEntity;

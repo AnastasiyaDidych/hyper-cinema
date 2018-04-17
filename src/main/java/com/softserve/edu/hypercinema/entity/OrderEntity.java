@@ -8,11 +8,6 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by VR
- * 11:18, 14.04.2018
- */
-
 @Entity
 @Table(name = "orders")
 @NoArgsConstructor
@@ -27,11 +22,15 @@ public class OrderEntity extends BaseEntity {
 
     @Column(name = "is_pending")
     private boolean pending;
+  
+    @Column(name = "is_confirming")
+    private boolean confirming;
 
-    @Column(name = "is_confirmed")
-    private boolean confirmed;
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "user_id", nullable = false)
+    private UserEntity user;
 
     @OneToMany(mappedBy = "order")
-    private List<TicketEntity> tickets = new ArrayList<>();
+    private List<TicketEntity> ticketList;
 
 }

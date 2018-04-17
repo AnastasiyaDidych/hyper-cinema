@@ -1,8 +1,7 @@
 package com.softserve.edu.hypercinema.service.impl;
 
 import com.softserve.edu.hypercinema.entity.PriceEntity;
-import com.softserve.edu.hypercinema.exeption.PriceNotFoundExeption;
-import com.softserve.edu.hypercinema.exeption.ServiceExeption;
+import com.softserve.edu.hypercinema.exception.PriceNotFoundException;
 import com.softserve.edu.hypercinema.repository.PriceRepository;
 import com.softserve.edu.hypercinema.service.PriceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +26,7 @@ public class PriceServiceImpl implements PriceService {
 
     @Override
     public PriceEntity findPriceById(Long id) {
-        return priceRepository.findById(id).orElseThrow(() -> new PriceNotFoundExeption(PRICE_NOT_FOUND_MESSAGE));
+        return priceRepository.findById(id).orElseThrow(() -> new PriceNotFoundException(PRICE_NOT_FOUND_MESSAGE));
     }
 
     @Override
