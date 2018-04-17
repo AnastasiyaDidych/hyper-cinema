@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @Repository
 @Transactional
-public interface OrderRepository extends JpaRepository<OrderEntity, Integer> {
+public interface OrderRepository extends JpaRepository<OrderEntity, Long> {
 
 //    List<OrderEntity> findByUser(UserEntity userEntity);
 }

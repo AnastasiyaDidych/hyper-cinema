@@ -1,6 +1,6 @@
 package com.softserve.edu.hypercinema.controller;
 
-import com.softserve.edu.hypercinema.convertor.OrderConvertor;
+import com.softserve.edu.hypercinema.converter.OrderConverter;
 import com.softserve.edu.hypercinema.dto.OrderDto;
 import com.softserve.edu.hypercinema.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,7 @@ public class OrderController {
     private OrderService orderService;
 
     @Autowired
-    private OrderConvertor orderConvertor;
+    private OrderConverter orderConvertor;
 
     @PostMapping
     public void createOrder(@RequestBody OrderDto order) {
@@ -29,13 +29,13 @@ public class OrderController {
     }
 
     @GetMapping("/{id}")
-    public OrderDto getOrder(@PathVariable Integer id) {
+    public OrderDto getOrder(@PathVariable Long id) {
         return orderConvertor.convertToDto(orderService.selectOrderById(id));
 
     }
 
     @DeleteMapping("/{id}")
-    public void deleteOrder(@PathVariable Integer id) {
+    public void deleteOrder(@PathVariable Long id) {
         orderService.deleteOrder(id);
     }
 

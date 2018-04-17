@@ -34,7 +34,8 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public OrderEntity selectOrderById(Integer id) {
+
+    public OrderEntity selectOrderById(Long id) {
         return orderRepository.findById(id).orElseThrow(() -> new OrderNotFoundException(ORDER_NOT_FOUND_MESSAGE + id));
     }
 
@@ -45,9 +46,8 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void deleteOrder(Integer id) {
+    public void deleteOrder(Long id) {
         orderRepository.deleteById(id);
-
     }
 
     @Override
