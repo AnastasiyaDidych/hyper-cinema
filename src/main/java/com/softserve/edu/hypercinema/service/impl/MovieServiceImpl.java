@@ -1,8 +1,8 @@
 package com.softserve.edu.hypercinema.service.impl;
 
 import com.softserve.edu.hypercinema.entity.MovieEntity;
-import com.softserve.edu.hypercinema.exceptions.MovieAlreadyExistsException;
-import com.softserve.edu.hypercinema.exceptions.MovieNotFoundException;
+import com.softserve.edu.hypercinema.exception.MovieAlreadyExistsException;
+import com.softserve.edu.hypercinema.exception.MovieNotFoundException;
 import com.softserve.edu.hypercinema.repository.MovieRepository;
 import com.softserve.edu.hypercinema.service.MovieService;
 
