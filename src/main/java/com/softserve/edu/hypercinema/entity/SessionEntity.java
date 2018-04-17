@@ -5,9 +5,11 @@ package com.softserve.edu.hypercinema.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import sun.security.krb5.internal.Ticket;
 
 import javax.persistence.*;
 import java.time.LocalTime;
+import java.util.List;
 
 
 @Getter
@@ -23,14 +25,14 @@ public class SessionEntity extends BaseEntity {
     @Column (name = "id")
     private Long id;
 
-    @Column (name = "start_time")
+    @Column (name = "start_time" )
     private LocalTime startTime;
 
 
     @Column (name = "end_time")
     private LocalTime endTime;
 
-
+    @Column (name = "active")
     private Boolean active;
 
 
@@ -39,8 +41,8 @@ public class SessionEntity extends BaseEntity {
     @JoinColumn(name = "schedule_id")
     private ScheduleEntity scheduleo;
 
-//    @OneToOne(mappedBy = "ticket")
-//    private Ticket tiket;
+    @OneToMany(mappedBy = "session")
+    private List<TicketEntity> ticketEntity;
 
 
 
