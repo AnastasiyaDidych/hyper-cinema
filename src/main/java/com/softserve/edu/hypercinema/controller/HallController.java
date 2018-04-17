@@ -3,6 +3,7 @@ package com.softserve.edu.hypercinema.controller;
 
 import com.softserve.edu.hypercinema.converter.HallConverter;
 import com.softserve.edu.hypercinema.dto.HallDto;
+import com.softserve.edu.hypercinema.exception.HallNotFoundException;
 import com.softserve.edu.hypercinema.service.HallService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +20,7 @@ public class HallController {
     private HallConverter hallConverter;
 
     @PostMapping
-    public void createHall(@RequestBody HallDto hallDto){
+    public void createHall(@RequestBody HallDto hallDto) {
         hallService.createHall(hallConverter.convertToEntity(hallDto));
     }
 
@@ -29,12 +30,16 @@ public class HallController {
     }
 
     @PutMapping
-    public void updateHall(@RequestBody HallDto hallDto){
-        hallService.updateHall(hallConverter.convertToEntity(hallDto));
+    public void updateHall(@RequestBody HallDto hallDto) {
+        if (hallService.getHallById(hallDto.getId()) != null) {
+            hallService.updateHall(hallConverter.convertToEntity(hallDto));
+        }else{
+            throw new HallNotFoundException();
+        }
     }
 
     @DeleteMapping("/{id}")
-    public void deleteHall(@PathVariable Long id){
+    public void deleteHall(@PathVariable Long id) {
         hallService.deleteHall(id);
     }
 
