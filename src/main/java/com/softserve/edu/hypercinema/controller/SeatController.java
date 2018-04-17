@@ -21,17 +21,4 @@ public class SeatController {
     public SeatDto getSeat(@PathVariable("id") Long id) {
         return seatConverter.convertToDto(seatService.getSeatById(id));
     }
-
-    @PutMapping
-    public void updateSeat(@RequestBody SeatDto seatDto){
-        seatService.updateSeat(seatConverter.convertToEntity(seatDto));
-    }
-
-
-    @DeleteMapping("/{id}")
-    public void deleteSeat( @PathVariable("id") Long id){
-        seatService.deleteSeat(id);
-    }
-
-
 }
