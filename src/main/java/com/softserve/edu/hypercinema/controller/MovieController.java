@@ -1,14 +1,15 @@
+
 package com.softserve.edu.hypercinema.controller;
 
 
 import com.softserve.edu.hypercinema.converter.MovieConverter;
 import com.softserve.edu.hypercinema.dto.MovieDto;
 import com.softserve.edu.hypercinema.entity.MovieEntity;
+
 import com.softserve.edu.hypercinema.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.Duration;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -30,11 +31,13 @@ public class MovieController {
             movieEntity.setDescription("description " + i);
             movieEntity.setStartRent(LocalDate.of(i,i,i));
             movieEntity.setEndRent(LocalDate.of(i,i,i));
+
             movieService.createMovie(movieEntity);
 
         }
         return movieConverter.convertToDto(movieService.getAllMovies());
     }
+
 
     @GetMapping
     public List<MovieEntity> getAllMovies() {

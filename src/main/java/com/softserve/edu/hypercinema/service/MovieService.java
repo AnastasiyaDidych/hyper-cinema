@@ -1,5 +1,5 @@
-package com.softserve.edu.hypercinema.service;
 
+package com.softserve.edu.hypercinema.service;
 import com.softserve.edu.hypercinema.entity.MovieEntity;
 
 import java.util.List;
