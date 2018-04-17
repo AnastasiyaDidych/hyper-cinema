@@ -1,8 +1,9 @@
-package com.softserve.edu.hypercinema.service;
+package com.softserve.edu.hypercinema.service.impl;
 
 import com.softserve.edu.hypercinema.exception.OrderNotFoundException;
 import com.softserve.edu.hypercinema.entity.OrderEntity;
 import com.softserve.edu.hypercinema.repository.OrderRepository;
+import com.softserve.edu.hypercinema.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +12,7 @@ import java.util.List;
 
 @Service
 @Transactional
-public class OrderServiceImpl implements OrderService{
+public class OrderServiceImpl implements OrderService {
 
     private static final String ORDER_NOT_FOUND_MESSAGE = "Could not find order with id=";
 //    private static final String ORDER_NOT_FOUND_BY_USER_MESSAGE = "Could not find order with user=";
