@@ -35,16 +35,17 @@ public class ScheduleEntity extends BaseEntity {
 
     @OneToMany(mappedBy = "scheduleo",
             cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
-    List<SessionEntity> sessionEntity = new ArrayList<SessionEntity>();
+    List<SessionEntity> sessionEntity = new ArrayList<>();
+
+    @OneToMany(mappedBy = "hall",
+            cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    List<HallEntity> hallEntities = new ArrayList<>();
+
+    @OneToMany(mappedBy = "movie",
+            cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    List<MovieEntity> movieEntities = new ArrayList<>();
 
 
-//    @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
-//    @JoinColumn(name = "movie_id")
-//    private Movie movie;
-//
-//    @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
-//    @JoinColumn(name = "hall_id")
-//    private Hall hall;
 
 
 
