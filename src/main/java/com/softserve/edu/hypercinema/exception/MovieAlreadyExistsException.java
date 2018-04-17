@@ -1,5 +1,5 @@
-package com.softserve.edu.hypercinema.exception;
 
+package com.softserve.edu.hypercinema.exception;
 
 public class MovieAlreadyExistsException extends RuntimeException{
 
