@@ -5,14 +5,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
-import java.util.ArrayList;
-import java.util.List;
 
-/**
- * Created by VR
- * 11:23, 14.04.2018
- */
+import javax.validation.constraints.NotEmpty;
+import java.util.List;
 
 @Entity
 @Table(name = "price")
@@ -25,9 +20,14 @@ public class PriceEntity extends BaseEntity{
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @NotEmpty
+  
+  
+    @OneToMany(mappedBy = "price", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @Column(name = "coefficient_id")
+    private List<CoefficientEntity> coefficients;
+  
+    @Column(name = "ticket_id")
     @OneToOne(mappedBy = "price", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private TicketEntity ticket;
-
+ 
 }
