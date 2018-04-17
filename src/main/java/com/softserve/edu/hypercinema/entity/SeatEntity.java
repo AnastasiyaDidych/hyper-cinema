@@ -23,9 +23,13 @@ public class SeatEntity extends BaseEntity {
     @Column(name = "number")
     private Integer number;
 
+    @OneToMany(mappedBy = "seat")
+    private List<TicketEntity> tickets;
+  
     /*??????????????????????????????????????*/
     @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
     @JoinColumn(name = "hall_id")
     private HallEntity hall;
+
 
 }
