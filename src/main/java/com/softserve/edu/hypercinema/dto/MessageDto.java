@@ -6,4 +6,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class MessageDto extends BaseDto {
+
+    private String message;
+
 }
