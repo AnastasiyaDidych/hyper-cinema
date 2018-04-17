@@ -26,7 +26,7 @@ public class PriceEntity extends BaseEntity{
     @Column(name = "coefficient_id")
     private List<CoefficientEntity> coefficients;
   
-    @Column(name = "ticket_id")
+
     @OneToOne(mappedBy = "price", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private TicketEntity ticket;
  
