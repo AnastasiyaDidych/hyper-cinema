@@ -3,10 +3,10 @@ hall is not connected with розклад
 missing some columns in розклад
 
 
+{
 Caused by: com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException: 
 Cannot add or update a child row: a foreign key constraint fails (`hyper-cinema`.`#sql-4f4_1bc`, 
 CONSTRAINT `FK9s3xebn2koesgo2oeabs9djvf` FOREIGN KEY (`id`) REFERENCES `schedule` (`id`))
-
 
     Background
     I found out the answer to my own question. It was never a problem with any of the actual database handling. 
@@ -23,4 +23,4 @@ CONSTRAINT `FK9s3xebn2koesgo2oeabs9djvf` FOREIGN KEY (`id`) REFERENCES `schedule
     was being incorrectly matched to the auto incrementing tweet id in the tweets table (primary key).
     
     Therefore, I was always off by one.
-
+}
