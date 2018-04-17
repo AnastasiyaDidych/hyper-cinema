@@ -44,16 +44,5 @@ public class ScheduleEntity extends BaseEntity {
     @OneToMany(mappedBy = "movie",
             cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
     List<MovieEntity> movies;
-
-
-
-
-
-
-
-
-
-
-
 }
 
