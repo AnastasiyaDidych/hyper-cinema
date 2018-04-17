@@ -37,7 +37,7 @@ public class SessionEntity extends BaseEntity {
 
     @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
     @JoinColumn(name = "schedule_id")
-    private ScheduleEntity scheduleo;
+    private ScheduleEntity schedule;
 
 //    @OneToOne(mappedBy = "ticket")
 //    private Ticket tiket;

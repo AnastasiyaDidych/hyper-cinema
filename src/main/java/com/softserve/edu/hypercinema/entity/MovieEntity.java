@@ -46,11 +46,8 @@ public class MovieEntity extends BaseEntity {
     @Column(columnDefinition = "DECIMAL(5,2)")
     private BigDecimal price;
 
-
-//    @OneToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.LAZY)
-//    @JoinColumn(name = "movie_rent_id", nullable = true)
-//    private MovieRentEntity movieRent;
-
-
+    @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH})
+    @JoinColumn(name = "schedule_id")
+    private ScheduleEntity schedule;
 }
 

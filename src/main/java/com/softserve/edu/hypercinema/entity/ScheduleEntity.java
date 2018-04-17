@@ -33,26 +33,12 @@ public class ScheduleEntity extends BaseEntity {
     @Column(name = "day")
     private DaysModel daysModel;
 
-    @OneToMany(mappedBy = "scheduleo",
-            cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
-    List<SessionEntity> sessionEntity = new ArrayList<SessionEntity>();
+    @OneToMany(mappedBy = "schedule",
+            cascade = CascadeType.ALL)
+    List<SessionEntity> sessions;
 
-
-//    @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
-//    @JoinColumn(name = "movie_id")
-//    private Movie movie;
-//
-//    @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
-//    @JoinColumn(name = "hall_id")
-//    private Hall hall;
-
-
-
-
-
-
-
-
+    @OneToMany(mappedBy = "schedule", cascade = CascadeType.ALL)
+    private List<MovieEntity> movies;
 
 }
 
