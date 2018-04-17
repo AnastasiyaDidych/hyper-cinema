@@ -1,6 +1,6 @@
-package com.softserve.ua.repository;
+package com.softserve.edu.hypercinema.repository;
 
-import com.softserve.ua.entity.MovieEntity;
+import com.softserve.edu.hypercinema.entity.MovieEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

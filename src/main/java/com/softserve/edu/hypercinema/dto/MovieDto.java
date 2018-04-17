@@ -1,4 +1,5 @@
-package com.softserve.ua.dto;
+
+package com.softserve.edu.hypercinema.dto;
 
 import lombok.Data;
 import java.math.BigDecimal;

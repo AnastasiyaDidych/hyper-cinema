@@ -1,4 +1,4 @@
-package com.softserve.ua.exception;
+package com.softserve.edu.hypercinema.exception;
 
 public class MovieNotFoundException extends RuntimeException {
 

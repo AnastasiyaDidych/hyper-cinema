@@ -1,18 +1,20 @@
-package com.softserve.ua.controller;
 
-import com.softserve.ua.convertor.MovieConverter;
-import com.softserve.ua.dto.MovieDto;
-import com.softserve.ua.entity.MovieEntity;
-import com.softserve.ua.repository.MovieRepository;
-import com.softserve.ua.service.MovieService;
+package com.softserve.edu.hypercinema.controller;
+
+
+import com.softserve.edu.hypercinema.converter.MovieConverter;
+import com.softserve.edu.hypercinema.dto.MovieDto;
+import com.softserve.edu.hypercinema.entity.MovieEntity;
+
+import com.softserve.edu.hypercinema.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.Duration;
 import java.time.LocalDate;
 import java.util.List;
 
 @RestController
+@RequestMapping("/movies")
 public class MovieController {
 
     @Autowired
@@ -21,7 +23,7 @@ public class MovieController {
     @Autowired
     private MovieConverter movieConverter;
 
-    @GetMapping("/movies/random")
+    @GetMapping("/random")
     public List<MovieDto> getRandom() {
         for(int i =1;i<=5;i++) {
             MovieEntity movieEntity = new MovieEntity();
@@ -29,25 +31,37 @@ public class MovieController {
             movieEntity.setDescription("description " + i);
             movieEntity.setStartRent(LocalDate.of(i,i,i));
             movieEntity.setEndRent(LocalDate.of(i,i,i));
-            //MovieRentEntity movieRent = new MovieRentEntity(LocalDate.of(i,i,i),LocalDate.of(i,i,i));
-            //movie.setMovieRent(movieRent);
+
             movieService.createMovie(movieEntity);
 
         }
         return movieConverter.convertToDto(movieService.getAllMovies());
     }
 
-    @GetMapping("/movies")
-    public List<MovieEntity> getAllMovies() {
 
+    @GetMapping
+    public List<MovieEntity> getAllMovies() {
         return movieService.getAllMovies();
     }
 
-    @GetMapping("/movies/{id}")
-    public List<MovieEntity> getMovieById(@PathVariable("id") Long id) {
+    @GetMapping("/{id}")
+    public MovieDto getMovieById(@PathVariable("id") Long id ){
+        return movieConverter.convertToDto(movieService.getMovieById(id));
+    }
 
-         movieService.deleteById(id);
-         return movieService.getAllMovies();
+    @PostMapping
+    public void createMovie(@RequestBody MovieDto movieDto) {
+        movieService.createMovie(movieConverter.convertToEntity(movieDto));
+    }
+
+    @PutMapping
+    public void updateMovie(@RequestBody MovieDto movieDto) {
+        movieService.updateMovie(movieConverter.convertToEntity(movieDto));
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteMovie(@PathVariable("id") Long id) {
+        movieService.deleteById(id);
     }
 
 
