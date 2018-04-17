@@ -8,11 +8,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-/**
- * Created by VR
- * 23:19, 16.04.2018
- */
-
 @RestController
 @RequestMapping("/api/ticket")
 public class TicketController {
