@@ -11,11 +11,6 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
 
-/**
- * Created by VR
- * 13:57, 16.04.2018
- */
-
 @Service
 @Transactional
 @Slf4j
