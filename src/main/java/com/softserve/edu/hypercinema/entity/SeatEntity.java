@@ -11,7 +11,9 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
-public class SeatEntity extends BaseEntity {
+
+public class SeatEntity extends BaseEntity{
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,13 +25,12 @@ public class SeatEntity extends BaseEntity {
     @Column(name = "number")
     private Integer number;
 
+
     @OneToMany(mappedBy = "seat")
     private List<TicketEntity> tickets;
-  
-    /*??????????????????????????????????????*/
-    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "hall_id")
     private HallEntity hall;
-
 
 }
