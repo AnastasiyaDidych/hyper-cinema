@@ -1,30 +1,56 @@
 package com.softserve.edu.hypercinema.entity;
 
+
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalTime;
 
-/**
- * Created by VR
- * 11:21, 14.04.2018
- */
 
-@Entity
-@Table(name = "session")
-@NoArgsConstructor
 @Getter
 @Setter
+@NoArgsConstructor
+@Entity
+@Table(name = "session")
 public class SessionEntity extends BaseEntity {
 
+
     @Id
-    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column (name = "id")
     private Long id;
 
-    @OneToMany(mappedBy = "session")
-    List<TicketEntity> tickets = new ArrayList<>();
+    @Column (name = "start_time")
+    private LocalTime startTime;
+
+
+    @Column (name = "end_time")
+    private LocalTime endTime;
+
+
+    private Boolean active;
+
+
+
+    @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    @JoinColumn(name = "schedule_id")
+    private ScheduleEntity scheduleo;
+
+//    @OneToOne(mappedBy = "ticket")
+//    private Ticket tiket;
+
+
+
+
+
+
+
+
+
+
+
+
 }
