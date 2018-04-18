@@ -25,11 +25,6 @@ public class CoefficientEntity extends BaseEntity{
     @Column(name = "value")
     private Double value;
 
-    public CoefficientEntity(String type, Double value) {
-        this.type = type;
-        this.value = value;
-    }
-
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "price_id")
     private PriceEntity price;
