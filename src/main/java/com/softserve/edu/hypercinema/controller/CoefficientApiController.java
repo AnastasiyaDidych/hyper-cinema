@@ -7,17 +7,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("api/coefficient")
+@RequestMapping("/api/coefficient")
 public class CoefficientApiController {
 
     @Autowired
-    CoefficientService coefficientService;
+    private CoefficientService coefficientService;
 
     @Autowired
-    CoefficientConverter coefficientConverter;
+    private CoefficientConverter coefficientConverter;
 
     @PostMapping("/create")
-    public void createCoefficent(@RequestBody CoefficientDto coefficientDto) {
+    public void createCoefficient(@RequestBody CoefficientDto coefficientDto) {
         coefficientService.addCoefficient(coefficientConverter.convertToEntity(coefficientDto));
     }
 

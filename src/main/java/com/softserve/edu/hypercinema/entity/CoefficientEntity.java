@@ -31,7 +31,7 @@ public class CoefficientEntity extends BaseEntity{
     }
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "coefficient_id")
+    @JoinColumn(name = "price_id")
     private PriceEntity price;
 
 }

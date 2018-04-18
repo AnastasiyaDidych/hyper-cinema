@@ -35,5 +35,4 @@ public class HallEntity extends BaseEntity {
     private List<ScheduleEntity> schedule;
 
 
-
 }

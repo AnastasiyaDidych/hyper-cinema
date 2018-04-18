@@ -29,8 +29,7 @@ public class TicketEntity extends BaseEntity{
     @JoinColumn(name = "session_id",  nullable = false)
     private SessionEntity session;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "price_id")
+    @OneToOne(mappedBy = "ticket", cascade = CascadeType.ALL)
     private PriceEntity price;
 
 //    @NotEmpty
