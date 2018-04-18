@@ -22,17 +22,7 @@ public class ScheduleController {
     @Autowired
     private ScheduleConverter scheduleConverter;
 
-    @GetMapping("/generate/random")
-    public String generateSchedule() {
-    	for(int i =0;i<=60;i=i+5) {
-			ScheduleEntity scheduleEntity = new ScheduleEntity();
-			scheduleEntity.setDaysModel(Monday);
-			scheduleEntity.setTime(LocalTime.of(9,5));
-			scheduleService.createSchedule(scheduleEntity);
 
-		}
-		return "redirect:/";
-	}
 
 
 

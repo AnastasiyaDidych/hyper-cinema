@@ -25,26 +25,22 @@ public class ScheduleEntity extends BaseEntity {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "time")
-
-    private LocalTime time;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "day")
-    private DaysModel daysModel;
+    @ManyToOne
+    @JoinColumn(name = "day_time_id")
+    private DayTimeEntity dayTime;
 
     @OneToMany(mappedBy = "schedule",
             cascade = CascadeType.ALL)
-    List<SessionEntity> sessions;
+    private List<SessionEntity> sessions;
 
-    @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    @ManyToOne
     @JoinColumn(name = "hall_id")
-    private HallEntity hallEntity;
+    private HallEntity hall;
 
 
-    @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    @ManyToOne
     @JoinColumn(name = "movie_id")
-    private MovieEntity movieEntity;
+    private MovieEntity movie;
 
 
 
