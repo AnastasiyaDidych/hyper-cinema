@@ -17,7 +17,7 @@ public class CoefficientServiceImpl implements CoefficientService {
     private static final String COEFFICIENT_NOT_FOUND_EXCEPTION = "Could not find coefficient with id= ";
 
     @Autowired
-    CoefficientRepository coefficientRepository;
+    private CoefficientRepository coefficientRepository;
 
     @Override
     public CoefficientEntity addCoefficient(CoefficientEntity coefficientEntity) {
