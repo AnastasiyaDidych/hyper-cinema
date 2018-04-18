@@ -27,6 +27,7 @@ public class ScheduleController {
 
 
 
+
     @PostMapping
     public void createSchedule(@RequestBody ScheduleDto scheduleDto){
         scheduleService.createSchedule(scheduleConverter.convertToEntity(scheduleDto));
