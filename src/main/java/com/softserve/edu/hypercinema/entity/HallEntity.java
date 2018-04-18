@@ -35,6 +35,7 @@ public class HallEntity extends BaseEntity {
             cascade = CascadeType.ALL)
     List<ScheduleEntity> scheduleEntities;
 
+    
 //      мій холл може не знати про розклад, йому цього не треба
 //      тут не потрібен bidirectional звязок
 
