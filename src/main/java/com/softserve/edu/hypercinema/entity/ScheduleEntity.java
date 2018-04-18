@@ -22,7 +22,7 @@ public class ScheduleEntity extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column (name = "id")
+    @Column(name = "id")
     private Long id;
 
     @Column(name = "time")
@@ -37,9 +37,11 @@ public class ScheduleEntity extends BaseEntity {
             cascade = CascadeType.ALL)
     List<SessionEntity> sessions;
 
-    @OneToMany(mappedBy = "schedule",
-            cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
-    List<HallEntity> halls;
+//    тут потрібен не bidirectional звязок, а unidirectional
+    @OneToMany(/*mappedBy = "schedule",*/
+            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+//    @JoinColumn(name = "hall_id")
+            List<HallEntity> halls;
 
     @OneToMany(mappedBy = "schedule", cascade = CascadeType.ALL)
     private List<MovieEntity> movies;
