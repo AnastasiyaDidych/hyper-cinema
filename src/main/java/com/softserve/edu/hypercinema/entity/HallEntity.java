@@ -31,11 +31,12 @@ public class HallEntity extends BaseEntity {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "hall")
     private List<SeatEntity> seats;
 
+    @OneToMany(mappedBy = "hallEntity",
+            cascade = CascadeType.ALL)
+    List<ScheduleEntity> scheduleEntities;
 
 //      мій холл може не знати про розклад, йому цього не треба
 //      тут не потрібен bidirectional звязок
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "id", insertable = false, updatable = false)
-//    private ScheduleEntity schedule;
+
 }

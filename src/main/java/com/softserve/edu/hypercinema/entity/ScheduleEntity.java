@@ -37,14 +37,16 @@ public class ScheduleEntity extends BaseEntity {
             cascade = CascadeType.ALL)
     List<SessionEntity> sessions;
 
-//    тут потрібен не bidirectional звязок, а unidirectional
-    @OneToMany(/*mappedBy = "schedule",*/
-            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-//    @JoinColumn(name = "hall_id")
-            List<HallEntity> halls;
+    @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    @JoinColumn(name = "hall_id")
+    private HallEntity hallEntity;
 
-    @OneToMany(mappedBy = "schedule", cascade = CascadeType.ALL)
-    private List<MovieEntity> movies;
+
+    @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    @JoinColumn(name = "movie_id")
+    private MovieEntity movieEntity;
+
+
 
 }
 
