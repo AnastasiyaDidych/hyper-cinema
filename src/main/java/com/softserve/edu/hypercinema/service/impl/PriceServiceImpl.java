@@ -17,7 +17,7 @@ public class PriceServiceImpl implements PriceService {
     public static final String PRICE_NOT_FOUND_MESSAGE = "Could not find price with id= ";
 
     @Autowired
-    PriceRepository priceRepository;
+    private PriceRepository priceRepository;
 
     @Override
     public PriceEntity addPrice(PriceEntity priceEntity) {
