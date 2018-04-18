@@ -9,6 +9,7 @@ import javax.validation.constraints.NotEmpty;
 import java.math.BigDecimal;
 import java.time.Duration;
 import java.time.LocalDate;
+import java.util.List;
 
 
 @Getter
@@ -47,9 +48,9 @@ public class MovieEntity extends BaseEntity{
     private BigDecimal price;
 
     //+++
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id", insertable = false, updatable = false)
-    private ScheduleEntity schedule;
+    @OneToMany(mappedBy = "movieEntity",
+            cascade = CascadeType.ALL)
+    List<ScheduleEntity> scheduleEntities;
 
 
 //    @OneToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.LAZY)

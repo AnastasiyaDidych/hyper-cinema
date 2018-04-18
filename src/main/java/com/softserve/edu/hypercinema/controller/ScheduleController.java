@@ -24,10 +24,10 @@ public class ScheduleController {
 
     @GetMapping("/generate/random")
     public String generateSchedule() {
-    	for(int i =0;i<5;i++) {
+    	for(int i =0;i<=60;i=i+5) {
 			ScheduleEntity scheduleEntity = new ScheduleEntity();
 			scheduleEntity.setDaysModel(Monday);
-			scheduleEntity.setTime(LocalTime.now());
+			scheduleEntity.setTime(LocalTime.of(9,5));
 			scheduleService.createSchedule(scheduleEntity);
 
 		}
