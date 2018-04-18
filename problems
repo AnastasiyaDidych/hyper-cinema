@@ -24,3 +24,7 @@ CONSTRAINT `FK9s3xebn2koesgo2oeabs9djvf` FOREIGN KEY (`id`) REFERENCES `schedule
     
     Therefore, I was always off by one.
 }
+
+
+
+ - Do we need getAllHalls() method?
