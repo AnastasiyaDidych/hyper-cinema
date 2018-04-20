@@ -3,6 +3,7 @@ package com.softserve.edu.hypercinema.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -35,10 +36,12 @@ public class MovieEntity extends BaseEntity{
     private String genre;
 
     @Column(name = "start_rent")
+    @DateTimeFormat(pattern = "MM.dd.yyyy")
     private LocalDate startRent;
 
     // @Temporal(TemporalType.DATE)
     @Column(name = "end_rent")
+    @DateTimeFormat(pattern = "MM.dd.yyyy")
     private LocalDate endRent;
 
     @Column(name = "age_rating")
