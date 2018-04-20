@@ -6,6 +6,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 @Table(name = "ticket")
@@ -25,12 +27,21 @@ public class TicketEntity extends BaseEntity{
     private OrderEntity order;
 
 //    @NotEmpty
-    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE})
     @JoinColumn(name = "session_id",  nullable = false)
     private SessionEntity session;
 
-    @OneToOne(mappedBy = "ticket", cascade = CascadeType.ALL)
-    private PriceEntity price;
+//    @OneToOne(mappedBy = "ticket", cascade = CascadeType.ALL)
+//    private PriceEntity price;
+
+    @Column(name = "price", columnDefinition = "DECIMAL(6,2)")
+    private BigDecimal price;
+
+    @ManyToMany
+    @JoinTable(name = "ticket_coefficient",
+            joinColumns = @JoinColumn(name = "ticket_id"),
+            inverseJoinColumns = @JoinColumn(name = "coefficient_id"))
+    private List<CoefficientEntity> coefficients;
 
 //    @NotEmpty
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
