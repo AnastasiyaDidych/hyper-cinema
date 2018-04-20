@@ -11,4 +11,6 @@
 
 - all methods in contollers must be public 
 
--
+- id only Long
+
+- all another number fiels must be int
