@@ -1,2 +1,4 @@
 
  - Do we need getAllHalls() method?
+ 
+ - PUT must contain /{id}
