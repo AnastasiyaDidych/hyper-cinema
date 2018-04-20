@@ -2,3 +2,9 @@
  - Do we need getAllHalls() method?
  
  - PUT must contain /{id}
+ 
+ - create/update
+ 
+ -getHall and getHalls
+
+- all tables must be named singular
