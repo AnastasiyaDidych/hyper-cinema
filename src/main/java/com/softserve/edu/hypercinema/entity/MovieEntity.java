@@ -31,7 +31,7 @@ public class MovieEntity extends BaseEntity{
     @NotEmpty
     private String description;
 
-    private Duration duration;
+    private Integer duration;
 
     private String genre;
 
