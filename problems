@@ -8,3 +8,7 @@
  -getHall and getHalls
 
 - all tables must be named singular
+
+- all methods in contollers must be public 
+
+-
