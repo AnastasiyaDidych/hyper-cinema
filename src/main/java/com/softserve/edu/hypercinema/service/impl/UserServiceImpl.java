@@ -5,6 +5,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.security.core.Authentication;
 //import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.softserve.edu.hypercinema.entity.RoleEntity;
 import com.softserve.edu.hypercinema.entity.UserEntity;
@@ -33,8 +34,8 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private RoleRepository roleRepository;
 
-    //@Autowired
-    //private BCryptPasswordEncoder bCryptPasswordEncoder;
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
     public UserEntity getUser(Long id) {
@@ -60,7 +61,7 @@ public class UserServiceImpl implements UserService {
         userRepository.findByEmail(userEntity.getEmail()).ifPresent(user -> {
             throw new UserAlreadyExistsException(String.format(USER_ALREADY_EXISTS_MESSAGE, user.getEmail()));
         });
-        //user.setPassword(bCryptPasswordEncoder.encode(userEntity.getPassword()));
+        userEntity.setPassword(bCryptPasswordEncoder.encode(userEntity.getPassword()));
         ArrayList<RoleEntity> roleEntities = new ArrayList<>();
         roleEntities.add(roleRepository.findByName("ROLE_USER").get());
         userEntity.setRoles(roleEntities);
