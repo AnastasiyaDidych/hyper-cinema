@@ -7,3 +7,19 @@ FLUSH PRIVILEGES;
 USE `hyper-cinema`;
 INSERT INTO role (id, name) VALUES (1, 'ROLE_USER');
 INSERT INTO role (id, name) VALUES (2, 'ROLE_ADMIN');
+INSERT INTO role (id, name) VALUES (3, 'ROLE_MANAGER');
+
+INSERT INTO user_role (user_id, role_id) VALUES (1, 1);
+INSERT INTO user_role (user_id, role_id) VALUES (2, 2);
+INSERT INTO user_role (user_id, role_id) VALUES (3, 3);
+
+INSERT INTO hall (id, capacity, name, type) VALUES (1, 100, 'green', 'static');
+INSERT INTO hall (id, capacity, name, type) VALUES (2, 1, 'blue', 'virtual');
+INSERT INTO hall (id, capacity, name, type) VALUES (3, 1, 'yellow', 'personal');
+
+INSERT INTO user (id, email, first_name, last_name, password, phone) VALUES (1, 'ab@gmail.com', 'A', 'BD', '123456789Nd', '0632800258');
+INSERT INTO user (id, email, first_name, last_name, password, phone) VALUES (2, 'abc@gmail.com', 'A', 'B', '123456789Nd', '0632800259');
+INSERT INTO user (id, email, first_name, last_name, password, phone) VALUES (3, 'abcd@gmail.com', 'A', 'BC', '123456789Nd', '0632800260');
+
+INSERT INTO movie (id, age_rating, description, duration, end_rent, genre, price, start_rent, title)
+VALUES (1, 16, 'cool film', '120', '2018-03-09', 'horror', 100, '2018-09-09', 'Dracula');

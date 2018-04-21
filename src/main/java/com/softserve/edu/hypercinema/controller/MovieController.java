@@ -54,7 +54,7 @@ public class MovieController {
         movieService.createMovie(movieConverter.convertToEntity(movieDto));
     }
 
-    @PutMapping
+    @PutMapping("/update/{id}")
     public void updateMovie(@RequestBody MovieDto movieDto) {
         movieService.updateMovie(movieConverter.convertToEntity(movieDto));
     }
