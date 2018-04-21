@@ -81,7 +81,7 @@ public class UserServiceImpl implements UserService {
         user.setLastName(userEntity.getLastName());
         user.setPhone(userEntity.getPhone());
         if (StringUtils.isNotEmpty(userEntity.getPassword())) {
-            //user.setPassword(bCryptPasswordEncoder.encode(userEntity.getPassword()));
+            user.setPassword(bCryptPasswordEncoder.encode(userEntity.getPassword()));
         }
         userRepository.save(user);
     }
