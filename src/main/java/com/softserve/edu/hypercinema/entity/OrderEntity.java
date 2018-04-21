@@ -8,7 +8,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "orders")
+@Table(name = "order_")
 @NoArgsConstructor
 @Getter
 @Setter

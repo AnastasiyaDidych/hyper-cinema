@@ -24,7 +24,7 @@ public class SeatEntity extends BaseEntity{
     private Integer row;
 
     @Column(name = "number")
-    private Integer number;
+    private int number;
 
 
     @OneToMany(mappedBy = "seat")
