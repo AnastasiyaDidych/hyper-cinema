@@ -41,7 +41,7 @@ public class SessionServiceImpl  implements SessionService {
     }
 
     @Override
-    public List<SessionEntity> getAll() {
+    public List<SessionEntity> getSessions() {
         return sessionRepository.findAll();
     }
 }

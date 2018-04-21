@@ -28,7 +28,7 @@ public class SessionEntity extends BaseEntity {
     private LocalTime endTime;
 
     @Column (name = "active")
-    private Boolean active;
+    private boolean active;
 
     @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
     @JoinColumn(name = "schedule_id")

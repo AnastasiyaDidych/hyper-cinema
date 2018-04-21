@@ -30,13 +30,13 @@ public class SeatServiceImpl implements SeatService {
     }
 
     @Override
-    public List<SeatEntity> getAllSeats() {
+    public List<SeatEntity> getSeats() {
         return seatRepository.findAll();
     }
 
     @Override
 
-    public SeatEntity getSeatById(Long id) {
+    public SeatEntity getSeat(Long id) {
         return seatRepository.findById(id).orElseThrow(() -> new SeatNotFoundException(SEAT_NOT_FOUND_MESSAGE + id));
 }
 

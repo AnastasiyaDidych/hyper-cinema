@@ -23,7 +23,7 @@ public class HallEntity extends BaseEntity {
     private String name;
 
     @Column(name = "capacity", nullable = false)
-    private Integer capacity;
+    private int capacity;
 
     @Column(name = "type", nullable = false)
     private String type;

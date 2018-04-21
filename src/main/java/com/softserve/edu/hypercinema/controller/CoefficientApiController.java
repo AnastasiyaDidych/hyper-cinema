@@ -16,22 +16,22 @@ public class CoefficientApiController {
     @Autowired
     private CoefficientConverter coefficientConverter;
 
-    @PostMapping("/create")
+    @PostMapping
     public void createCoefficient(@RequestBody CoefficientDto coefficientDto) {
-        coefficientService.addCoefficient(coefficientConverter.convertToEntity(coefficientDto));
+        coefficientService.createCoefficient(coefficientConverter.convertToEntity(coefficientDto));
     }
 
-    @PutMapping("/update")
+    @PutMapping
     public void updateCoefficient(@RequestBody CoefficientDto coefficientDto) {
         coefficientService.updateCoefficient(coefficientConverter.convertToEntity(coefficientDto));
     }
     @GetMapping("/{id}")
     public CoefficientDto getCoefficient(@PathVariable Long id) {
-        return coefficientConverter.convertToDto(coefficientService.findCoefficientById(id));
+        return coefficientConverter.convertToDto(coefficientService.getCoefficient(id));
     }
 
     @DeleteMapping("/{id}")
     public void deleteCoefficient(@PathVariable Long id) {
-        coefficientService.removeCoefficientById(id);
+        coefficientService.deleteCoefficient(id);
     }
 }

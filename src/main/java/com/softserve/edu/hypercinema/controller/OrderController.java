@@ -30,7 +30,7 @@ public class OrderController {
 
     @GetMapping("/{id}")
     public OrderDto getOrder(@PathVariable Long id) {
-        return orderConvertor.convertToDto(orderService.selectOrderById(id));
+        return orderConvertor.convertToDto(orderService.getOrder(id));
 
     }
 
@@ -41,6 +41,6 @@ public class OrderController {
 
     @GetMapping
     public List<OrderDto> getListOrders() {
-        return orderConvertor.convertToDto(orderService.selectAllOrders());
+        return orderConvertor.convertToDto(orderService.getOrders());
     }
 }

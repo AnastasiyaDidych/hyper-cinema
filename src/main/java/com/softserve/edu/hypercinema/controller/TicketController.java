@@ -35,7 +35,7 @@ public class TicketController {
 
     @GetMapping
     public List<TicketDto> getTickets(){
-        return ticketConverter.convertToDto(ticketService.selectAllTickets());
+        return ticketConverter.convertToDto(ticketService.getTickets());
     }
 
     @DeleteMapping

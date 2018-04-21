@@ -18,5 +18,5 @@ public interface ScheduleService {
 
   //  void updateSession(ScheduleEntity scheduleEntity,Principal principal);
 
-    List<ScheduleEntity> getAll();
+    List<ScheduleEntity> getSchedules();
 }

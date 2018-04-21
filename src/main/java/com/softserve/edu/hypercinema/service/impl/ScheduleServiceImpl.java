@@ -39,7 +39,7 @@ public class ScheduleServiceImpl implements ScheduleService
     }
 
     @Override
-    public List<ScheduleEntity> getAll() {
+    public List<ScheduleEntity> getSchedules() {
         return scheduleRepository.findAll();
     }
 }

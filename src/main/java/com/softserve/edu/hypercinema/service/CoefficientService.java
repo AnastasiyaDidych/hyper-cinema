@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface CoefficientService {
 
-    CoefficientEntity addCoefficient(CoefficientEntity coefficientEntity);
-    CoefficientEntity findCoefficientById(Long id);
-    List<CoefficientEntity> listOfCoefficients();
+    CoefficientEntity createCoefficient(CoefficientEntity coefficientEntity);
+    CoefficientEntity getCoefficient(Long id);
+    List<CoefficientEntity> getCoefficients();
     void updateCoefficient(CoefficientEntity coefficientEntity);
-    void removeCoefficientById (Long id);
+    void deleteCoefficient(Long id);
 }

@@ -20,17 +20,17 @@ public class CoefficientServiceImpl implements CoefficientService {
     private CoefficientRepository coefficientRepository;
 
     @Override
-    public CoefficientEntity addCoefficient(CoefficientEntity coefficientEntity) {
+    public CoefficientEntity createCoefficient(CoefficientEntity coefficientEntity) {
         return coefficientRepository.save(coefficientEntity);
     }
 
     @Override
-    public CoefficientEntity findCoefficientById(Long id) {
+    public CoefficientEntity getCoefficient(Long id) {
         return coefficientRepository.findById(id).orElseThrow(() -> new CoefficientNotFoundException(COEFFICIENT_NOT_FOUND_EXCEPTION));
     }
 
     @Override
-    public List<CoefficientEntity> listOfCoefficients() {
+    public List<CoefficientEntity> getCoefficients() {
         return coefficientRepository.findAll();
     }
 
@@ -40,7 +40,7 @@ public class CoefficientServiceImpl implements CoefficientService {
     }
 
     @Override
-    public void removeCoefficientById(Long id) {
+    public void deleteCoefficient(Long id) {
         coefficientRepository.deleteById(id);
     }
 }

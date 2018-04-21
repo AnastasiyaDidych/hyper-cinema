@@ -25,7 +25,7 @@ public class MovieServiceImpl implements MovieService {
     private MovieRepository movieRepository;
 
     @Override
-    public List<MovieEntity> getAllMovies() {
+    public List<MovieEntity> getMovies() {
         return movieRepository.findAll();
     }
 
@@ -38,7 +38,7 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public MovieEntity getMovieById(Long id) {
+    public MovieEntity getMovie(Long id) {
         return movieRepository.findById(id).orElseThrow(() ->new MovieNotFoundException(MOVIE_NOT_FOUND_MESSAGE));
     }
 
@@ -49,8 +49,8 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public void deleteById(Long id) {
-        MovieEntity movieEntity = getMovieById(id);
+    public void deleteMovie(Long id) {
+        MovieEntity movieEntity = getMovie(id);
         movieRepository.deleteById(movieEntity.getId());
         log.info("Movie : " + movieEntity.getTitle() + " successfully deleted");
     }
