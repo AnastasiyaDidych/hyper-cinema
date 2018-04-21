@@ -29,13 +29,13 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<OrderEntity> selectAllOrders() {
+    public List<OrderEntity> getOrders() {
         return orderRepository.findAll();
     }
 
     @Override
 
-    public OrderEntity selectOrderById(Long id) {
+    public OrderEntity getOrder(Long id) {
         return orderRepository.findById(id).orElseThrow(() -> new OrderNotFoundException(ORDER_NOT_FOUND_MESSAGE + id));
     }
 

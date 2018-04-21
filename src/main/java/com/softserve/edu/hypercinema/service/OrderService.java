@@ -15,9 +15,9 @@ public interface OrderService {
 
     void createOrder(OrderEntity orderEntity);
 
-    List<OrderEntity> selectAllOrders();
+    List<OrderEntity> getOrders();
 
-    OrderEntity selectOrderById(Long id);
+    OrderEntity getOrder(Long id);
 
     void updateOrder(OrderEntity orderEntity);
 
