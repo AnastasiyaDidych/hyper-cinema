@@ -1,6 +1,9 @@
 package com.softserve.edu.hypercinema.exception;
 
-public class ServiceException extends RuntimeException {
+
+import javax.validation.ValidationException;
+
+public class ServiceException extends ValidationException {
 
     public ServiceException() {
     }
