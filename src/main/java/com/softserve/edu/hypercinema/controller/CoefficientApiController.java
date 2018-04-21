@@ -16,12 +16,12 @@ public class CoefficientApiController {
     @Autowired
     private CoefficientConverter coefficientConverter;
 
-    @PostMapping("/create")
+    @PostMapping
     public void createCoefficient(@RequestBody CoefficientDto coefficientDto) {
         coefficientService.addCoefficient(coefficientConverter.convertToEntity(coefficientDto));
     }
 
-    @PutMapping("/update")
+    @PutMapping
     public void updateCoefficient(@RequestBody CoefficientDto coefficientDto) {
         coefficientService.updateCoefficient(coefficientConverter.convertToEntity(coefficientDto));
     }

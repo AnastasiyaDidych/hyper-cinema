@@ -21,7 +21,7 @@ public class SeatEntity extends BaseEntity{
     private Long id;
 
     @Column(name = "row")
-    private Integer row;
+    private int row;
 
     @Column(name = "number")
     private int number;
