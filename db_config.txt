@@ -1,9 +1,106 @@
+/*
+1. drop your database hyper_cinema
+2. rebuild project
+3. run project. Database will be created automatically
+4. open database in Workbench. Double click on it
+5. copy-paste all this file to Workbench
+6. execute
+7. enjoy :)
+*/
 
-CREATE database `hyper_cinema`;
-CREATE USER 'hyper_admin'@'localhost' IDENTIFIED BY 'hyper_pass';
-GRANT ALL ON `hyper_cinema`.* TO 'hyper_admin'@'localhost';
-FLUSH PRIVILEGES;
+INSERT INTO role (id, name)
+VALUES
+(1, 'ROLE_ADMIN'),
+(2, 'ROLE_MANAGER'),
+(3, 'ROLE_USER');
 
-USE `hyper_cinema`;
-INSERT INTO role (id, name) VALUES (1, 'ROLE_USER');
-INSERT INTO role (id, name) VALUES (2, 'ROLE_ADMIN');
+INSERT INTO user (id, email, first_name, last_name, password, phone)
+VALUES
+(1, 'a@gmail.com', 'A', 'A', '123456789Aa', '0632800258'),
+(2, 'b@gmail.com', 'B', 'B', '123456789Bb', '0632800259'),
+(3, 'c@gmail.com', 'C', 'C', '123456789Cc', '0632800260'),
+(4, 'admin@gmail.com', 'D', 'D', 'admin', '0632800261'),
+(5, 'user@gmail.com', 'E', 'E', 'user', '0632800262');
+
+INSERT INTO user_role (user_id, role_id)
+VALUES
+(1, 1),
+(2, 2),
+(3, 3),
+(4, 1),
+(5, 3);
+
+INSERT INTO hall (id, capacity, name, type)
+VALUES
+(1, 100, 'green', 'static'),
+(2, 50, 'red', 'static'),
+(3, 120, 'blue', 'static');
+
+INSERT INTO seat (id, number, row, hall_id)
+VALUES
+(1, 1, 1, 1),
+(2, 5, 4, 1),
+(3, 9, 7, 1);
+
+INSERT INTO seat (id, number, row, hall_id)
+VALUES
+(4, 14, 10, 2),
+(5, 7, 8, 2),
+(6, 2, 3, 2);
+
+INSERT INTO seat (id, number, row, hall_id)
+VALUES
+(7, 5, 4, 3),
+(8, 6, 2, 3),
+(9, 12, 6, 3);
+
+INSERT INTO day_time (id, day, time)
+VALUES
+(1, "Monday", '10:00:00'),
+(2, "Monday", '12:30:00'),
+(3, "Friday", '21:45:00');
+
+INSERT INTO movie (id, age_rating, description, duration, end_rent, genre, price, start_rent, title)
+VALUES
+(1, 18, 'soo romantic', '126', '2018-02-13', 'horror', 184.00, '2018-03-09', '50 Shadows of Gray'),
+(2, 16, 'cool film', '120', '2018-01-01', 'horror', 100.20, '2018-02-09', 'Dracula');
+
+INSERT INTO schedule(id, day_time_id, hall_id, movie_id)
+VALUES
+(1, 1, 1, 2),
+(2, 2, 3, 1),
+(3, 3, 2, 1);
+
+INSERT INTO session(id, active, end_time, start_time, schedule_id)
+VALUES
+(1, true, '11:00:00', '09:45:00', 1),
+(2, false,'14:00:00', '12:00:00', 2),
+(3, true, '23:00:00', '21:30:00', 3);
+
+INSERT INTO order_ (id, is_confirming, is_pending, user_id)
+VALUES
+(1, true, false, 1),
+(2, true, false, 2),
+(3, true, false, 3);
+
+INSERT INTO ticket (id, order_id, seat_id, session_id, price)
+VALUES
+(1, 1, 8, 1, 110),
+(2, 2, 3, 2, 200),
+(3, 3, 6, 3, 400);
+
+INSERT INTO coefficient (id, type, value)
+VALUES
+(1, 'premier', 1.7),
+(2, 'pm session', 1.2),
+(3, 'am session', 0.7),
+(4, 'last day', 0.7);
+
+INSERT INTO ticket_coefficient (coefficient_id, ticket_id)
+VALUES
+(1, 1),
+(2, 2),
+(3, 3),
+(4, 1),
+(1, 2),
+(2, 3);
