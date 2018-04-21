@@ -5,8 +5,8 @@ import lombok.Data;
 @Data
 public class SeatDto extends BaseDto{
 
-    private Integer row;
+    private int row;
 
-    private Integer number;
+    private int number;
 
 }

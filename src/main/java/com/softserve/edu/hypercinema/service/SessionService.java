@@ -19,7 +19,7 @@ public interface SessionService {
 
    // void updateSession(SessionEntity sessionEntity,Principal principal);
 
-    List<SessionEntity> getAll();
+    List<SessionEntity> getSessions();
 
 
 }

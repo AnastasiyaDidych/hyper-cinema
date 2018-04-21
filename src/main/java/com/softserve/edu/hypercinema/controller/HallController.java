@@ -26,7 +26,7 @@ public class HallController {
 
     @GetMapping("/{id}")
     public HallDto getHall(@PathVariable Long id) {
-        return hallConverter.convertToDto(hallService.getHallById(id));
+        return hallConverter.convertToDto(hallService.getHall(id));
     }
 
     @PutMapping

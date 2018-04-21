@@ -46,8 +46,6 @@ public class ScheduleController {
 
     @GetMapping
     public List<ScheduleDto> getAllSchedules(){
-        return  scheduleConverter.convertToDto(scheduleService.getAll());
+        return  scheduleConverter.convertToDto(scheduleService.getSchedules());
     }
-
-
 }

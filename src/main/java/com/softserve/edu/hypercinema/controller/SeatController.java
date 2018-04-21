@@ -19,6 +19,6 @@ public class SeatController {
 
     @GetMapping("/{id}")
     public SeatDto getSeat(@PathVariable("id") Long id) {
-        return seatConverter.convertToDto(seatService.getSeatById(id));
+        return seatConverter.convertToDto(seatService.getSeat(id));
     }
 }

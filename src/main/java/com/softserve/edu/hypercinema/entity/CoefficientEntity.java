@@ -6,6 +6,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 @Table(name = "coefficient")
@@ -22,16 +24,13 @@ public class CoefficientEntity extends BaseEntity{
     @Column(name = "type")
     private String type;
 
-    @Column(name = "value")
-    private Double value;
+    @Column(name = "value", columnDefinition = "DECIMAL(3,2)")
+    private BigDecimal value;
 
-    public CoefficientEntity(String type, Double value) {
-        this.type = type;
-        this.value = value;
-    }
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "price_id")
-    private PriceEntity price;
+    @ManyToMany
+    @JoinTable(name = "ticket_coefficient",
+            joinColumns = @JoinColumn(name = "coefficient_id"),
+            inverseJoinColumns = @JoinColumn(name = "ticket_id"))
+    private List<TicketEntity> tickets;
 
 }
