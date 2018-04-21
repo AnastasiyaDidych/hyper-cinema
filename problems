@@ -1,18 +1,15 @@
 
- - Do we need getAllHalls() method?
+  
+ - create/update/delete ✓
  
- - PUT must contain /{id}
+ -getHall and getHalls ✓
  
- - create/update
- 
- -getHall and getHalls
+- all tables must be named singular ✓
 
-- all tables must be named singular
+- all methods in contollers must be public  ✓
 
-- all methods in contollers must be public 
+- id only Long ✓
 
-- id only Long
-
-- all another number fiels must be int
+- all another number fiels must be int ✓
 
 - movieController (some questions)
