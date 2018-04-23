@@ -42,12 +42,13 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
                     new UsernamePasswordAuthenticationToken(
                             creds.getEmail(),
                             creds.getPassword(),
-                            new ArrayList<>())
-            );
+                            new ArrayList<>()));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
+
+
 
     @Override
     protected void successfulAuthentication(HttpServletRequest request,

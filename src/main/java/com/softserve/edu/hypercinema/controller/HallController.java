@@ -3,11 +3,11 @@ package com.softserve.edu.hypercinema.controller;
 
 import com.softserve.edu.hypercinema.converter.HallConverter;
 import com.softserve.edu.hypercinema.dto.HallDto;
-import com.softserve.edu.hypercinema.exception.HallNotFoundException;
 import com.softserve.edu.hypercinema.service.HallService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
 
 @RestController
 @RequestMapping("/api/halls")
@@ -27,7 +27,7 @@ public class HallController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('MANAGER')")
     public HallDto getHall(@PathVariable Long id) {
         return hallConverter.convertToDto(hallService.getHall(id));
     }

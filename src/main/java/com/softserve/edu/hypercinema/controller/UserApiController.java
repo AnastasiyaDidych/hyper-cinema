@@ -2,6 +2,7 @@ package com.softserve.edu.hypercinema.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import com.softserve.edu.hypercinema.converter.UserConverter;
 import com.softserve.edu.hypercinema.dto.UserDto;
@@ -36,13 +37,13 @@ public class UserApiController {
         return userConverter.convertToDto(userService.getUser(id));
     }
 
-    //@PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public void deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
     }
 
-    //@PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('USER')")
     @GetMapping("/me")
     public UserDto getCurrentUser(Principal principal) {
         return userConverter.convertToDto(userService.getUser(principal));

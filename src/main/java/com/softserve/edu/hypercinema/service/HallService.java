@@ -6,13 +6,13 @@ import java.util.List;
 
 public interface HallService {
 
-    void createHall(HallEntity hallEntity);
+    HallEntity createHall(HallEntity hallEntity);
 
     List<HallEntity> getHalls();
 
     HallEntity getHall(Long id);
 
-    void updateHall(HallEntity hallEntity);
+    HallEntity updateHall(HallEntity hallEntity);
 
     void deleteHall(Long id);
 

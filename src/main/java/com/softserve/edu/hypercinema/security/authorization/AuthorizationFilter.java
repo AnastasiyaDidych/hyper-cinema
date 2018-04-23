@@ -6,8 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
+import javax.crypto.SecretKey;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -17,9 +21,12 @@ import java.util.ArrayList;
 
 public class AuthorizationFilter extends BasicAuthenticationFilter {
 
-    @Autowired
-    public AuthorizationFilter(AuthenticationManager authManager) {
+    private final UserDetailsService userDetailsService;
+
+    public AuthorizationFilter(AuthenticationManager authManager,
+                               UserDetailsService userDetailsService) {
         super(authManager);
+        this.userDetailsService = userDetailsService;
     }
 
     @Override
@@ -27,16 +34,15 @@ public class AuthorizationFilter extends BasicAuthenticationFilter {
                                     HttpServletResponse response,
                                     FilterChain chain) throws IOException, ServletException {
         String securityHeader = request.getHeader(SecurityConstants.HEADER_STRING);
-
         if (securityHeader == null || !securityHeader.startsWith(SecurityConstants.TOKEN_PREFIX)) {
             chain.doFilter(request, response);
-            return;
+        } else {
+
+            UsernamePasswordAuthenticationToken authentication = getAuthentication(request);
+
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            chain.doFilter(request, response);
         }
-
-        UsernamePasswordAuthenticationToken authentication = getAuthentication(request);
-
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        chain.doFilter(request, response);
     }
 
 
@@ -52,9 +58,14 @@ public class AuthorizationFilter extends BasicAuthenticationFilter {
                     .getSubject();
 
             if (user != null) {
-                return new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
+                try {
+                    UserDetails userDetails = userDetailsService.loadUserByUsername(user);
+                    UsernamePasswordAuthenticationToken userToken = new UsernamePasswordAuthenticationToken(user, null, userDetails.getAuthorities());
+                    return userToken;
+                } catch (UsernameNotFoundException e) {
+                    //logger.error(USERNAME_NOT_FOUND_MESSAGE + userName, e);
+                }
             }
-            return null;
         }
         return null;
     }

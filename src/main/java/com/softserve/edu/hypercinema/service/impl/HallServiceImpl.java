@@ -1,7 +1,6 @@
 package com.softserve.edu.hypercinema.service.impl;
 
 import com.softserve.edu.hypercinema.entity.HallEntity;
-import com.softserve.edu.hypercinema.exception.HallAlreadyExistException;
 import com.softserve.edu.hypercinema.exception.HallNotFoundException;
 import com.softserve.edu.hypercinema.repository.HallRepository;
 import com.softserve.edu.hypercinema.service.HallService;
@@ -10,9 +9,6 @@ import org.springframework.stereotype.Service;
 
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 import java.util.List;
 
 
@@ -28,8 +24,9 @@ public class HallServiceImpl implements HallService {
 
 
     @Override
-    public void createHall(HallEntity hallEntity) {
+    public HallEntity createHall(HallEntity hallEntity) {
             hallRepository.save(hallEntity);
+        return hallEntity;
     }
 
     @Override
@@ -44,12 +41,13 @@ public class HallServiceImpl implements HallService {
     }
 
     @Override
-    public void updateHall(HallEntity hallEntity) {
+    public HallEntity updateHall(HallEntity hallEntity) {
         if (hallEntity.getId() != null) {
             hallRepository.save(hallEntity);
         }else{
             throw new HallNotFoundException();
         }
+        return hallEntity;
     }
 
     @Override
