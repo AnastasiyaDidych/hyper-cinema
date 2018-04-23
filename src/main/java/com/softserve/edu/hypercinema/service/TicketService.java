@@ -10,11 +10,11 @@ public interface TicketService {
 
     TicketEntity getTicket(Long id);
 
-    List<TicketEntity> selectAllTickets();
+    List<TicketEntity> getTickets();
 
     void updateTicket(TicketEntity ticketEntity);
 
-    void deleteTicketById(Long id);
+    void deleteTicket(Long id);
 
     void deleteTicket(TicketEntity ticketEntity);
 

@@ -8,7 +8,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "orders")
+@Table(name = "order_")
 @NoArgsConstructor
 @Getter
 @Setter
@@ -23,7 +23,7 @@ public class OrderEntity extends BaseEntity {
     private boolean pending;
   
     @Column(name = "is_confirming")
-    private boolean confirming;
+    private boolean confirmed;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "user_id", nullable = false)

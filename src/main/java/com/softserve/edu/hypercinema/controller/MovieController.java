@@ -35,18 +35,18 @@ public class MovieController {
             movieService.createMovie(movieEntity);
 
         }
-        return movieConverter.convertToDto(movieService.getAllMovies());
+        return movieConverter.convertToDto(movieService.getMovies());
     }
 
 
     @GetMapping
     public List<MovieEntity> getAllMovies() {
-        return movieService.getAllMovies();
+        return movieService.getMovies();
     }
 
     @GetMapping("/{id}")
     public MovieDto getMovieById(@PathVariable("id") Long id ){
-        return movieConverter.convertToDto(movieService.getMovieById(id));
+        return movieConverter.convertToDto(movieService.getMovie(id));
     }
 
     @PostMapping
@@ -54,14 +54,14 @@ public class MovieController {
         movieService.createMovie(movieConverter.convertToEntity(movieDto));
     }
 
-    @PutMapping
+    @PutMapping("/update/{id}")
     public void updateMovie(@RequestBody MovieDto movieDto) {
         movieService.updateMovie(movieConverter.convertToEntity(movieDto));
     }
 
     @DeleteMapping("/{id}")
     public void deleteMovie(@PathVariable("id") Long id) {
-        movieService.deleteById(id);
+        movieService.deleteMovie(id);
     }
 
 

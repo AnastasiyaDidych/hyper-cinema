@@ -22,12 +22,6 @@ public class ScheduleController {
     @Autowired
     private ScheduleConverter scheduleConverter;
 
-
-
-
-
-
-
     @PostMapping
     public void createSchedule(@RequestBody ScheduleDto scheduleDto){
         scheduleService.createSchedule(scheduleConverter.convertToEntity(scheduleDto));
@@ -52,8 +46,6 @@ public class ScheduleController {
 
     @GetMapping
     public List<ScheduleDto> getAllSchedules(){
-        return  scheduleConverter.convertToDto(scheduleService.getAll());
+        return  scheduleConverter.convertToDto(scheduleService.getSchedules());
     }
-
-
 }

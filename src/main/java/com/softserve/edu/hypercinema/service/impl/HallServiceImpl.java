@@ -33,13 +33,13 @@ public class HallServiceImpl implements HallService {
     }
 
     @Override
-    public List<HallEntity> getAllHalls() {
+    public List<HallEntity> getHalls() {
           return hallRepository.findAll();
     }
 
 
     @Override
-    public HallEntity getHallById(Long id) {
+    public HallEntity getHall(Long id) {
         return hallRepository.findById(id).orElseThrow(() -> new HallNotFoundException(HALL_NOT_FOUND_MESSAGE + id));
     }
 

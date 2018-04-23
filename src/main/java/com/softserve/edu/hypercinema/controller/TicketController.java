@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/ticket")
+@RequestMapping("/api/tickets")
 public class TicketController {
 
     @Autowired
@@ -34,8 +34,8 @@ public class TicketController {
     }
 
     @GetMapping
-    public List<TicketDto> getAllTickets(){
-        return ticketConverter.convertToDto(ticketService.selectAllTickets());
+    public List<TicketDto> getTickets(){
+        return ticketConverter.convertToDto(ticketService.getTickets());
     }
 
     @DeleteMapping

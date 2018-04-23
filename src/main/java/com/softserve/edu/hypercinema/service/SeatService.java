@@ -8,9 +8,9 @@ public interface SeatService {
 
     void createSeat(SeatEntity seatEntity);
 
-    List<SeatEntity> getAllSeats();
+    List<SeatEntity> getSeats();
 
-    SeatEntity getSeatById(Long id);
+    SeatEntity getSeat(Long id);
 
     void updateSeat(SeatEntity seatEntity);
 

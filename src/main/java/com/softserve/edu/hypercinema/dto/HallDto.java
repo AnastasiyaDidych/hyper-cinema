@@ -8,7 +8,7 @@ public class HallDto extends BaseDto {
 
     private String name;
 
-    private Integer capacity;
+    private int capacity;
 
     private String type;
 
