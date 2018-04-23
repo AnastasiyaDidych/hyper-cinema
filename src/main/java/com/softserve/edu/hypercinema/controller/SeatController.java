@@ -4,6 +4,7 @@ import com.softserve.edu.hypercinema.converter.SeatConverter;
 import com.softserve.edu.hypercinema.dto.SeatDto;
 import com.softserve.edu.hypercinema.service.SeatService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -18,6 +19,7 @@ public class SeatController {
 
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('USER')")
     public SeatDto getSeat(@PathVariable("id") Long id) {
         return seatConverter.convertToDto(seatService.getSeat(id));
     }
