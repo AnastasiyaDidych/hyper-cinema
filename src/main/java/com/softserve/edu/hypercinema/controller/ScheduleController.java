@@ -22,37 +22,31 @@ public class ScheduleController {
     @Autowired
     private ScheduleConverter scheduleConverter;
 
-
-
-
-
-
-
-    @PostMapping
-    public void createSchedule(@RequestBody ScheduleDto scheduleDto){
+    @PostMapping("/create")
+    public void createSchedule(@RequestBody ScheduleDto scheduleDto) {
         scheduleService.createSchedule(scheduleConverter.convertToEntity(scheduleDto));
 
     }
 
-    @PutMapping
-    public  void updateSchedule(@RequestBody ScheduleDto scheduleDto){
+    @PutMapping("/{id}")
+    public void updateSchedule(@RequestBody ScheduleDto scheduleDto) {
         scheduleService.updateSchedule(scheduleConverter.convertToEntity(scheduleDto));
     }
 
     @DeleteMapping("/{id}")
-    public  void deleteSchedule(@PathVariable Long id){
+    public void deleteSchedule(@PathVariable Long id) {
         scheduleService.deleteSchedule(id);
     }
 
 
     @GetMapping("/{id}")
-    public ScheduleDto getSchedule(@PathVariable Long id){
+    public ScheduleDto getSchedule(@PathVariable Long id) {
         return scheduleConverter.convertToDto(scheduleService.getSchedule(id));
     }
 
-    @GetMapping
-    public List<ScheduleDto> getAllSchedules(){
-        return  scheduleConverter.convertToDto(scheduleService.getAll());
+    @GetMapping("/all")
+    public List<ScheduleDto> getSchedules() {
+        return scheduleConverter.convertToDto(scheduleService.getAll());
     }
 
 

@@ -24,7 +24,6 @@ public class ScheduleServiceImpl implements ScheduleService
 
     @Override
     public void createSchedule(ScheduleEntity scheduleEntity) {
-
         scheduleRepository.save(scheduleEntity);
     }
 

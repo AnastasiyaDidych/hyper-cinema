@@ -18,19 +18,19 @@ public class SessionEntity extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column (name = "id")
+    @Column(name = "id")
     private Long id;
 
-    @Column (name = "start_time" )
+    @Column(name = "start_time")
     private LocalTime startTime;
 
-    @Column (name = "end_time")
+    @Column(name = "end_time")
     private LocalTime endTime;
 
-    @Column (name = "active")
+    @Column(name = "active")
     private Boolean active;
 
-    @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "schedule_id")
     private ScheduleEntity schedule;
 

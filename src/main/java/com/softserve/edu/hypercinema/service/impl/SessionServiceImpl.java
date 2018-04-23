@@ -24,8 +24,6 @@ public class SessionServiceImpl  implements SessionService {
 
     @Override
     public void createSession(SessionEntity sessionEntity) {
-
-
             sessionRepository.save(sessionEntity);
 
     }
