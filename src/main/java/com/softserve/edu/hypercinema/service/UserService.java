@@ -11,7 +11,7 @@ public interface UserService {
 
     UserEntity getUser(Principal principal);
 
-    UserEntity getUser(Authentication authentication);
+//    UserEntity getUser(Authentication authentication);
 
     void createUser(UserEntity userEntity);
 

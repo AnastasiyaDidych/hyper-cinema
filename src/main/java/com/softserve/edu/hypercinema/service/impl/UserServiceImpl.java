@@ -3,7 +3,7 @@ package com.softserve.edu.hypercinema.service.impl;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
+//import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.softserve.edu.hypercinema.entity.RoleEntity;
@@ -47,12 +47,12 @@ public class UserServiceImpl implements UserService {
                 new UserNotFoundException(USER_EMAIL_NOT_FOUND_MESSAGE + principal.getName()));
     }
 
-    @Override
-    public UserEntity getUser(Authentication authentication) {
-        String email =  ((String) authentication.getPrincipal());
-        return userRepository.findByEmail(email).orElseThrow(() ->
-                new UserNotFoundException(USER_EMAIL_NOT_FOUND_MESSAGE + email));
-    }
+//    @Override
+//    public UserEntity getUser(Authentication authentication) {
+//        String email =  ((String) authentication.getPrincipal());
+//        return userRepository.findByEmail(email).orElseThrow(() ->
+//                new UserNotFoundException(USER_EMAIL_NOT_FOUND_MESSAGE + email));
+//    }
 
     @Override
     public void createUser(UserEntity userEntity) {
