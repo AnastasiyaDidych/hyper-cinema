@@ -8,13 +8,14 @@ import com.softserve.edu.hypercinema.entity.MovieEntity;
 
 import com.softserve.edu.hypercinema.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
 
 @RestController
-@RequestMapping("/movies")
+@RequestMapping("/api/movies")
 public class MovieController {
 
     @Autowired
@@ -40,26 +41,38 @@ public class MovieController {
 
 
     @GetMapping
-    public List<MovieEntity> getAllMovies() {
-        return movieService.getAllMovies();
+    @PreAuthorize("hasRole('USER')")
+    public List<MovieDto> getAllMovies() {
+        return movieConverter.convertToDto(movieService.getAllMovies());
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('USER')")
     public MovieDto getMovieById(@PathVariable("id") Long id ){
         return movieConverter.convertToDto(movieService.getMovieById(id));
     }
 
+//    @GetMapping("/{title}")
+//    @PreAuthorize("hasRole('USER')")
+//    public MovieDto getMovieByTitle(@PathVariable("title") String title) {
+//        return movieConverter.convertToDto(movieService.getMovieByTitle(title));
+//    }
+
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public void createMovie(@RequestBody MovieDto movieDto) {
         movieService.createMovie(movieConverter.convertToEntity(movieDto));
     }
 
-    @PutMapping
-    public void updateMovie(@RequestBody MovieDto movieDto) {
-        movieService.updateMovie(movieConverter.convertToEntity(movieDto));
+    @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public void updateMovie(@RequestBody MovieDto movieDto, @PathVariable("id") Long id) {
+        MovieEntity movieEntity = movieConverter.convertToEntity(movieDto);
+        movieService.updateMovie(movieEntity,id);
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public void deleteMovie(@PathVariable("id") Long id) {
         movieService.deleteById(id);
     }
