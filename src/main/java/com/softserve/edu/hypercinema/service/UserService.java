@@ -1,6 +1,5 @@
 package com.softserve.edu.hypercinema.service;
 
-import org.springframework.security.core.Authentication;
 import com.softserve.edu.hypercinema.entity.UserEntity;
 
 import java.security.Principal;

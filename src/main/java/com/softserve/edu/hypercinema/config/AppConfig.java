@@ -1,6 +1,6 @@
 package com.softserve.edu.hypercinema.config;
 
-import io.jsonwebtoken.impl.crypto.MacProvider;
+//import io.jsonwebtoken.impl.crypto.MacProvider;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,11 +15,11 @@ public class AppConfig {
     public ModelMapper modelMapper() {
         return new ModelMapper();
     }
-
-    @Bean
-    public SecretKey secretKey() {
-        return MacProvider.generateKey();
-    }
+//
+//    @Bean
+//    public SecretKey secretKey() {
+//        return MacProvider.generateKey();
+//    }
     @Bean
 	public BCryptPasswordEncoder bCryptPasswordEncoder() {
 		return new BCryptPasswordEncoder();
