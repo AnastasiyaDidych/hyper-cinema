@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/api/session")
 public class SessionController {
+
     @Autowired
     private SessionService sessionService;
 

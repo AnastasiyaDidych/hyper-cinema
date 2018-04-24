@@ -1,9 +1,9 @@
 package com.softserve.edu.hypercinema.controller;
 
+import com.softserve.edu.hypercinema.converter.impl.UserConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import com.softserve.edu.hypercinema.converter.UserConverter;
 import com.softserve.edu.hypercinema.dto.UserDto;
 import com.softserve.edu.hypercinema.service.UserService;
 

@@ -1,17 +1,13 @@
 package com.softserve.edu.hypercinema.controller;
 
 
-import com.softserve.edu.hypercinema.converter.ScheduleConverter;
+import com.softserve.edu.hypercinema.converter.impl.ScheduleConverter;
 import com.softserve.edu.hypercinema.dto.ScheduleDto;
-import com.softserve.edu.hypercinema.entity.ScheduleEntity;
 import com.softserve.edu.hypercinema.service.ScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalTime;
 import java.util.List;
-
-import static com.softserve.edu.hypercinema.model.DaysModel.Monday;
 
 @RestController
 @RequestMapping("/api/schedule")
