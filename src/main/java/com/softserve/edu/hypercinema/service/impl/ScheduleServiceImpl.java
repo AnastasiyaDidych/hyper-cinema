@@ -11,11 +11,10 @@ import java.util.List;
 
 @Service
 @Transactional
-public class ScheduleServiceImpl implements ScheduleService
-{
+public class ScheduleServiceImpl implements ScheduleService {
+
     @Autowired
     private ScheduleRepository scheduleRepository;
-
 
     @Override
     public ScheduleEntity getSchedule(Long id) {
@@ -24,7 +23,6 @@ public class ScheduleServiceImpl implements ScheduleService
 
     @Override
     public void createSchedule(ScheduleEntity scheduleEntity) {
-
         scheduleRepository.save(scheduleEntity);
     }
 
@@ -42,4 +40,5 @@ public class ScheduleServiceImpl implements ScheduleService
     public List<ScheduleEntity> getSchedules() {
         return scheduleRepository.findAll();
     }
+
 }

@@ -11,11 +11,10 @@ import java.util.List;
 
 @Service
 @Transactional
-public class SessionServiceImpl  implements SessionService {
+public class SessionServiceImpl implements SessionService {
 
     @Autowired
     private SessionRepository sessionRepository;
-
 
     @Override
     public SessionEntity getSession(Long id) {
@@ -24,10 +23,7 @@ public class SessionServiceImpl  implements SessionService {
 
     @Override
     public void createSession(SessionEntity sessionEntity) {
-
-
-            sessionRepository.save(sessionEntity);
-
+        sessionRepository.save(sessionEntity);
     }
 
     @Override
@@ -44,5 +40,6 @@ public class SessionServiceImpl  implements SessionService {
     public List<SessionEntity> getSessions() {
         return sessionRepository.findAll();
     }
+
 }
 

@@ -16,15 +16,9 @@ public class SeatController {
     @Autowired
     private SeatConverter seatConverter;
 
-
     @GetMapping("/{id}")
     public SeatDto getSeat(@PathVariable("id") Long id) {
         return seatConverter.convertToDto(seatService.getSeat(id));
-    }
-
-    @DeleteMapping("/{id}")
-    public void deleteSeat(@PathVariable Long id) {
-        seatService.deleteSeat(id);
     }
 
 }
