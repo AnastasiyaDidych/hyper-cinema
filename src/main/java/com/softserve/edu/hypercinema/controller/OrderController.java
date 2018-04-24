@@ -1,6 +1,6 @@
 package com.softserve.edu.hypercinema.controller;
 
-import com.softserve.edu.hypercinema.converter.OrderConverter;
+import com.softserve.edu.hypercinema.converter.impl.OrderConverter;
 import com.softserve.edu.hypercinema.dto.OrderDto;
 import com.softserve.edu.hypercinema.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;

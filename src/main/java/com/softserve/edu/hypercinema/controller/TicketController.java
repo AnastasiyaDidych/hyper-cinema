@@ -1,6 +1,6 @@
 package com.softserve.edu.hypercinema.controller;
 
-import com.softserve.edu.hypercinema.converter.TicketConverter;
+import com.softserve.edu.hypercinema.converter.impl.TicketConverter;
 import com.softserve.edu.hypercinema.dto.TicketDto;
 import com.softserve.edu.hypercinema.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;

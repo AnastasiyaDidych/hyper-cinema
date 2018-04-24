@@ -1,6 +1,6 @@
 package com.softserve.edu.hypercinema.converter.impl;
 
-import com.softserve.edu.hypercinema.converter.ScheduleConverter;
+import com.softserve.edu.hypercinema.converter.GenericConverter;
 import com.softserve.edu.hypercinema.dto.ScheduleDto;
 import com.softserve.edu.hypercinema.entity.ScheduleEntity;
 import org.modelmapper.ModelMapper;
@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ScheduleConverterImpl implements ScheduleConverter {
+public class ScheduleConverter implements GenericConverter<ScheduleDto, ScheduleEntity> {
     @Autowired
     ModelMapper modelMapper;
 

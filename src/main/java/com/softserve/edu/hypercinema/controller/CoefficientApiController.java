@@ -1,6 +1,6 @@
 package com.softserve.edu.hypercinema.controller;
 
-import com.softserve.edu.hypercinema.converter.CoefficientConverter;
+import com.softserve.edu.hypercinema.converter.impl.CoefficientConverter;
 import com.softserve.edu.hypercinema.dto.CoefficientDto;
 import com.softserve.edu.hypercinema.service.CoefficientService;
 import org.springframework.beans.factory.annotation.Autowired;

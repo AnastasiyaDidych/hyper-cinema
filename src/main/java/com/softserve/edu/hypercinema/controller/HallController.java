@@ -1,6 +1,7 @@
 package com.softserve.edu.hypercinema.controller;
 
-import com.softserve.edu.hypercinema.converter.HallConverter;
+
+import com.softserve.edu.hypercinema.converter.impl.HallConverter;
 import com.softserve.edu.hypercinema.dto.HallDto;
 import com.softserve.edu.hypercinema.service.HallService;
 import org.springframework.beans.factory.annotation.Autowired;

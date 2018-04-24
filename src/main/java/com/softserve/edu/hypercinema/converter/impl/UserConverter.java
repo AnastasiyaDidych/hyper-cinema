@@ -1,14 +1,14 @@
 package com.softserve.edu.hypercinema.converter.impl;
 
+import com.softserve.edu.hypercinema.converter.GenericConverter;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import com.softserve.edu.hypercinema.converter.UserConverter;
 import com.softserve.edu.hypercinema.dto.UserDto;
 import com.softserve.edu.hypercinema.entity.UserEntity;
 
 @Component
-public class UserConverterImpl implements UserConverter {
+public class UserConverter implements GenericConverter<UserDto, UserEntity> {
 
     @Autowired
     private ModelMapper modelMapper;
