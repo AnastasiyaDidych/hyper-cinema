@@ -14,6 +14,8 @@ public interface TicketService {
 
     void updateTicket(TicketEntity ticketEntity);
 
+    void updateTicket(Long id, TicketEntity ticketEntity);
+
     void deleteTicket(Long id);
 
     void deleteTicket(TicketEntity ticketEntity);
