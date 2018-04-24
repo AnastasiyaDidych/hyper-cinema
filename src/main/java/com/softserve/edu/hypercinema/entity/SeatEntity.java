@@ -26,6 +26,8 @@ public class SeatEntity extends BaseEntity{
     @Column(name = "number")
     private int number;
 
+    @Column(name = "status", nullable = true)
+    private String status;
 
     @OneToMany(mappedBy = "seat")
     private List<TicketEntity> tickets;

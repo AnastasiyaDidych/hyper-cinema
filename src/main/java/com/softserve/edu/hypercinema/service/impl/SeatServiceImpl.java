@@ -1,5 +1,6 @@
 package com.softserve.edu.hypercinema.service.impl;
 
+import com.softserve.edu.hypercinema.entity.HallEntity;
 import com.softserve.edu.hypercinema.entity.SeatEntity;
 import com.softserve.edu.hypercinema.exception.SeatAlredyExistException;
 import com.softserve.edu.hypercinema.exception.SeatNotFoundException;
@@ -48,6 +49,16 @@ public class SeatServiceImpl implements SeatService {
     @Override
     public void deleteSeat(Long id) {
         seatRepository.deleteById(id);
+    }
+
+
+    protected static SeatEntity seatData(int number, int row, HallEntity hallEntity, String status) {
+        SeatEntity seatEntity = new SeatEntity();
+        seatEntity.setNumber(number);
+        seatEntity.setRow(row);
+        seatEntity.setHall(hallEntity);
+        seatEntity.setStatus(status);
+        return seatEntity;
     }
 
 }
