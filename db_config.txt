@@ -9,21 +9,23 @@ USE `hyper_cinema`;
 INSERT INTO role (id, name)
 VALUES
 (1, 'ROLE_USER'),
-(2, 'ROLE_ADMIN'),
-(3, 'ROLE_MANAGER');
+(2, 'ROLE_MANAGER'),
+(3, 'ROLE_ADMIN');
+
+INSERT INTO user (id, email, first_name, last_name, password, phone)
+VALUES
+(1, 'user@edu.softserve.com', 'User', 'User', '$2a$04$z7epaXFDn/1/PvmJCUaua.itJjqtHJlJBEQ1ptKBu.9zZOo0XSOR2', '88005553535'),
+(2, 'manager@edu.softserve.com', 'Manager', 'Manager', '$2a$04$P6y3URf8IyazYsQZu5GdseGC41wWw0eMDZ6eJU2gKvc.NDgb8gFhK', '88006663636'),
+(3, 'admin@edu.softserve.com', 'Admin', 'Admin', '$2a$04$Q51Yb/HU.h8./ONFMdx5EO75VB5qrzIZTYDoc6MWmmKggthLG/qD2', '88007773737');
 
 INSERT INTO user_role (user_id, role_id)
 VALUES
 (1, 1),
+(2, 1),
 (2, 2),
+(3, 1),
+(3, 2),
 (3, 3);
-
-
-INSERT INTO user (id, email, first_name, last_name, password, phone)
-VALUES
-(1, 'a@gmail.com', 'A', 'A', '123456789Aa', '0632800258'),
-(2, 'b@gmail.com', 'B', 'B', '123456789Bb', '0632800259'),
-(3, 'c@gmail.com', 'C', 'C', '123456789Cc', '0632800260');
 
 
 INSERT INTO hall (id, capacity, name, type)
@@ -80,7 +82,7 @@ VALUES
 (3, true, '23:00:00', '21:30:00', 3);
 
 
-INSERT INTO order_ (id, is_confirming, is_pending, user_id)
+INSERT INTO order_ (id, is_confirmed, is_pending, user_id)
 VALUES
 (1, true, false, 1),
 (2, true, false, 2),

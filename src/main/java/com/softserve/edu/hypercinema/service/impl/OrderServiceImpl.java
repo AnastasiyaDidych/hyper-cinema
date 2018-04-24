@@ -17,15 +17,12 @@ public class OrderServiceImpl implements OrderService {
     private static final String ORDER_NOT_FOUND_MESSAGE = "Could not find order with id=";
 //    private static final String ORDER_NOT_FOUND_BY_USER_MESSAGE = "Could not find order with user=";
 
-
     @Autowired
     private OrderRepository orderRepository;
-
 
     @Override
     public void createOrder(OrderEntity orderEntity) {
         orderRepository.save(orderEntity);
-
     }
 
     @Override
@@ -42,7 +39,6 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void updateOrder(OrderEntity orderEntity) {
         orderRepository.save(orderEntity);
-
     }
 
     @Override
@@ -53,6 +49,6 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void deleteOrder(OrderEntity orderEntity) {
         orderRepository.delete(orderEntity);
-
     }
+
 }

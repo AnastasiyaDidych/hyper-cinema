@@ -1,6 +1,4 @@
-
 package com.softserve.edu.hypercinema.controller;
-
 
 import com.softserve.edu.hypercinema.converter.MovieConverter;
 import com.softserve.edu.hypercinema.dto.MovieDto;
@@ -8,13 +6,14 @@ import com.softserve.edu.hypercinema.entity.MovieEntity;
 
 import com.softserve.edu.hypercinema.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
 
 @RestController
-@RequestMapping("/movies")
+@RequestMapping("/api/movies")
 public class MovieController {
 
     @Autowired
@@ -38,7 +37,6 @@ public class MovieController {
         return movieConverter.convertToDto(movieService.getMovies());
     }
 
-
     @GetMapping
     public List<MovieEntity> getAllMovies() {
         return movieService.getMovies();
@@ -50,6 +48,7 @@ public class MovieController {
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public void createMovie(@RequestBody MovieDto movieDto) {
         movieService.createMovie(movieConverter.convertToEntity(movieDto));
     }
@@ -63,6 +62,5 @@ public class MovieController {
     public void deleteMovie(@PathVariable("id") Long id) {
         movieService.deleteMovie(id);
     }
-
 
 }

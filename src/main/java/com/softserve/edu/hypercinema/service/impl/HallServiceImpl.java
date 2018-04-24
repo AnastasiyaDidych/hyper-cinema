@@ -1,31 +1,23 @@
 package com.softserve.edu.hypercinema.service.impl;
 
 import com.softserve.edu.hypercinema.entity.HallEntity;
-import com.softserve.edu.hypercinema.exception.HallAlreadyExistException;
 import com.softserve.edu.hypercinema.exception.HallNotFoundException;
 import com.softserve.edu.hypercinema.repository.HallRepository;
 import com.softserve.edu.hypercinema.service.HallService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
 import javax.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.List;
-
 
 @Service
 @Transactional
 public class HallServiceImpl implements HallService {
 
-
     private static final String HALL_NOT_FOUND_MESSAGE = "Could not find hall with id=";
 
     @Autowired
     private  HallRepository hallRepository;
-
 
     @Override
     public void createHall(HallEntity hallEntity) {
@@ -37,7 +29,6 @@ public class HallServiceImpl implements HallService {
           return hallRepository.findAll();
     }
 
-
     @Override
     public HallEntity getHall(Long id) {
         return hallRepository.findById(id).orElseThrow(() -> new HallNotFoundException(HALL_NOT_FOUND_MESSAGE + id));
@@ -47,7 +38,7 @@ public class HallServiceImpl implements HallService {
     public void updateHall(HallEntity hallEntity) {
         if (hallEntity.getId() != null) {
             hallRepository.save(hallEntity);
-        }else{
+        } else {
             throw new HallNotFoundException();
         }
     }

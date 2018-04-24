@@ -43,4 +43,5 @@ public class CoefficientServiceImpl implements CoefficientService {
     public void deleteCoefficient(Long id) {
         coefficientRepository.deleteById(id);
     }
+
 }
