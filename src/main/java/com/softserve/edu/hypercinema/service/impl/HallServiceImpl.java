@@ -41,6 +41,7 @@ public class HallServiceImpl implements HallService {
         return hallRepository.findAll();
     }
 
+
     @Override
     public HallEntity getHall(Long id) {
         return hallRepository.findById(id).orElseThrow(() -> new HallNotFoundException(HALL_NOT_FOUND_MESSAGE + id));
