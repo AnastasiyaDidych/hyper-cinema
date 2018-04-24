@@ -13,3 +13,7 @@
 - all another number fiels must be int ✓
 
 - movieController (some questions)
+
+- put with {id}
+
+- delele ...Service, leave only Generic Converter
