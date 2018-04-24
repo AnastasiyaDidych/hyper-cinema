@@ -22,7 +22,7 @@ public class OrderEntity extends BaseEntity {
     @Column(name = "is_pending")
     private boolean pending;
   
-    @Column(name = "is_confirming")
+    @Column(name = "is_confirmed")
     private boolean confirmed;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
