@@ -1,15 +1,7 @@
-
-  
- - create/update/delete ✓
- 
- -getHall and getHalls ✓
- 
-- all tables must be named singular ✓
-
-- all methods in contollers must be public  ✓
-
-- id only Long ✓
-
-- all another number fiels must be int ✓
-
 - movieController (some questions)
+
+- put with {id}
+
+- delele ...Service, leave only Generic Converter
+
+- delete pattern for Start and end of rent
