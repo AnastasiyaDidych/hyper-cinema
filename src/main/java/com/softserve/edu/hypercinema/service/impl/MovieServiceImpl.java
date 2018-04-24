@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
 
-
 @Slf4j
 @Transactional
 @Service
@@ -21,6 +20,7 @@ public class MovieServiceImpl implements MovieService {
 
     private final String MOVIE_ALREADY_EXISTS_MESSAGE = "Movie with title %s already exists";
     private final String MOVIE_NOT_FOUND_MESSAGE = "Movie %s has not found";
+
     @Autowired
     private MovieRepository movieRepository;
 
@@ -54,4 +54,5 @@ public class MovieServiceImpl implements MovieService {
         movieRepository.deleteById(movieEntity.getId());
         log.info("Movie : " + movieEntity.getTitle() + " successfully deleted");
     }
+
 }

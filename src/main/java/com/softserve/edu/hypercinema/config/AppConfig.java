@@ -1,12 +1,12 @@
 package com.softserve.edu.hypercinema.config;
 
+import io.jsonwebtoken.impl.crypto.MacProvider;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import javax.crypto.SecretKey;
 
 @Configuration
 public class AppConfig {
@@ -17,8 +17,8 @@ public class AppConfig {
     }
 
     @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder() {
-        return new BCryptPasswordEncoder();
+    public SecretKey secretKey() {
+        return MacProvider.generateKey();
     }
 
 }
