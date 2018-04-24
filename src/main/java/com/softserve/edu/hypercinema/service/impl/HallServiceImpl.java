@@ -101,7 +101,7 @@ public class HallServiceImpl implements HallService {
 
             for (int i = 1; i <= rows; i++) {
                 for (int j = 1; j <= (i == rows ? k : 10); j++) {
-                    if (i == k) {
+                    if (i == rows) {
                         seatService.createSeat(SeatServiceImpl.seatData(j, i, hallEntity, "VIP"));
                     } else {
                         seatService.createSeat(SeatServiceImpl.seatData(j, i, hallEntity, null));
