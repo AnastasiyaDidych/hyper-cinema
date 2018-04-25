@@ -21,7 +21,7 @@ public class TicketEntity extends BaseEntity{
 
 //    @NotEmpty
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    @JoinColumn(name = "order_id", nullable = false)
+    @JoinColumn(name = "order_id") //removed nullable = false
     private OrderEntity order;
 
 //    @NotEmpty
@@ -29,10 +29,11 @@ public class TicketEntity extends BaseEntity{
     @JoinColumn(name = "session_id",  nullable = false)
     private SessionEntity session;
 
+
     @OneToOne(mappedBy = "ticket", cascade = CascadeType.ALL)
     private PriceEntity price;
 
-//    @NotEmpty
+    //    @NotEmpty
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "seat_id")
     private SeatEntity seat;

@@ -22,7 +22,7 @@ public class MovieEntity extends BaseEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     @NotEmpty
     private String title;
 
@@ -30,7 +30,7 @@ public class MovieEntity extends BaseEntity{
     @NotEmpty
     private String description;
 
-    private Duration duration;
+    private int duration;
 
     private String genre;
 
@@ -49,7 +49,7 @@ public class MovieEntity extends BaseEntity{
 
 
     @OneToMany(mappedBy = "movie")
-    private List<ScheduleEntity> schedule;
+    private List<SessionEntity> sessions;
 
 }
 

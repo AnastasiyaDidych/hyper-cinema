@@ -1,5 +1,6 @@
 package com.softserve.edu.hypercinema.service.impl;
 
+import com.softserve.edu.hypercinema.entity.SessionEntity;
 import com.softserve.edu.hypercinema.entity.TicketEntity;
 import com.softserve.edu.hypercinema.exception.TicketNotFoundException;
 import com.softserve.edu.hypercinema.repository.TicketRepository;
@@ -49,5 +50,6 @@ public class TicketServiceImpl implements TicketService {
     public void deleteTicket(TicketEntity ticketEntity) {
         ticketRepository.delete(ticketEntity);
     }
+
 
 }
