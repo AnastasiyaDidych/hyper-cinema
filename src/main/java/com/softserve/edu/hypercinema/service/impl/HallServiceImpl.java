@@ -25,13 +25,17 @@ public class HallServiceImpl implements HallService {
     private HallRepository hallRepository;
 
     @Autowired
-    SeatService seatService;
+    private SeatService seatService;
 
     @Override
     public void createHall(HallEntity hallEntity) {
+        if (hallEntity.getCapacity() < 0) {
+//            TODO own exception for invalid capacity - IncorrectDataException
+        }
         hallRepository.saveAndFlush(hallEntity);
         fillHall(hallEntity);
     }
+
 
     @Override
     public List<HallEntity> getHalls() {
@@ -46,12 +50,10 @@ public class HallServiceImpl implements HallService {
 
     @Override
     public void updateHall(HallEntity hallEntity) {
-        if (hallEntity.getId() != null) {
-            hallRepository.save(hallEntity);
-        } else {
-            throw new HallNotFoundException();
-        }
+        getHall(hallEntity.getId());
+        hallRepository.save(hallEntity);
     }
+
 
     @Override
     public void deleteHall(Long id) {
@@ -68,58 +70,40 @@ public class HallServiceImpl implements HallService {
                 fillStaticHall(hallEntity);
                 break;
             case "virtual":
-//                HallEntity hallEntity1 = new HallEntity();
-//                hallEntity1.setCapacity(hallEntity.getCapacity());
-//                hallEntity1.setType("virtual");
-//                hallEntity1.setName(hallEntity.getName() + "VR");
-//                createHall(hallEntity1);
-//                fillStaticHall(hallEntity1);
-                fillStaticHall(hallEntity);
+                //TODO
                 break;
             case "personal":
                 fillPersonalHall(hallEntity);
                 break;
             default:
+                //TODO
                 //logic
                 break;
         }
     }
 
 
-    /**
-     * param i stands for row number;
-     * param j stands for seat number in range [1-10];
-     */
     private void fillStaticHall(HallEntity hallEntity) {
-        if (hallEntity != null) {
-            int capacity = hallEntity.getCapacity();
-            int rows = (capacity / 10) + 1;
-            int k = capacity - ((rows - 1) * 10);
-            String type = hallEntity.getType();
-            for (int i = 1; i <= rows; i++) {
-                for (int j = 1; j <= (i == rows ? k : 10); j++) {
-                    seatService.createSeat(SeatEntity.builder()
-                            .number(j)
-                            .row(i)
-                            .hall(hallEntity)
-//                            .status(i == rows ? "VIP" : null).build());
-                            .status(type == "static" ? (i == rows ? "VIP" : null) : null).build());
 
-
-                }
-
+        int capacity = hallEntity.getCapacity();
+        int rows = (capacity / 10) + 1;
+        int k = capacity - ((rows - 1) * 10);
+        final int row_capacity = 10;
+        String type = hallEntity.getType();
+        for (int i = 1; i <= rows; i++) {
+            for (int j = 1; j <= (i == rows ? k : row_capacity); j++) {
+                seatService.createSeat(SeatEntity.builder()
+                        .number(j)
+                        .row(i)
+                        .hall(hallEntity)
+                        .status(i == rows ? "VIP" : "base").build());
             }
-        } else {
-            throw new HallNotFoundException();
+
         }
     }
 
 
     private void fillPersonalHall(HallEntity hallEntity) {
-        if (hallEntity != null) {
-            SeatEntity.builder().number(1).row(1).hall(hallEntity).status("Personal");
-        } else {
-            throw new HallNotFoundException();
-        }
+        SeatEntity.builder().number(1).row(1).hall(hallEntity).status("Personal");
     }
 }
