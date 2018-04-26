@@ -84,15 +84,15 @@ public class HallServiceImpl implements HallService {
     }
 
 
-    private void fillStaticHall(HallEntity hallEntity) {
+    private void fillStaticHall(HallEntity hallEntity/*, int row_capacity*/) {
 
         int capacity = hallEntity.getCapacity();
 
-        //fails when I set 30, 40, 100 capacity
-        //because than there are 4, 5 and 11 rows
-        int rows = (capacity / 10) + 1;
-        int k = capacity - ((rows - 1) * 10);
-        final int row_capacity = 10;
+        final int row_capacity = 12;
+
+        int rows = (int) Math.ceil(capacity / (double)row_capacity);
+        int k = capacity - ((rows - 1) * row_capacity);
+
         String type = hallEntity.getType();
         for (int i = 1; i <= rows; i++) {
             for (int j = 1; j <= (i == rows ? k : row_capacity); j++) {
@@ -100,7 +100,8 @@ public class HallServiceImpl implements HallService {
                         .number(j)
                         .row(i)
                         .hall(hallEntity)
-                        .status(i == rows ? "VIP" : "base").build());
+                        .status(i == rows ? "VIP" : "base")
+                        .build());
             }
 
         }
