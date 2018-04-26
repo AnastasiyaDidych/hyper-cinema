@@ -4,21 +4,23 @@ import com.softserve.edu.hypercinema.converter.TicketConverter;
 import com.softserve.edu.hypercinema.dto.TicketDto;
 import com.softserve.edu.hypercinema.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/ticket")
+@RequestMapping("/api/tickets")
 public class TicketController {
 
     @Autowired
-    TicketService ticketService;
+    private TicketService ticketService;
 
     @Autowired
-    TicketConverter ticketConverter;
+    private TicketConverter ticketConverter;
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public void createTicket(@RequestBody TicketDto ticketDto){
         ticketService.createTicket(ticketConverter.convertToEntity(ticketDto));
     }
@@ -34,8 +36,8 @@ public class TicketController {
     }
 
     @GetMapping
-    public List<TicketDto> getAllTickets(){
-        return ticketConverter.convertToDto(ticketService.selectAllTickets());
+    public List<TicketDto> getTickets(){
+        return ticketConverter.convertToDto(ticketService.getTickets());
     }
 
     @DeleteMapping

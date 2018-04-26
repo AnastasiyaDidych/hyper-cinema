@@ -1,4 +1,3 @@
-
 package com.softserve.edu.hypercinema.controller;
 
 
@@ -8,13 +7,14 @@ import com.softserve.edu.hypercinema.entity.MovieEntity;
 
 import com.softserve.edu.hypercinema.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
 
 @RestController
-@RequestMapping("/movies")
+@RequestMapping("/api/movies")
 public class MovieController {
 
     @Autowired
@@ -35,34 +35,33 @@ public class MovieController {
             movieService.createMovie(movieEntity);
 
         }
-        return movieConverter.convertToDto(movieService.getAllMovies());
+        return movieConverter.convertToDto(movieService.getMovies());
     }
-
 
     @GetMapping
     public List<MovieEntity> getAllMovies() {
-        return movieService.getAllMovies();
+        return movieService.getMovies();
     }
 
     @GetMapping("/{id}")
     public MovieDto getMovieById(@PathVariable("id") Long id ){
-        return movieConverter.convertToDto(movieService.getMovieById(id));
+        return movieConverter.convertToDto(movieService.getMovie(id));
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public void createMovie(@RequestBody MovieDto movieDto) {
         movieService.createMovie(movieConverter.convertToEntity(movieDto));
     }
 
-    @PutMapping
+    @PutMapping("/update/{id}")
     public void updateMovie(@RequestBody MovieDto movieDto) {
         movieService.updateMovie(movieConverter.convertToEntity(movieDto));
     }
 
     @DeleteMapping("/{id}")
     public void deleteMovie(@PathVariable("id") Long id) {
-        movieService.deleteById(id);
+        movieService.deleteMovie(id);
     }
-
 
 }

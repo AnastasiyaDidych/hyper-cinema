@@ -8,9 +8,9 @@ public interface HallService {
 
     void createHall(HallEntity hallEntity);
 
-    List<HallEntity> getAllHalls();
+    List<HallEntity> getHalls();
 
-    HallEntity getHallById(Long id);
+    HallEntity getHall(Long id);
 
     void updateHall(HallEntity hallEntity);
 

@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
 
-
 @Slf4j
 @Transactional
 @Service
@@ -21,11 +20,12 @@ public class MovieServiceImpl implements MovieService {
 
     private final String MOVIE_ALREADY_EXISTS_MESSAGE = "Movie with title %s already exists";
     private final String MOVIE_NOT_FOUND_MESSAGE = "Movie %s has not found";
+
     @Autowired
     private MovieRepository movieRepository;
 
     @Override
-    public List<MovieEntity> getAllMovies() {
+    public List<MovieEntity> getMovies() {
         return movieRepository.findAll();
     }
 
@@ -38,7 +38,7 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public MovieEntity getMovieById(Long id) {
+    public MovieEntity getMovie(Long id) {
         return movieRepository.findById(id).orElseThrow(() ->new MovieNotFoundException(MOVIE_NOT_FOUND_MESSAGE));
     }
 
@@ -49,9 +49,10 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public void deleteById(Long id) {
-        MovieEntity movieEntity = getMovieById(id);
+    public void deleteMovie(Long id) {
+        MovieEntity movieEntity = getMovie(id);
         movieRepository.deleteById(movieEntity.getId());
         log.info("Movie : " + movieEntity.getTitle() + " successfully deleted");
     }
+
 }

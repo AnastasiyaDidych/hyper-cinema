@@ -13,11 +13,13 @@ public class MovieDto extends BaseDto{
 
     private String description;
 
-    private Duration duration;
+    private int duration;
 
     private String genre;
 
     private LocalDate startRent;
+
+    private LocalDate endRent;
 
     private int ageRating;
 

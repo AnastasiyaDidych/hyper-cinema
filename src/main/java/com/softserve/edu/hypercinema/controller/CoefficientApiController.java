@@ -4,10 +4,11 @@ import com.softserve.edu.hypercinema.converter.CoefficientConverter;
 import com.softserve.edu.hypercinema.dto.CoefficientDto;
 import com.softserve.edu.hypercinema.service.CoefficientService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/coefficient")
+@RequestMapping("/api/coefficients")
 public class CoefficientApiController {
 
     @Autowired
@@ -16,22 +17,25 @@ public class CoefficientApiController {
     @Autowired
     private CoefficientConverter coefficientConverter;
 
-    @PostMapping("/create")
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public void createCoefficient(@RequestBody CoefficientDto coefficientDto) {
-        coefficientService.addCoefficient(coefficientConverter.convertToEntity(coefficientDto));
+        coefficientService.createCoefficient(coefficientConverter.convertToEntity(coefficientDto));
     }
 
-    @PutMapping("/update")
+    @PutMapping
     public void updateCoefficient(@RequestBody CoefficientDto coefficientDto) {
         coefficientService.updateCoefficient(coefficientConverter.convertToEntity(coefficientDto));
     }
+
     @GetMapping("/{id}")
     public CoefficientDto getCoefficient(@PathVariable Long id) {
-        return coefficientConverter.convertToDto(coefficientService.findCoefficientById(id));
+        return coefficientConverter.convertToDto(coefficientService.getCoefficient(id));
     }
 
     @DeleteMapping("/{id}")
     public void deleteCoefficient(@PathVariable Long id) {
-        coefficientService.removeCoefficientById(id);
+        coefficientService.deleteCoefficient(id);
     }
+
 }
