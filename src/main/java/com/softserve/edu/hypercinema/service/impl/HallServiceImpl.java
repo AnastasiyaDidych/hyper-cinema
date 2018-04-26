@@ -101,7 +101,8 @@ public class HallServiceImpl implements HallService {
                         .number(j)
                         .row(i)
                         .hall(hallEntity)
-                        .status(i == rows ? "VIP" : "base").build());
+                        .status(i == rows ? "VIP" : "base")
+                        .build());
             }
 
         }
@@ -109,6 +110,11 @@ public class HallServiceImpl implements HallService {
 
 
     private void fillPersonalHall(HallEntity hallEntity) {
-        SeatEntity.builder().number(1).row(1).hall(hallEntity).status("Personal");
+        seatService.createSeat(SeatEntity.builder()
+                .number(1)
+                .row(1)
+                .hall(hallEntity)
+                .status("personal")
+                .build());
     }
 }
