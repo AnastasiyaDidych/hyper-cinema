@@ -9,7 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/halls")
+@RequestMapping("/halls")
 public class HallController {
 
     @Autowired

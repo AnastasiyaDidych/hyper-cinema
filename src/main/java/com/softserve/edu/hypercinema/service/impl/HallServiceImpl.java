@@ -1,9 +1,8 @@
 package com.softserve.edu.hypercinema.service.impl;
 
-import com.softserve.edu.hypercinema.constants.HALL_TYPES;
+import com.softserve.edu.hypercinema.constants.HallTypes;
 import com.softserve.edu.hypercinema.entity.HallEntity;
 import com.softserve.edu.hypercinema.entity.SeatEntity;
-import com.softserve.edu.hypercinema.exception.ConflictException;
 import com.softserve.edu.hypercinema.exception.HallNotFoundException;
 import com.softserve.edu.hypercinema.exception.InvalidDataException;
 import com.softserve.edu.hypercinema.repository.HallRepository;
@@ -67,7 +66,7 @@ public class HallServiceImpl implements HallService {
 
         String type = hallEntity.getType().toUpperCase();
 
-        switch (HALL_TYPES.valueOf(type)) {
+        switch (HallTypes.valueOf(type)) {
             case STATIC:
                 fillStaticHall(hallEntity);
                 break;

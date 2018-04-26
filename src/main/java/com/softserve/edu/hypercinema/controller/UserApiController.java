@@ -11,7 +11,7 @@ import com.softserve.edu.hypercinema.service.UserService;
 import java.security.Principal;
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/users")
 public class UserApiController {
 
     @Autowired

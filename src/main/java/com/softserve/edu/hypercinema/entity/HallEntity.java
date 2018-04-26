@@ -32,7 +32,7 @@ public class HallEntity extends BaseEntity {
     private List<SeatEntity> seats;
 
     @OneToMany(mappedBy = "hall")
-    private List<ScheduleEntity> schedule;
+    private List<SessionEntity> sessions;
 
 
 }
