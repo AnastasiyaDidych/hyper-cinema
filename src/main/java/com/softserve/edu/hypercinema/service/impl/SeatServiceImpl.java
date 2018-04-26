@@ -5,6 +5,7 @@ import com.softserve.edu.hypercinema.entity.SeatEntity;
 import com.softserve.edu.hypercinema.exception.SeatNotFoundException;
 import com.softserve.edu.hypercinema.repository.SeatRepository;
 import com.softserve.edu.hypercinema.service.SeatService;
+import lombok.Builder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -44,16 +45,6 @@ public class SeatServiceImpl implements SeatService {
     @Override
     public void deleteSeat(Long id) {
         seatRepository.deleteById(id);
-    }
-
-
-    protected static SeatEntity seatData(int number, int row, HallEntity hallEntity, String status) {
-        SeatEntity seatEntity = new SeatEntity();
-        seatEntity.setNumber(number);
-        seatEntity.setRow(row);
-        seatEntity.setHall(hallEntity);
-        seatEntity.setStatus(status);
-        return seatEntity;
     }
 
 }

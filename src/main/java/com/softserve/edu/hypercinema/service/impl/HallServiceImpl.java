@@ -1,10 +1,12 @@
 package com.softserve.edu.hypercinema.service.impl;
 
 import com.softserve.edu.hypercinema.entity.HallEntity;
+import com.softserve.edu.hypercinema.entity.SeatEntity;
 import com.softserve.edu.hypercinema.exception.ConflictException;
 import com.softserve.edu.hypercinema.exception.HallNotFoundException;
 import com.softserve.edu.hypercinema.repository.HallRepository;
 import com.softserve.edu.hypercinema.service.HallService;
+import com.softserve.edu.hypercinema.service.SeatService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,17 +25,12 @@ public class HallServiceImpl implements HallService {
     private HallRepository hallRepository;
 
     @Autowired
-    SeatServiceImpl seatService;
-
+    SeatService seatService;
 
     @Override
     public void createHall(HallEntity hallEntity) {
-        try {
-            hallRepository.saveAndFlush(hallEntity);
-            fillHall(hallEntity);
-        } catch (Exception e) {
-            throw new ConflictException();
-        }
+        hallRepository.saveAndFlush(hallEntity);
+        fillHall(hallEntity);
     }
 
     @Override
@@ -54,12 +51,6 @@ public class HallServiceImpl implements HallService {
         } else {
             throw new HallNotFoundException();
         }
-
-//        try {
-//            hallRepository.save(hallEntity);
-//        } catch (Exception e) {
-//            throw new HallNotFoundException();
-//        }
     }
 
     @Override
@@ -77,6 +68,12 @@ public class HallServiceImpl implements HallService {
                 fillStaticHall(hallEntity);
                 break;
             case "virtual":
+//                HallEntity hallEntity1 = new HallEntity();
+//                hallEntity1.setCapacity(hallEntity.getCapacity());
+//                hallEntity1.setType("virtual");
+//                hallEntity1.setName(hallEntity.getName() + "VR");
+//                createHall(hallEntity1);
+//                fillStaticHall(hallEntity1);
                 fillStaticHall(hallEntity);
                 break;
             case "personal":
@@ -94,29 +91,35 @@ public class HallServiceImpl implements HallService {
      * param j stands for seat number in range [1-10];
      */
     private void fillStaticHall(HallEntity hallEntity) {
-        try {
+        if (hallEntity != null) {
             int capacity = hallEntity.getCapacity();
             int rows = (capacity / 10) + 1;
             int k = capacity - ((rows - 1) * 10);
-
+            String type = hallEntity.getType();
             for (int i = 1; i <= rows; i++) {
                 for (int j = 1; j <= (i == rows ? k : 10); j++) {
-                    if (i == rows) {
-                        seatService.createSeat(SeatServiceImpl.seatData(j, i, hallEntity, "VIP"));
-                    } else {
-                        seatService.createSeat(SeatServiceImpl.seatData(j, i, hallEntity, null));
-                    }
+                    seatService.createSeat(SeatEntity.builder()
+                            .number(j)
+                            .row(i)
+                            .hall(hallEntity)
+//                            .status(i == rows ? "VIP" : null).build());
+                            .status(type == "static" ? (i == rows ? "VIP" : null) : null).build());
+
+
                 }
+
             }
-        } catch (Exception e) {
+        } else {
             throw new HallNotFoundException();
         }
     }
 
 
     private void fillPersonalHall(HallEntity hallEntity) {
-        seatService.createSeat(SeatServiceImpl.seatData(1, 1, hallEntity, "personal"));
+        if (hallEntity != null) {
+            SeatEntity.builder().number(1).row(1).hall(hallEntity).status("Personal");
+        } else {
+            throw new HallNotFoundException();
+        }
     }
-
-
 }
