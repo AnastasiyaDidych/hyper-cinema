@@ -33,6 +33,7 @@ public class MovieEntity extends BaseEntity{
 
     private int duration;
 
+
     private String genre;
 
     @Column(name = "start_rent")
@@ -52,7 +53,7 @@ public class MovieEntity extends BaseEntity{
 
 
     @OneToMany(mappedBy = "movie")
-    private List<ScheduleEntity> schedule;
+    private List<SessionEntity> schedule;
 
 }
 
