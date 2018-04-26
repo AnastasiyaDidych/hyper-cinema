@@ -8,16 +8,16 @@ USE `hyper_cinema`;
 
 INSERT INTO role (id, name)
 VALUES
-(1, 'ROLE_ADMIN');
+(1, 'ROLE_ADMIN'),
 (2, 'ROLE_MANAGER'),
-(3, 'ROLE_USER'),
+(3, 'ROLE_USER');
 
 
 INSERT INTO user (id, email, first_name, last_name, password, phone)
 VALUES
-(1, 'admin@edu.softserve.com', 'Admin', 'Admin', '$2a$04$Q51Yb/HU.h8./ONFMdx5EO75VB5qrzIZTYDoc6MWmmKggthLG/qD2', '88007773737');
+(1, 'admin@edu.softserve.com', 'Admin', 'Admin', '$2a$04$Q51Yb/HU.h8./ONFMdx5EO75VB5qrzIZTYDoc6MWmmKggthLG/qD2', '88007773737'),
 (2, 'manager@edu.softserve.com', 'Manager', 'Manager', '$2a$04$P6y3URf8IyazYsQZu5GdseGC41wWw0eMDZ6eJU2gKvc.NDgb8gFhK', '88006663636'),
-(3, 'user@edu.softserve.com', 'User', 'User', '$2a$04$z7epaXFDn/1/PvmJCUaua.itJjqtHJlJBEQ1ptKBu.9zZOo0XSOR2', '88005553535'),
+(3, 'user@edu.softserve.com', 'User', 'User', '$2a$04$z7epaXFDn/1/PvmJCUaua.itJjqtHJlJBEQ1ptKBu.9zZOo0XSOR2', '88005553535');
 
 
 INSERT INTO user_role (user_id, role_id)
