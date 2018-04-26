@@ -1,9 +1,11 @@
 package com.softserve.edu.hypercinema.service.impl;
 
+import com.softserve.edu.hypercinema.constants.HALL_TYPES;
 import com.softserve.edu.hypercinema.entity.HallEntity;
 import com.softserve.edu.hypercinema.entity.SeatEntity;
 import com.softserve.edu.hypercinema.exception.ConflictException;
 import com.softserve.edu.hypercinema.exception.HallNotFoundException;
+import com.softserve.edu.hypercinema.exception.InvalidDataException;
 import com.softserve.edu.hypercinema.repository.HallRepository;
 import com.softserve.edu.hypercinema.service.HallService;
 import com.softserve.edu.hypercinema.service.SeatService;
@@ -30,7 +32,7 @@ public class HallServiceImpl implements HallService {
     @Override
     public void createHall(HallEntity hallEntity) {
         if (hallEntity.getCapacity() < 0) {
-//            TODO own exception for invalid capacity - IncorrectDataException
+            throw new InvalidDataException("Invalid value for capacity. Only positive values");
         }
         hallRepository.saveAndFlush(hallEntity);
         fillHall(hallEntity);
@@ -63,16 +65,16 @@ public class HallServiceImpl implements HallService {
 
     private void fillHall(HallEntity hallEntity) {
 
-        String type = hallEntity.getType();
+        String type = hallEntity.getType().toUpperCase();
 
-        switch (type) {
-            case "static":
+        switch (HALL_TYPES.valueOf(type)) {
+            case STATIC:
                 fillStaticHall(hallEntity);
                 break;
-            case "virtual":
+            case VIRTUAL:
                 //TODO
                 break;
-            case "personal":
+            case PERSONAL:
                 fillPersonalHall(hallEntity);
                 break;
             default:
@@ -86,6 +88,9 @@ public class HallServiceImpl implements HallService {
     private void fillStaticHall(HallEntity hallEntity) {
 
         int capacity = hallEntity.getCapacity();
+
+        //fails when I set 30, 40, 100 capacity
+        //because than there are 4, 5 and 11 rows
         int rows = (capacity / 10) + 1;
         int k = capacity - ((rows - 1) * 10);
         final int row_capacity = 10;
