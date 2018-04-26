@@ -9,6 +9,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -30,12 +31,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private UserDetailsService userDetailsService;
 
-	@Autowired
-	private BCryptPasswordEncoder bCryptPasswordEncoder;
-
-	@Autowired
-	private SecretKey secretKey;
-
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.cors().and().csrf().disable()
@@ -44,15 +39,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/halls/*", "/movies/*", "/schedule/*").permitAll()
 				.anyRequest().authenticated()
 				.and()
-				.addFilter(new JwtAuthenticationFilter(authenticationManager(), secretKey))
-				.addFilter(new JwtAuthorizationFilter(authenticationManager(), secretKey, userDetailsService))
+				.addFilter(new JwtAuthenticationFilter(authenticationManager(), secretKey()))
+				.addFilter(new JwtAuthorizationFilter(authenticationManager(), secretKey(), userDetailsService))
 				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+	}
 
+	@Override
+	public void configure(WebSecurity web) {
+		web.ignoring().antMatchers("/swagger-ui.html", "/swagger-resources/**", "/webjars/**", "/v2/api-docs");
 	}
 
 	@Override
 	public void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder);
+		auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
 	}
 
 	@Bean
