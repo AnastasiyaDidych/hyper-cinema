@@ -12,6 +12,4 @@ public class HallDto extends BaseDto {
 
     private String type;
 
-    private Long id;
-
 }

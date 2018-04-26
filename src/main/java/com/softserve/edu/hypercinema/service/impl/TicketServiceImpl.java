@@ -15,7 +15,8 @@ import java.util.List;
 @Transactional
 @Slf4j
 public class TicketServiceImpl implements TicketService {
-    public static final String TICKET_NOT_FOUND_MESSAGE = "Could not find Ticket with id=";
+
+    private static final String TICKET_NOT_FOUND_MESSAGE = "Could not find Ticket with id=";
 
     @Autowired
     private TicketRepository ticketRepository;

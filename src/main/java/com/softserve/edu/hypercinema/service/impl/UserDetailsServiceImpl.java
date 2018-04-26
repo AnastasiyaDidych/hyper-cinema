@@ -14,25 +14,27 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.util.Collections.emptyList;
 @Service
 @Transactional
 @Primary
 public class UserDetailsServiceImpl implements UserDetailsService {
-
     @Autowired
     private UserRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        UserEntity userEntity = userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException(email));
+         UserEntity userEntity = userRepository.findByEmail(email)
+                 .orElseThrow(()-> new UsernameNotFoundException(email));
         List<GrantedAuthority> authorities = new ArrayList<>();
         for (RoleEntity roleEntity : userEntity.getRoles()) {
             authorities.add(new SimpleGrantedAuthority(roleEntity.getName()));
         }
-        return new User(userEntity.getEmail(),
-                userEntity.getPassword(), authorities);
+        return new User(userEntity.getEmail(), userEntity.getPassword(), authorities);
     }
 }
+

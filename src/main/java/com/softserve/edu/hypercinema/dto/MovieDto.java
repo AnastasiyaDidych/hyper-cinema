@@ -19,6 +19,8 @@ public class MovieDto extends BaseDto{
 
     private LocalDate startRent;
 
+    private LocalDate endRent;
+
     private int ageRating;
 
     private BigDecimal price;

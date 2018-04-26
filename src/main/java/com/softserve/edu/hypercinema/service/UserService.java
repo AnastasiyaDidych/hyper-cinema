@@ -1,6 +1,5 @@
 package com.softserve.edu.hypercinema.service;
 
-//import org.springframework.security.core.Authentication;
 import com.softserve.edu.hypercinema.entity.UserEntity;
 
 import java.security.Principal;
@@ -11,7 +10,7 @@ public interface UserService {
 
     UserEntity getUser(Principal principal);
 
-    //UserEntity getUser(Authentication authentication);
+//    UserEntity getUser(Authentication authentication);
 
     void createUser(UserEntity userEntity);
 

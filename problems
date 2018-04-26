@@ -1,15 +1,7 @@
+- movie remove pattern from LocalData
 
-  
- - create/update/delete ✓
- 
- -getHall and getHalls ✓
- 
-- all tables must be named singular ✓
+- put with {id}
 
-- all methods in contollers must be public  ✓
+- delele ...Service, leave only Generic Converter
 
-- id only Long ✓
-
-- all another number fiels must be int ✓
-
-- movieController (some questions)
+- delete pattern for Start and end of rent
