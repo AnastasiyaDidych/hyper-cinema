@@ -1,6 +1,6 @@
 package com.softserve.edu.hypercinema.controller;
 
-import com.softserve.edu.hypercinema.converter.impl.TicketConverter;
+import com.softserve.edu.hypercinema.converter.TicketConverter;
 import com.softserve.edu.hypercinema.dto.TicketDto;
 import com.softserve.edu.hypercinema.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +14,10 @@ import java.util.List;
 public class TicketController {
 
     @Autowired
-    TicketService ticketService;
+    private TicketService ticketService;
 
     @Autowired
-    TicketConverter ticketConverter;
+    private TicketConverter ticketConverter;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)

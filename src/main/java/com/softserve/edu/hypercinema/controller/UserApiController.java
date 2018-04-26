@@ -1,6 +1,6 @@
 package com.softserve.edu.hypercinema.controller;
 
-import com.softserve.edu.hypercinema.converter.impl.UserConverter;
+import com.softserve.edu.hypercinema.converter.UserConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 

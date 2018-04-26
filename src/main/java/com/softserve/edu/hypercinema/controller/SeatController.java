@@ -1,6 +1,6 @@
 package com.softserve.edu.hypercinema.controller;
 
-import com.softserve.edu.hypercinema.converter.impl.SeatConverter;
+import com.softserve.edu.hypercinema.converter.SeatConverter;
 import com.softserve.edu.hypercinema.dto.SeatDto;
 import com.softserve.edu.hypercinema.service.SeatService;
 import org.springframework.beans.factory.annotation.Autowired;

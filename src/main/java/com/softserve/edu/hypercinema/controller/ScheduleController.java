@@ -1,6 +1,6 @@
 package com.softserve.edu.hypercinema.controller;
 
-import com.softserve.edu.hypercinema.converter.impl.ScheduleConverter;
+import com.softserve.edu.hypercinema.converter.ScheduleConverter;
 import com.softserve.edu.hypercinema.dto.ScheduleDto;
 import com.softserve.edu.hypercinema.service.ScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;

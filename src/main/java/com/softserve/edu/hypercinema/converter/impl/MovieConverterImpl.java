@@ -1,14 +1,16 @@
 package com.softserve.edu.hypercinema.converter.impl;
 
-import com.softserve.edu.hypercinema.converter.GenericConverter;
+import com.softserve.edu.hypercinema.converter.MovieConverter;
 import com.softserve.edu.hypercinema.dto.MovieDto;
 import com.softserve.edu.hypercinema.entity.MovieEntity;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
-public class MovieConverter implements GenericConverter<MovieDto, MovieEntity> {
+public class MovieConverterImpl implements MovieConverter {
 
     @Autowired
     private ModelMapper modelMapper;

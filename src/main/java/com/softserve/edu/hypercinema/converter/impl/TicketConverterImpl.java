@@ -1,6 +1,6 @@
 package com.softserve.edu.hypercinema.converter.impl;
 
-import com.softserve.edu.hypercinema.converter.GenericConverter;
+import com.softserve.edu.hypercinema.converter.TicketConverter;
 import com.softserve.edu.hypercinema.dto.TicketDto;
 import com.softserve.edu.hypercinema.entity.TicketEntity;
 import org.modelmapper.ModelMapper;
@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class TicketConverter implements GenericConverter<TicketDto, TicketEntity> {
+public class TicketConverterImpl implements TicketConverter {
 
     @Autowired
     private ModelMapper modelMapper;
