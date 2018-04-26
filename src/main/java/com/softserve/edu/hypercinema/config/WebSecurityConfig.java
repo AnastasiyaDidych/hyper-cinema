@@ -2,6 +2,7 @@ package com.softserve.edu.hypercinema.config;
 
 import com.softserve.edu.hypercinema.filter.JwtAuthenticationFilter;
 import com.softserve.edu.hypercinema.filter.JwtAuthorizationFilter;
+import io.jsonwebtoken.impl.crypto.MacProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -39,10 +40,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.cors().and().csrf().disable()
 				.authorizeRequests()
-				.antMatchers(HttpMethod.POST,"/api/users").permitAll()
-                .antMatchers(HttpMethod.GET, "/api/halls/*", "/api/movies/*", "/api/schedule/*").permitAll()
-//                .antMatchers("/api/**").authenticated()
-				.anyRequest().permitAll()
+				.antMatchers(HttpMethod.POST,"/users").permitAll()
+                .antMatchers(HttpMethod.GET, "/halls/*", "/movies/*", "/schedule/*").permitAll()
+				.anyRequest().authenticated()
 				.and()
 				.addFilter(new JwtAuthenticationFilter(authenticationManager(), secretKey))
 				.addFilter(new JwtAuthorizationFilter(authenticationManager(), secretKey, userDetailsService))
@@ -58,6 +58,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Bean
 	public BCryptPasswordEncoder bCryptPasswordEncoder() {
 		return new BCryptPasswordEncoder();
+	}
+
+	@Bean
+	public SecretKey secretKey() {
+		return MacProvider.generateKey();
 	}
 
 	@Bean
