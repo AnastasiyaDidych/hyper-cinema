@@ -83,9 +83,9 @@ public class SessionServiceImpl  implements SessionService {
     public void generateSession(SessionDto sessionDto)   {
 
         SessionEntity sessionEntity = new SessionEntity();
-        MovieEntity movieEntity = movieService.getMovieById(sessionDto.getMovieId());
+        MovieEntity movieEntity = movieService.getMovie(sessionDto.getMovieId());
         sessionEntity.setMovie(movieEntity);
-        sessionEntity.setHall(hallService.getHallById(sessionDto.getHallId()));
+        sessionEntity.setHall(hallService.getHall(sessionDto.getHallId()));
         sessionEntity.setDate(LocalDate.parse(sessionDto.getDate(),DATE_FORMAT));
         LocalTime startTime = LocalTime.parse(sessionDto.getStartTime(),TIME_FORMATER);
         sessionEntity.setStartTime(startTime);
