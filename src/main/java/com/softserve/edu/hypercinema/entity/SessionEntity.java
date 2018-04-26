@@ -6,6 +6,7 @@ import lombok.Setter;
 import sun.security.krb5.internal.Ticket;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -18,24 +19,28 @@ public class SessionEntity extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column (name = "id")
     private Long id;
 
-    @Column(name = "start_time")
+    private LocalDate date;
+
+    @Column (name = "start_time" )
     private LocalTime startTime;
 
-    @Column(name = "end_time")
+    @Column (name = "end_time")
     private LocalTime endTime;
 
-    @Column(name = "active")
-    private Boolean active;
-
-    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    @JoinColumn(name = "schedule_id")
-    private ScheduleEntity schedule;
-
     @OneToMany(mappedBy = "session")
-    private List<TicketEntity> ticketEntity;
+    private List<TicketEntity> tickets;
+
+    @ManyToOne
+    @JoinColumn(name = "movie_id")
+    private MovieEntity movie;
+
+
+    @ManyToOne
+    @JoinColumn(name = "hall_id")
+    private HallEntity hall;
 
 
 }

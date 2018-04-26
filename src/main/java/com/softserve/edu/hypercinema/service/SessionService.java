@@ -1,6 +1,9 @@
 package com.softserve.edu.hypercinema.service;
 
 
+import com.softserve.edu.hypercinema.dto.SessionDto;
+import com.softserve.edu.hypercinema.entity.HallEntity;
+import com.softserve.edu.hypercinema.entity.MovieEntity;
 import com.softserve.edu.hypercinema.entity.SessionEntity;
 
 import java.util.List;
@@ -19,7 +22,11 @@ public interface SessionService {
 
    // void updateSession(SessionEntity sessionEntity,Principal principal);
 
-    List<SessionEntity> getAll();
+    List<SessionEntity> getSessions();
+   // void generateSession(MovieEntity movieEntity, HallEntity hallEntity,
+               //          String date, String time);
+
+    public void generateSession(SessionDto sessionDto);
 
 
 }

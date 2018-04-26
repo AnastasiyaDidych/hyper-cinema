@@ -23,7 +23,7 @@ public class HallEntity extends BaseEntity {
     private String name;
 
     @Column(name = "capacity", nullable = false)
-    private Integer capacity;
+    private int capacity;
 
     @Column(name = "type", nullable = false)
     private String type;
@@ -32,7 +32,7 @@ public class HallEntity extends BaseEntity {
     private List<SeatEntity> seats;
 
     @OneToMany(mappedBy = "hall")
-    private List<ScheduleEntity> schedule;
+    private List<SessionEntity> sessions;
 
 
 }
