@@ -31,12 +31,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private UserDetailsService userDetailsService;
 
-	@Autowired
-	private BCryptPasswordEncoder bCryptPasswordEncoder;
-
-	@Autowired
-	private SecretKey secretKey;
-
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.cors().and().csrf().disable()
@@ -45,10 +39,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/halls/*", "/movies/*", "/schedule/*").permitAll()
 				.anyRequest().authenticated()
 				.and()
-				.addFilter(new JwtAuthenticationFilter(authenticationManager(), secretKey))
-				.addFilter(new JwtAuthorizationFilter(authenticationManager(), secretKey, userDetailsService))
+				.addFilter(new JwtAuthenticationFilter(authenticationManager(), secretKey()))
+				.addFilter(new JwtAuthorizationFilter(authenticationManager(), secretKey(), userDetailsService))
 				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-
 	}
 
 	@Override
@@ -58,7 +51,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	public void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder);
+		auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
 	}
 
 	@Bean
