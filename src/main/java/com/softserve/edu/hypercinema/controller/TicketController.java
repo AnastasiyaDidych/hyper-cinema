@@ -14,10 +14,10 @@ import java.util.List;
 public class TicketController {
 
     @Autowired
-    TicketService ticketService;
+    private TicketService ticketService;
 
     @Autowired
-    TicketConverter ticketConverter;
+    private TicketConverter ticketConverter;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)

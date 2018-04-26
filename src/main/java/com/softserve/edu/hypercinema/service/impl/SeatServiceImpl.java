@@ -1,9 +1,11 @@
 package com.softserve.edu.hypercinema.service.impl;
 
+import com.softserve.edu.hypercinema.entity.HallEntity;
 import com.softserve.edu.hypercinema.entity.SeatEntity;
 import com.softserve.edu.hypercinema.exception.SeatNotFoundException;
 import com.softserve.edu.hypercinema.repository.SeatRepository;
 import com.softserve.edu.hypercinema.service.SeatService;
+import lombok.Builder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

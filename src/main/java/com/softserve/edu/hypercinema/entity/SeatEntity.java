@@ -1,8 +1,6 @@
 package com.softserve.edu.hypercinema.entity;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
@@ -11,8 +9,9 @@ import java.util.List;
 @Table(name = "seat")
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
-
+@AllArgsConstructor
 public class SeatEntity extends BaseEntity{
 
 
@@ -26,6 +25,8 @@ public class SeatEntity extends BaseEntity{
     @Column(name = "number")
     private int number;
 
+    @Column(name = "status", nullable = true)
+    private String status;
 
     @OneToMany(mappedBy = "seat")
     private List<TicketEntity> tickets;

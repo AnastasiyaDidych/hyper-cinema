@@ -20,5 +20,8 @@ public class AppConfig {
     public SecretKey secretKey() {
         return MacProvider.generateKey();
     }
-
+    @Bean
+	public BCryptPasswordEncoder bCryptPasswordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
 }
