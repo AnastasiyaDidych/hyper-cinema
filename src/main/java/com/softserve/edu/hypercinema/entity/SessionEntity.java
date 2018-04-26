@@ -3,7 +3,6 @@ package com.softserve.edu.hypercinema.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import sun.security.krb5.internal.Ticket;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -37,10 +36,8 @@ public class SessionEntity extends BaseEntity {
     @JoinColumn(name = "movie_id")
     private MovieEntity movie;
 
-
     @ManyToOne
     @JoinColumn(name = "hall_id")
     private HallEntity hall;
-
 
 }

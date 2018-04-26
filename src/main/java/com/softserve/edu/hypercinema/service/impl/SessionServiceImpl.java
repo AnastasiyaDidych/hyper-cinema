@@ -1,15 +1,10 @@
 package com.softserve.edu.hypercinema.service.impl;
 
 import com.softserve.edu.hypercinema.dto.SessionDto;
-import com.softserve.edu.hypercinema.entity.HallEntity;
 import com.softserve.edu.hypercinema.entity.MovieEntity;
 import com.softserve.edu.hypercinema.entity.SessionEntity;
 import com.softserve.edu.hypercinema.entity.TicketEntity;
-import com.softserve.edu.hypercinema.exception.MovieNotFoundException;
-import com.softserve.edu.hypercinema.repository.HallRepository;
-import com.softserve.edu.hypercinema.repository.MovieRepository;
 import com.softserve.edu.hypercinema.repository.SessionRepository;
-import com.softserve.edu.hypercinema.repository.TicketRepository;
 import com.softserve.edu.hypercinema.service.HallService;
 import com.softserve.edu.hypercinema.service.MovieService;
 import com.softserve.edu.hypercinema.service.SessionService;
@@ -26,9 +21,11 @@ import java.util.List;
 @Service
 @Transactional
 public class SessionServiceImpl  implements SessionService {
+
     private final String MOVIE_ALREADY_EXISTS_MESSAGE = "tu loh";
-    final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    DateTimeFormatter TIME_FORMATER=DateTimeFormatter.ofPattern("HH mm");
+    private final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH mm");
+
     @Autowired
     private SessionRepository sessionRepository;
 
@@ -67,8 +64,6 @@ public class SessionServiceImpl  implements SessionService {
     }
 
 
-
-
     private void generateTicketsForSession(SessionEntity sessionEntity) {
         for(int i =0;i<=sessionEntity.getHall().getCapacity();i++) {
             TicketEntity ticketEntity = new TicketEntity();
@@ -79,24 +74,22 @@ public class SessionServiceImpl  implements SessionService {
         }
 
     }
+
     @Override
     public void generateSession(SessionDto sessionDto)   {
 
         SessionEntity sessionEntity = new SessionEntity();
-        MovieEntity movieEntity = movieService.getMovieById(sessionDto.getMovieId());
+        MovieEntity movieEntity = movieService.getMovie(sessionDto.getMovieId());
         sessionEntity.setMovie(movieEntity);
-        sessionEntity.setHall(hallService.getHallById(sessionDto.getHallId()));
+        sessionEntity.setHall(hallService.getHall(sessionDto.getHallId()));
         sessionEntity.setDate(LocalDate.parse(sessionDto.getDate(),DATE_FORMAT));
-        LocalTime startTime = LocalTime.parse(sessionDto.getStartTime(),TIME_FORMATER);
+        LocalTime startTime = LocalTime.parse(sessionDto.getStartTime(),TIME_FORMATTER);
         sessionEntity.setStartTime(startTime);
         sessionEntity.setEndTime(startTime.plusMinutes(movieEntity.getDuration()+15));
         //generateTicketsForSession(sessionEntity);
         createSession(sessionEntity);
 
-
     }
-
-
 
 }
 
