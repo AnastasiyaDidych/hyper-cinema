@@ -31,10 +31,10 @@ public class HallController {
         return hallConverter.convertToDto(hallService.getHall(id));
     }
 
-    @PutMapping
+    @PutMapping("/{id}")
     //    @PreAuthorize("hasRole('MANAGER')")
-    public void updateHall(@RequestBody HallDto hallDto) {
-        hallService.updateHall(hallConverter.convertToEntity(hallDto));
+    public void updateHall(@PathVariable Long id, @RequestBody HallDto hallDto) {
+        hallService.updateHall(id, hallConverter.convertToEntity(hallDto));
     }
 
     @DeleteMapping("/{id}")

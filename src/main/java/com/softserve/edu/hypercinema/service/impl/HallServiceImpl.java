@@ -50,8 +50,8 @@ public class HallServiceImpl implements HallService {
     }
 
     @Override
-    public void updateHall(HallEntity hallEntity) {
-        getHall(hallEntity.getId());
+    public void updateHall(Long id, HallEntity hallEntity) {
+        hallEntity.setId(id);
         hallRepository.save(hallEntity);
     }
 
