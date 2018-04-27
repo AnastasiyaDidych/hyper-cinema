@@ -63,23 +63,8 @@ public class HallServiceImpl implements HallService {
 
 
     private void fillHall(HallEntity hallEntity) {
-
-        String type = hallEntity.getType().toUpperCase();
-
-        switch (HallTypes.valueOf(type)) {
-            case STATIC:
-                fillStaticHall(hallEntity);
-                break;
-            case VIRTUAL:
-                //TODO
-                break;
-            case PERSONAL:
-                fillPersonalHall(hallEntity);
-                break;
-            default:
-                //TODO
-                //logic
-                break;
+        if (hallEntity.getType().equalsIgnoreCase(HallTypes.STATIC.toString())) {
+            fillStaticHall(hallEntity);
         }
     }
 
@@ -88,13 +73,22 @@ public class HallServiceImpl implements HallService {
 
         int capacity = hallEntity.getCapacity();
 
-        final int row_capacity = 12;
+        final int row_capacity = 10;
 
-        int rows = (int) Math.ceil(capacity / (double)row_capacity);
+        int rows = (int) Math.ceil(capacity / (double) row_capacity);
         int k = capacity - ((rows - 1) * row_capacity);
 
         String type = hallEntity.getType();
-        for (int i = 1; i <= rows; i++) {
+        for (int i = 0; i <= rows; i++) {
+            if (i == 0) {
+                seatService.createSeat(SeatEntity.builder()
+                        .number(1)
+                        .row(0)
+                        .hall(hallEntity)
+                        .status("virtual")
+                        .build());
+                continue;
+            }
             for (int j = 1; j <= (i == rows ? k : row_capacity); j++) {
                 seatService.createSeat(SeatEntity.builder()
                         .number(j)
@@ -107,13 +101,4 @@ public class HallServiceImpl implements HallService {
         }
     }
 
-
-    private void fillPersonalHall(HallEntity hallEntity) {
-        seatService.createSeat(SeatEntity.builder()
-                .number(1)
-                .row(1)
-                .hall(hallEntity)
-                .status("personal")
-                .build());
-    }
 }
