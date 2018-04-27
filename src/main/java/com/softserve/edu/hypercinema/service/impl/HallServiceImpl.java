@@ -75,7 +75,7 @@ public class HallServiceImpl implements HallService {
 
         final int row_capacity = 10;
 
-        int rows = (int) Math.ceil(capacity / (double) row_capacity);
+        int rows = (capacity /row_capacity) +(capacity %10 == 0? 0:1);
         int k = capacity - ((rows - 1) * row_capacity);
 
         String type = hallEntity.getType();
@@ -85,7 +85,7 @@ public class HallServiceImpl implements HallService {
                         .number(1)
                         .row(0)
                         .hall(hallEntity)
-                        .status("virtual")
+                        .type("virtual")
                         .build());
                 continue;
             }
@@ -94,7 +94,7 @@ public class HallServiceImpl implements HallService {
                         .number(j)
                         .row(i)
                         .hall(hallEntity)
-                        .status(i == rows ? "VIP" : "base")
+                        .type(i == rows ? "VIP" : "base")
                         .build());
             }
 
