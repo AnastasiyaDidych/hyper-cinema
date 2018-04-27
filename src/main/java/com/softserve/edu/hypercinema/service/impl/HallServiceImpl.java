@@ -86,7 +86,7 @@ public class HallServiceImpl implements HallService {
                 .type("virtual")
                 .build());
 
-        for (int i = 0; i <= rows; i++) {
+        for (int i = 1; i <= rows; i++) {
             for (int j = 1; j <= (i == rows ? k : row_capacity); j++) {
                 seatService.createSeat(SeatEntity.builder()
                         .number(j)
