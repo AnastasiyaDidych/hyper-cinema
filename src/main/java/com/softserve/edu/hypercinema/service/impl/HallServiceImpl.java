@@ -65,30 +65,28 @@ public class HallServiceImpl implements HallService {
     private void fillHall(HallEntity hallEntity) {
         if (hallEntity.getType().equalsIgnoreCase(HallTypes.STATIC.toString())) {
             fillStaticHall(hallEntity);
+        } else {
+            //logic
         }
     }
 
 
     private void fillStaticHall(HallEntity hallEntity/*, int row_capacity*/) {
 
+        final int row_capacity = 10;
         int capacity = hallEntity.getCapacity();
 
-        final int row_capacity = 10;
-
-        int rows = (capacity /row_capacity) +(capacity %10 == 0? 0:1);
+        int rows = (capacity / row_capacity) + (capacity % 10 == 0 ? 0 : 1);
         int k = capacity - ((rows - 1) * row_capacity);
 
-        String type = hallEntity.getType();
+        seatService.createSeat(SeatEntity.builder()
+                .number(1)
+                .row(0)
+                .hall(hallEntity)
+                .type("virtual")
+                .build());
+
         for (int i = 0; i <= rows; i++) {
-            if (i == 0) {
-                seatService.createSeat(SeatEntity.builder()
-                        .number(1)
-                        .row(0)
-                        .hall(hallEntity)
-                        .type("virtual")
-                        .build());
-                continue;
-            }
             for (int j = 1; j <= (i == rows ? k : row_capacity); j++) {
                 seatService.createSeat(SeatEntity.builder()
                         .number(j)
