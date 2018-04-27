@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 @Data
 public class TicketDto extends BaseDto{
 
-    private Long orderId;
+//    private Long orderId;
 
     private Long sessionId;
 

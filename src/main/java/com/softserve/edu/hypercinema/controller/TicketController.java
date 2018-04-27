@@ -20,7 +20,7 @@ public class TicketController {
     @Autowired
     private TicketConverter ticketConverter;
 
-//    @PreAuthorize("hasRole('USER')")
+////    @PreAuthorize("hasRole('USER')")
 //    @PostMapping
 //    @ResponseStatus(HttpStatus.CREATED)
 //    public void createTicket(@RequestBody TicketDto ticketDto){
@@ -30,14 +30,14 @@ public class TicketController {
 //    @PreAuthorize("hasRole('USER')")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void generateTicket(@RequestBody TicketDto ticketDto){
-        ticketService.generateTicket(ticketDto);
+    public void generateTicket(@RequestBody TicketDto ticket){
+        ticketService.generateTicket(ticket);
     }
 
 //    @PreAuthorize("hasRole('MANAGER')")
     @PutMapping("/{id}")
-    public void updateTicket(@PathVariable Long id, @RequestBody TicketDto ticketDto){
-        ticketService.updateTicket(id, ticketDto);
+    public void updateTicket(@PathVariable Long id, @RequestBody TicketDto ticket){
+        ticketService.updateTicket(id, ticket);
     }
 
 //    @PreAuthorize("hasRole('MANAGER')")
