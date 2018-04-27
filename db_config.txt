@@ -30,11 +30,11 @@ VALUES
 (3, 3);
 
 
-INSERT INTO hall (id, capacity, name, type)
+INSERT INTO hall (id, capacity, name, type, tech)
 VALUES
-(1, 100, 'green', 'static'),
-(2, 50, 'red', 'static'),
-(3, 120, 'blue', 'static');
+(1, 100, 'green', 'static', '2D'),
+(2, 50, 'red', 'static', '2D'),
+(3, 120, 'blue', 'static', '3D');
 
 
 INSERT INTO seat (id, number, row, status, hall_id)

@@ -28,6 +28,9 @@ public class HallEntity extends BaseEntity {
     @Column(name = "type", nullable = false)
     private String type;
 
+    @Column(name = "tech", nullable = false)
+    private String tech;
+
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "hall")
     private List<SeatEntity> seats;
 

@@ -12,4 +12,5 @@ public class HallDto extends BaseDto {
 
     private String type;
 
+    private String tech;
 }
