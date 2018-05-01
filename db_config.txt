@@ -30,14 +30,14 @@ VALUES
 (3, 3);
 
 
-INSERT INTO hall (id, capacity, name, type)
+INSERT INTO hall (id, capacity, name, type, tech)
 VALUES
-(1, 100, 'green', 'static'),
-(2, 50, 'red', 'static'),
-(3, 120, 'blue', 'static');
+(1, 100, 'green', 'static', '2D'),
+(2, 50, 'red', 'static', '2D'),
+(3, 120, 'blue', 'static', '3D');
 
 
-INSERT INTO seat (id, number, row, status, hall_id)
+INSERT INTO seat (id, number, row, type, hall_id)
 VALUES
 (1, 1, 1, 'VIP', 1),
 (2, 5, 4, 'base', 1),
@@ -50,11 +50,11 @@ VALUES
 (2, 16, 'cool film', '120', '2018-04-25', 'horror', 100.20, '2018-02-09', 'Dracula');
 
 
-INSERT INTO session(id, date, end_time, start_time, hall_id, movie_id)
+INSERT INTO session(id, date, end_time, start_time, hall_id, movie_id, virtual_active)
 VALUES
-(1, '2018-04-26', '11:00:00', '09:45:00', 1, 1),
-(2, '2018-04-27', '14:00:00', '12:00:00', 2, 2),
-(3, '2018-04-28', '23:00:00', '21:30:00', 1, 2);
+(1, '2018-04-26', '11:00:00', '09:45:00', 1, 1, true),
+(2, '2018-04-27', '14:00:00', '12:00:00', 2, 2, true),
+(3, '2018-04-28', '23:00:00', '21:30:00', 1, 2, true);
 
 
 INSERT INTO order_ (id, is_confirmed, is_pending, user_id)

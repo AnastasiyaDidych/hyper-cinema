@@ -25,4 +25,6 @@ public interface TicketService {
 
     void updateTicket(Long id, TicketDto ticketDto);
 
+    TicketEntity buildTicketEntity(TicketDto ticketDto);
+
 }

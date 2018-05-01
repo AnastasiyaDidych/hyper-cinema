@@ -6,10 +6,13 @@ import com.softserve.edu.hypercinema.dto.HallDto;
 import com.softserve.edu.hypercinema.service.HallService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RequestMapping("/halls")
+
 public class HallController {
 
     @Autowired
@@ -19,26 +22,21 @@ public class HallController {
     private HallConverter hallConverter;
 
     @PostMapping
-    //    @PreAuthorize("hasRole('MANAGER')")
+    @PreAuthorize("hasRole('MANAGER')")
     @ResponseStatus(HttpStatus.CREATED)
     public void createHall(@RequestBody HallDto hallDto) {
         hallService.createHall(hallConverter.convertToEntity(hallDto));
     }
 
     @GetMapping("/{id}")
-//    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('USER')")
     public HallDto getHall(@PathVariable Long id) {
         return hallConverter.convertToDto(hallService.getHall(id));
     }
 
-    @PutMapping
-    //    @PreAuthorize("hasRole('MANAGER')")
-    public void updateHall(@RequestBody HallDto hallDto) {
-        hallService.updateHall(hallConverter.convertToEntity(hallDto));
-    }
 
     @DeleteMapping("/{id}")
-//    @PreAuthorize("hasRole('MANAGER')")
+    @PreAuthorize("hasRole('MANAGER')")
     public void deleteHall(@PathVariable Long id) {
         hallService.deleteHall(id);
     }

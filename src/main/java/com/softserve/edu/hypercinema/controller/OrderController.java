@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RequestMapping("/orders")
 public class OrderController {
 
@@ -19,10 +20,16 @@ public class OrderController {
     @Autowired
     private OrderConverter orderConvertor;
 
+//    @PostMapping
+//    @ResponseStatus(HttpStatus.CREATED)
+//    public void createOrder(@RequestBody OrderDto order) {
+//        orderService.createOrder(orderConvertor.convertToEntity(order));
+//    }
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void createOrder(@RequestBody OrderDto order) {
-        orderService.createOrder(orderConvertor.convertToEntity(order));
+        orderService.createOrder(order);
     }
 
     @PutMapping

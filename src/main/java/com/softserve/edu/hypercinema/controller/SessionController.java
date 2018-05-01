@@ -12,13 +12,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.softserve.edu.hypercinema.entity.SessionEntity;
 import com.softserve.edu.hypercinema.service.SessionService;
+import com.softserve.edu.hypercinema.util.SessionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RequestMapping("/sessions")
 public class SessionController {
     @Autowired
@@ -28,37 +31,43 @@ public class SessionController {
     private SessionConverter sessionConverter;
 
 
-//    @PostMapping("/create")
-//    public void createSession(@RequestBody SessionDto sessionDto) {
-//        sessionService.createSession(sessionConverter.convertToEntity(sessionDto));
-//    }
+    private SessionUtil sessionUtil;
+
+
+
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('MANAGER')")
     public void updateSession(@RequestBody SessionDto sessionDto) {
         sessionService.updateSession(sessionConverter.convertToEntity(sessionDto));
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('MANAGER')")
     public void deleteSession(@PathVariable Long id) {
         sessionService.deleteSession(id);
     }
 
+
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('USER')")
     public SessionDto getSession(@PathVariable Long id) {
         return sessionConverter.convertToDto(sessionService.getSession(id));
     }
 
 
     @GetMapping
+    @PreAuthorize("hasRole('USER')")
     public List<SessionDto> getSessions() {
         return sessionConverter.convertToDto(sessionService.getSessions());
     }
 
 
     @PostMapping
-    public void gen(@RequestBody SessionDto sessionDto) {
+    @PreAuthorize("hasRole('MANAGER')")
+    public void generateSession(@RequestBody SessionDto sessionDto) {
 
-        sessionService.generateSession(sessionDto);
+        sessionUtil.generateSession(sessionDto);
     }
 
     }
