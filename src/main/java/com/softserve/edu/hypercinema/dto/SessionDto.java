@@ -4,6 +4,7 @@ import com.softserve.edu.hypercinema.entity.HallEntity;
 import com.softserve.edu.hypercinema.entity.MovieEntity;
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -15,8 +16,7 @@ public class SessionDto extends BaseDto {
     private Long hallId;
     private String date;
     private String startTime;
-
-
-
+    private BigDecimal basePrice;
+    private BigDecimal vipPrice;
 
 }

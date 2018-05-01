@@ -4,8 +4,11 @@ package com.softserve.edu.hypercinema.service;
 import com.softserve.edu.hypercinema.dto.SessionDto;
 import com.softserve.edu.hypercinema.entity.HallEntity;
 import com.softserve.edu.hypercinema.entity.MovieEntity;
+import com.softserve.edu.hypercinema.entity.SeatEntity;
 import com.softserve.edu.hypercinema.entity.SessionEntity;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
 public interface SessionService {
@@ -28,5 +31,9 @@ public interface SessionService {
 
     public void generateSession(SessionDto sessionDto);
 
+    BigDecimal getBasePrice(SessionEntity sessionEntity);
 
+    BigDecimal getVipPrice(SessionEntity sessionEntity);
+
+    List<BigDecimal> getCoefs(MovieEntity movieEntity, LocalDate sessionDay, SeatEntity seatEntity);
 }
