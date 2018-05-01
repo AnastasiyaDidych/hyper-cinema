@@ -70,6 +70,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 				}
 			}
 		}
+
 		return null;
 	}
 

@@ -26,20 +26,15 @@ import java.util.List;
 @Service
 @Transactional
 public class SessionServiceImpl  implements SessionService {
-    private final String MOVIE_ALREADY_EXISTS_MESSAGE = "tu loh";
-    final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    DateTimeFormatter TIME_FORMATER=DateTimeFormatter.ofPattern("HH mm");
+
+
     @Autowired
     private SessionRepository sessionRepository;
 
     @Autowired
     private TicketService ticketService;
 
-    @Autowired
-    private MovieService movieService;
 
-    @Autowired
-    private HallService hallService;
 
     @Override
     public SessionEntity getSession(Long id) {
@@ -67,10 +62,8 @@ public class SessionServiceImpl  implements SessionService {
     }
 
 
-
-
     private void generateTicketsForSession(SessionEntity sessionEntity) {
-        for(int i =0;i<=sessionEntity.getHall().getCapacity();i++) {
+        for (int i = 0; i <= sessionEntity.getHall().getCapacity(); i++) {
             TicketEntity ticketEntity = new TicketEntity();
             ticketEntity.setSession(sessionEntity);
             sessionEntity.getTickets().add(ticketEntity);
@@ -79,24 +72,16 @@ public class SessionServiceImpl  implements SessionService {
         }
 
     }
-    @Override
-    public void generateSession(SessionDto sessionDto)   {
 
-        SessionEntity sessionEntity = new SessionEntity();
-        MovieEntity movieEntity = movieService.getMovieById(sessionDto.getMovieId());
-        sessionEntity.setMovie(movieEntity);
-        sessionEntity.setHall(hallService.getHallById(sessionDto.getHallId()));
-        sessionEntity.setDate(LocalDate.parse(sessionDto.getDate(),DATE_FORMAT));
-        LocalTime startTime = LocalTime.parse(sessionDto.getStartTime(),TIME_FORMATER);
-        sessionEntity.setStartTime(startTime);
-        sessionEntity.setEndTime(startTime.plusMinutes(movieEntity.getDuration()+15));
-        //generateTicketsForSession(sessionEntity);
-        createSession(sessionEntity);
 
+
+
+    public void generateSessionsForOneFilmForOneHallEnd(SessionDto sessionDto) {
 
     }
 
+    public void copySessionsForOneWeek(SessionDto sessionDto) {
 
-
+    }
 }
 

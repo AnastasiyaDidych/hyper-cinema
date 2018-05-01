@@ -1,16 +1,20 @@
 package com.softserve.edu.hypercinema.controller;
 
 import com.softserve.edu.hypercinema.converter.UserConverter;
+import com.softserve.edu.hypercinema.dto.SessionDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import com.softserve.edu.hypercinema.dto.UserDto;
 import com.softserve.edu.hypercinema.service.UserService;
 
 import java.security.Principal;
+import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RequestMapping("/api/users")
 public class UserApiController {
 
@@ -43,6 +47,7 @@ public class UserApiController {
     public void deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
     }
+
 
 //    @PreAuthorize("hasRole('USER')")
     @GetMapping("/me")

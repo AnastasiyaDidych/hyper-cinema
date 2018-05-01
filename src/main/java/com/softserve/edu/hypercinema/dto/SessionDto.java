@@ -15,6 +15,7 @@ public class SessionDto extends BaseDto {
     private Long hallId;
     private String date;
     private String startTime;
+    private boolean virtualActive;
 
 
 
