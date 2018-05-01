@@ -50,14 +50,12 @@ public class SessionController {
 
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('USER')")
     public SessionDto getSession(@PathVariable Long id) {
         return sessionConverter.convertToDto(sessionService.getSession(id));
     }
 
 
     @GetMapping
-    @PreAuthorize("hasRole('USER')")
     public List<SessionDto> getSessions() {
         return sessionConverter.convertToDto(sessionService.getSessions());
     }
