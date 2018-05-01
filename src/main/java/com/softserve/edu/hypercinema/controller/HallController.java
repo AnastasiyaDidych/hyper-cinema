@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
-@RequestMapping("/api/halls")
+@RequestMapping("/halls")
+
 public class HallController {
 
     @Autowired
@@ -32,10 +33,10 @@ public class HallController {
         return hallConverter.convertToDto(hallService.getHall(id));
     }
 
-    @PutMapping
+    @PutMapping("/{id}")
     //    @PreAuthorize("hasRole('MANAGER')")
-    public void updateHall(@RequestBody HallDto hallDto) {
-        hallService.updateHall(hallConverter.convertToEntity(hallDto));
+    public void updateHall(@PathVariable Long id, @RequestBody HallDto hallDto) {
+        hallService.updateHall(id, hallConverter.convertToEntity(hallDto));
     }
 
     @DeleteMapping("/{id}")

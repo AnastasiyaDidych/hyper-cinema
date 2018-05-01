@@ -1,8 +1,6 @@
 package com.softserve.edu.hypercinema.entity;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -14,6 +12,8 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
+@Builder
+@AllArgsConstructor
 public class TicketEntity extends BaseEntity{
 
     @Id
@@ -22,17 +22,14 @@ public class TicketEntity extends BaseEntity{
     private Long id;
 
 //    @NotEmpty
-    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id", nullable = false)
     private OrderEntity order;
 
 //    @NotEmpty
-    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE})
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "session_id",  nullable = false)
     private SessionEntity session;
-
-//    @OneToOne(mappedBy = "ticket", cascade = CascadeType.ALL)
-//    private PriceEntity price;
 
     @Column(name = "price", columnDefinition = "DECIMAL(6,2)")
     private BigDecimal price;
@@ -44,7 +41,7 @@ public class TicketEntity extends BaseEntity{
     private List<CoefficientEntity> coefficients;
 
 //    @NotEmpty
-    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "seat_id")
     private SeatEntity seat;
 

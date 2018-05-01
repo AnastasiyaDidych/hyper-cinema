@@ -6,6 +6,7 @@ import lombok.Setter;
 import org.hibernate.annotations.Type;
 import sun.security.krb5.internal.Ticket;
 
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -45,10 +46,8 @@ public class SessionEntity extends BaseEntity {
     @JoinColumn(name = "movie_id")
     private MovieEntity movie;
 
-
     @ManyToOne
     @JoinColumn(name = "hall_id")
     private HallEntity hall;
-
 
 }

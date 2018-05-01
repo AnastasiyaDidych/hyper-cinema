@@ -1,9 +1,8 @@
 package com.softserve.edu.hypercinema.service.impl;
 
-import com.softserve.edu.hypercinema.constants.HALL_TYPES;
+import com.softserve.edu.hypercinema.constants.HallTypes;
 import com.softserve.edu.hypercinema.entity.HallEntity;
 import com.softserve.edu.hypercinema.entity.SeatEntity;
-import com.softserve.edu.hypercinema.exception.ConflictException;
 import com.softserve.edu.hypercinema.exception.HallNotFoundException;
 import com.softserve.edu.hypercinema.exception.InvalidDataException;
 import com.softserve.edu.hypercinema.repository.HallRepository;
@@ -51,8 +50,8 @@ public class HallServiceImpl implements HallService {
     }
 
     @Override
-    public void updateHall(HallEntity hallEntity) {
-        getHall(hallEntity.getId());
+    public void updateHall(Long id, HallEntity hallEntity) {
+        hallEntity.setId(id);
         hallRepository.save(hallEntity);
     }
 
@@ -64,56 +63,40 @@ public class HallServiceImpl implements HallService {
 
 
     private void fillHall(HallEntity hallEntity) {
-
-        String type = hallEntity.getType().toUpperCase();
-
-        switch (HALL_TYPES.valueOf(type)) {
-            case STATIC:
-                fillStaticHall(hallEntity);
-                break;
-            case VIRTUAL:
-                //TODO
-                break;
-            case PERSONAL:
-                fillPersonalHall(hallEntity);
-                break;
-            default:
-                //TODO
-                //logic
-                break;
+        if (hallEntity.getType().equalsIgnoreCase(HallTypes.STATIC.toString())) {
+            fillStaticHall(hallEntity);
+        } else {
+            //logic
         }
     }
 
 
-    private void fillStaticHall(HallEntity hallEntity) {
+    private void fillStaticHall(HallEntity hallEntity/*, int row_capacity*/) {
 
+        final int row_capacity = 10;
         int capacity = hallEntity.getCapacity();
 
-        //fails when I set 30, 40, 100 capacity
-        //because than there are 4, 5 and 11 rows
-        int rows = (capacity / 10) + 1;
-        int k = capacity - ((rows - 1) * 10);
-        final int row_capacity = 10;
-        String type = hallEntity.getType();
+        int rows = (capacity / row_capacity) + (capacity % 10 == 0 ? 0 : 1);
+        int k = capacity - ((rows - 1) * row_capacity);
+
+        seatService.createSeat(SeatEntity.builder()
+                .number(1)
+                .row(0)
+                .hall(hallEntity)
+                .type("virtual")
+                .build());
+
         for (int i = 1; i <= rows; i++) {
             for (int j = 1; j <= (i == rows ? k : row_capacity); j++) {
                 seatService.createSeat(SeatEntity.builder()
                         .number(j)
                         .row(i)
                         .hall(hallEntity)
-                        .status(i == rows ? "VIP" : "base").build());
+                        .type(i == rows ? "VIP" : "base")
+                        .build());
             }
 
         }
     }
 
-
-    private void fillPersonalHall(HallEntity hallEntity) {
-        seatService.createSeat(SeatEntity.builder()
-                .number(1)
-                .row(1)
-                .hall(hallEntity)
-                .status("personal")
-                .build());
-    }
 }

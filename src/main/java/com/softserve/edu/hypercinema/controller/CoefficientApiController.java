@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
-@RequestMapping("/api/coefficients")
+@RequestMapping("/coefficients")
 public class CoefficientApiController {
 
     @Autowired

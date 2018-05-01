@@ -12,7 +12,7 @@ public interface HallService {
 
     HallEntity getHall(Long id);
 
-    void updateHall(HallEntity hallEntity);
+    void updateHall(Long id, HallEntity hallEntity);
 
     void deleteHall(Long id);
 

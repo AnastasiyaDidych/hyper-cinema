@@ -1,12 +1,15 @@
 package com.softserve.edu.hypercinema.constants;
 
-public enum HALL_TYPES {
+public enum HallTypes {
+
     STATIC("STATIC"),
     VIRTUAL("VIRTUAL"),
     PERSONAL("PERSONAL");
 
     private String type;
-    private HALL_TYPES(String type){
+
+    HallTypes(String type){
         this.type = type;
     }
+
 }
