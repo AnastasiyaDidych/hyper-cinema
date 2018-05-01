@@ -1,20 +1,20 @@
 package com.softserve.edu.hypercinema.controller;
 
-import com.softserve.edu.hypercinema.entity.UserEntity;
+import com.softserve.edu.hypercinema.converter.UserConverter;
 import com.softserve.edu.hypercinema.exception.UserAlreadyExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import org.springframework.web.bind.annotation.*;
-import com.softserve.edu.hypercinema.converter.UserConverter;
 import com.softserve.edu.hypercinema.dto.UserDto;
 import com.softserve.edu.hypercinema.service.UserService;
 
 import java.security.Principal;
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/users")
 public class UserApiController {
 
     @Autowired
@@ -27,6 +27,7 @@ public class UserApiController {
     private UserConverter userConverter;
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public void createUser(@RequestBody UserDto userDto) {
         userDto.setPassword(bCryptPasswordEncoder.encode(userDto.getPassword()));
        try {
@@ -36,11 +37,13 @@ public class UserApiController {
        }
     }
 
+
     @PreAuthorize("hasRole('USER')")
     @PutMapping
     public void updateUser(@RequestBody UserDto userDto, Principal principal) {
         userService.updateUser(userConverter.convertToEntity(userDto), principal);
     }
+
 
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/{id}")

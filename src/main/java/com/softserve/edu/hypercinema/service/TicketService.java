@@ -1,5 +1,6 @@
 package com.softserve.edu.hypercinema.service;
 
+import com.softserve.edu.hypercinema.dto.TicketDto;
 import com.softserve.edu.hypercinema.entity.TicketEntity;
 
 import java.util.List;
@@ -10,12 +11,18 @@ public interface TicketService {
 
     TicketEntity getTicket(Long id);
 
-    List<TicketEntity> selectAllTickets();
+    List<TicketEntity> getTickets();
 
     void updateTicket(TicketEntity ticketEntity);
 
-    void deleteTicketById(Long id);
+    void updateTicket(Long id, TicketEntity ticketEntity);
+
+    void deleteTicket(Long id);
 
     void deleteTicket(TicketEntity ticketEntity);
+
+    void generateTicket(TicketDto ticketDto);
+
+    void updateTicket(Long id, TicketDto ticketDto);
 
 }

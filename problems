@@ -1,26 +1,7 @@
-price table
-hall is not connected with розклад
-missing some columns in розклад
+- movie remove pattern from LocalData
 
+- put with {id}
 
-{
-Caused by: com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException: 
-Cannot add or update a child row: a foreign key constraint fails (`hyper-cinema`.`#sql-4f4_1bc`, 
-CONSTRAINT `FK9s3xebn2koesgo2oeabs9djvf` FOREIGN KEY (`id`) REFERENCES `schedule` (`id`))
+- delele ...Service, leave only Generic Converter
 
-    Background
-    I found out the answer to my own question. It was never a problem with any of the actual database handling. 
-    It turns out, when I was passing the id to be used as the foreign id in hashtags and references, 
-    I was getting my id from a counter in the main class; where every new tweet had a number that went with each 
-    hashtag and reference for that tweet that would later be used as a foreign key. 		
-    That foreign key would reference the primary key in the tweets table, which auto increments.
-    
-    Here was the problem:
-    It turns out that MySQL is NOT zero-indexed when you auto-increment; 
-    where the first value is zero, then one, then two, etc. Instead, it starts at one. 
-    So when I tried to reference the primary key with the foreign key, 
-    the counter that started at zero for every tweet that I assigned (the foreign key) 
-    was being incorrectly matched to the auto incrementing tweet id in the tweets table (primary key).
-    
-    Therefore, I was always off by one.
-}
+- delete pattern for Start and end of rent

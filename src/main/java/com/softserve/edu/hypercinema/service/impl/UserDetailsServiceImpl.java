@@ -1,5 +1,6 @@
 package com.softserve.edu.hypercinema.service.impl;
 
+
 import com.softserve.edu.hypercinema.entity.RoleEntity;
 import com.softserve.edu.hypercinema.entity.UserEntity;
 import com.softserve.edu.hypercinema.exception.UserNotFoundException;
@@ -11,6 +12,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -19,8 +21,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-@Primary
 @Transactional
+@Primary
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
@@ -35,4 +37,5 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         }
         return new User(userEntity.getEmail(),userEntity.getPassword(),authorities);
     }
+
 }

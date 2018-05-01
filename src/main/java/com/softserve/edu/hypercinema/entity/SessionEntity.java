@@ -3,7 +3,6 @@ package com.softserve.edu.hypercinema.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import sun.security.krb5.internal.Ticket;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -30,19 +29,19 @@ public class SessionEntity extends BaseEntity {
     @Column (name = "end_time")
     private LocalTime endTime;
 
+    @Column(name = "virtual_active")
+    private boolean virtualActive;
+
     @OneToMany(mappedBy = "session")
     private List<TicketEntity> tickets;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "movie_id")
     private MovieEntity movie;
 
-
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "hall_id")
     private HallEntity hall;
 
-//    @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
-//    @JoinColumn(name = "schedule_id")
-//    private ScheduleEntity schedule;
+
 }
