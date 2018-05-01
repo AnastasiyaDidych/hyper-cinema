@@ -37,7 +37,7 @@ VALUES
 (3, 120, 'blue', 'static', '3D');
 
 
-INSERT INTO seat (id, number, row, status, hall_id)
+INSERT INTO seat (id, number, row, type, hall_id)
 VALUES
 (1, 1, 1, 'VIP', 1),
 (2, 5, 4, 'base', 1),
