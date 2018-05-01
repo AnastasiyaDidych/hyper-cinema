@@ -11,7 +11,6 @@ import com.softserve.edu.hypercinema.service.TicketService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import sun.security.krb5.internal.Ticket;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -71,15 +70,10 @@ public class TicketServiceImpl implements TicketService {
         ticketRepository.delete(ticketEntity);
     }
 
+
+
     @Override
     public void generateTicket(TicketDto ticketDto) {
-//        TicketEntity ticketEntity = new TicketEntity();
-//        TicketEntity.builder()
-//                .order(orderService.getOrder(ticketDto.getOrderId()))
-//                .session(sessionService.getSession(ticketDto.getSessionId()))
-//                .seat(seatService.getSeat(ticketDto.getSeatId()))
-//                .price(ticketDto.getPrice())
-//                .build();
         ticketRepository.save(buildTicketEntity(ticketDto));
     }
 
@@ -90,13 +84,12 @@ public class TicketServiceImpl implements TicketService {
             ticketEntity.setId(id);
             ticketRepository.save(ticketEntity);
         }
-
-
     }
 
-    private TicketEntity buildTicketEntity(TicketDto ticketDto){
+    @Override
+    public TicketEntity buildTicketEntity(TicketDto ticketDto){
        return TicketEntity.builder()
-                .order(orderService.getOrder(ticketDto.getOrderId()))
+//                .order(orderService.getOrder(ticketDto.getOrderId()))
                 .session(sessionService.getSession(ticketDto.getSessionId()))
                 .seat(seatService.getSeat(ticketDto.getSeatId()))
                 .price(ticketDto.getPrice())

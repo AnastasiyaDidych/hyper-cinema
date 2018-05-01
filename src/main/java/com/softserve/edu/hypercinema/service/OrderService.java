@@ -1,5 +1,6 @@
 package com.softserve.edu.hypercinema.service;
 
+import com.softserve.edu.hypercinema.dto.OrderDto;
 import com.softserve.edu.hypercinema.entity.OrderEntity;
 import com.softserve.edu.hypercinema.entity.UserEntity;
 import com.softserve.edu.hypercinema.repository.OrderRepository;
@@ -24,4 +25,6 @@ public interface OrderService {
     void deleteOrder(Long id);
 
     void deleteOrder(OrderEntity orderEntity);
+
+    void createOrder(OrderDto orderDto);
 }
