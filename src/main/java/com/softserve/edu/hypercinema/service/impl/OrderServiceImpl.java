@@ -15,8 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.security.Principal;
-import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -42,9 +40,6 @@ public class OrderServiceImpl implements OrderService {
     public void createOrder(OrderEntity orderEntity) {
         orderRepository.save(orderEntity);
     }
-
-
-
 
     @Override
     public List<OrderEntity> getOrders() {
@@ -72,7 +67,7 @@ public class OrderServiceImpl implements OrderService {
         orderRepository.delete(orderEntity);
     }
 
-    // костиль
+    // Oliksiy should fix this method
     private UserEntity getCurrentUser(){
         return userService.getUser(1L);
     }
