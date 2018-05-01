@@ -3,11 +3,9 @@ package com.softserve.edu.hypercinema.util;
 import com.softserve.edu.hypercinema.dto.SessionDto;
 import com.softserve.edu.hypercinema.entity.MovieEntity;
 import com.softserve.edu.hypercinema.entity.SessionEntity;
-import com.softserve.edu.hypercinema.repository.SessionRepository;
 import com.softserve.edu.hypercinema.service.HallService;
 import com.softserve.edu.hypercinema.service.MovieService;
 import com.softserve.edu.hypercinema.service.SessionService;
-import com.softserve.edu.hypercinema.service.impl.SessionServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDate;
@@ -23,6 +21,7 @@ public class SessionUtil {
     private SessionService sessionService;
     @Autowired
     private MovieService movieService;
+
     @Autowired
     private  HallService hallService;
 

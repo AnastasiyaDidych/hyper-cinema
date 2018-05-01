@@ -29,5 +29,9 @@ public interface SessionService {
     List<BigDecimal> getCoefs(MovieEntity movieEntity, LocalDate sessionDay, SeatEntity seatEntity);
 
 
+    BigDecimal getBasePrice(SessionEntity sessionEntity);
 
+    BigDecimal getVipPrice(SessionEntity sessionEntity);
+
+    List<BigDecimal> getCoefs(MovieEntity movieEntity, LocalDate sessionDay, SeatEntity seatEntity);
 }

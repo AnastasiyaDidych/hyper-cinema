@@ -21,6 +21,8 @@ public class ApiExceptionHandlerController {
             httpStatus = HttpStatus.FORBIDDEN;
         } else if (e instanceof ConflictException) {
             httpStatus = HttpStatus.CONFLICT;
+        } else if (e instanceof InvalidDataException) {
+            httpStatus = HttpStatus.BAD_REQUEST;
         } else {
             httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
         }
