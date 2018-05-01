@@ -1,21 +1,18 @@
 package com.softserve.edu.hypercinema.service.impl;
 
-import com.softserve.edu.hypercinema.dto.SessionDto;
 import com.softserve.edu.hypercinema.entity.MovieEntity;
+import com.softserve.edu.hypercinema.entity.SeatEntity;
 import com.softserve.edu.hypercinema.entity.SessionEntity;
-import com.softserve.edu.hypercinema.entity.TicketEntity;
 import com.softserve.edu.hypercinema.repository.SessionRepository;
-import com.softserve.edu.hypercinema.service.HallService;
-import com.softserve.edu.hypercinema.service.MovieService;
 import com.softserve.edu.hypercinema.service.SessionService;
-import com.softserve.edu.hypercinema.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -28,11 +25,6 @@ public class SessionServiceImpl  implements SessionService {
 
     @Autowired
     private SessionRepository sessionRepository;
-
-    @Autowired
-    private TicketService ticketService;
-
-
 
     @Override
     public SessionEntity getSession(Long id) {
@@ -59,45 +51,11 @@ public class SessionServiceImpl  implements SessionService {
         return sessionRepository.findAll();
     }
 
-
-    private void generateTicketsForSession(SessionEntity sessionEntity) {
-        for (int i = 0; i <= sessionEntity.getHall().getCapacity(); i++) {
-            TicketEntity ticketEntity = new TicketEntity();
-            ticketEntity.setSession(sessionEntity);
-            sessionEntity.getTickets().add(ticketEntity);
-            //ticketRepository.save(ticketEntity);
-            ticketService.createTicket(ticketEntity);
-        }
-
-    }
-
-
-
-
-
-    public void generateSessionsForOneFilmForOneHallEnd(SessionDto sessionDto) {
-
-    }
-
-    public void copySessionsForOneWeek(SessionDto sessionDto) {
-
-    }
-
+    // TEMPORARY METHODS
 
     @Override
-    public void generateSession(SessionDto sessionDto)   {
-
-        SessionEntity sessionEntity = new SessionEntity();
-        MovieEntity movieEntity = movieService.getMovie(sessionDto.getMovieId());
-        sessionEntity.setMovie(movieEntity);
-        sessionEntity.setHall(hallService.getHall(sessionDto.getHallId()));
-        sessionEntity.setDate(LocalDate.parse(sessionDto.getDate(),DATE_FORMAT));
-        LocalTime startTime = LocalTime.parse(sessionDto.getStartTime(),TIME_FORMATTER);
-        sessionEntity.setStartTime(startTime);
-        sessionEntity.setEndTime(startTime.plusMinutes(movieEntity.getDuration()+15));
-        //generateTicketsForSession(sessionEntity);
-        createSession(sessionEntity);
-
+    public List<BigDecimal> getCoefs(MovieEntity movieEntity, LocalDate sessionDay, SeatEntity seatEntity) {
+        return Arrays.asList(BigDecimal.valueOf(2), BigDecimal.valueOf(0.8), BigDecimal.valueOf(1.3), BigDecimal.valueOf(1.1));
     }
 
 }

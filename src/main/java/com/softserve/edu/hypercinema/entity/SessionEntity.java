@@ -33,14 +33,10 @@ public class SessionEntity extends BaseEntity {
     private LocalTime endTime;
 
     @Column (name = "virtual_active")
-    @Type(type = "org.hibernate.type.NumericBooleanType")
     private boolean virtualActive;
 
     @OneToMany(mappedBy = "session")
     private List<TicketEntity> tickets;
-
-
-    @OneToMany(mappedBy = "")
 
     @ManyToOne
     @JoinColumn(name = "movie_id")

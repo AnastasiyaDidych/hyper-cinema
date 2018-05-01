@@ -3,12 +3,9 @@ package com.softserve.edu.hypercinema.controller;
 
 import com.softserve.edu.hypercinema.converter.SessionConverter;
 import com.softserve.edu.hypercinema.dto.SessionDto;
-import com.softserve.edu.hypercinema.entity.SessionEntity;
 import com.softserve.edu.hypercinema.service.SessionService;
-import com.softserve.edu.hypercinema.util.SessionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,11 +19,6 @@ public class SessionController {
 
     @Autowired
     private SessionConverter sessionConverter;
-
-
-    private SessionUtil sessionUtil;
-
-
 
 
     @PutMapping("/{id}")
@@ -48,19 +40,10 @@ public class SessionController {
         return sessionConverter.convertToDto(sessionService.getSession(id));
     }
 
-
     @GetMapping
     @PreAuthorize("hasRole('USER')")
     public List<SessionDto> getSessions() {
         return sessionConverter.convertToDto(sessionService.getSessions());
-    }
-
-
-    @PostMapping
-    @PreAuthorize("hasRole('MANAGER')")
-    public void generateSession(@RequestBody SessionDto sessionDto) {
-
-        sessionUtil.generateSession(sessionDto);
     }
 
 }

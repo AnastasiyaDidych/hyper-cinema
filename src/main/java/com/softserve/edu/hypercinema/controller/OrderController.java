@@ -20,16 +20,10 @@ public class OrderController {
     @Autowired
     private OrderConverter orderConvertor;
 
-//    @PostMapping
-//    @ResponseStatus(HttpStatus.CREATED)
-//    public void createOrder(@RequestBody OrderDto order) {
-//        orderService.createOrder(orderConvertor.convertToEntity(order));
-//    }
-
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void createOrder(@RequestBody OrderDto order) {
-        orderService.createOrder(order);
+        orderService.createOrder(orderConvertor.convertToEntity(order));
     }
 
     @PutMapping

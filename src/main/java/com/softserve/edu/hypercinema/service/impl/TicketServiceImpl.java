@@ -1,18 +1,18 @@
 package com.softserve.edu.hypercinema.service.impl;
 
-import com.softserve.edu.hypercinema.dto.TicketDto;
-import com.softserve.edu.hypercinema.entity.TicketEntity;
+import com.softserve.edu.hypercinema.constants.CoefficientType;
+import com.softserve.edu.hypercinema.entity.*;
 import com.softserve.edu.hypercinema.exception.TicketNotFoundException;
 import com.softserve.edu.hypercinema.repository.TicketRepository;
-import com.softserve.edu.hypercinema.service.OrderService;
-import com.softserve.edu.hypercinema.service.SeatService;
-import com.softserve.edu.hypercinema.service.SessionService;
-import com.softserve.edu.hypercinema.service.TicketService;
+import com.softserve.edu.hypercinema.service.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -29,13 +29,11 @@ public class TicketServiceImpl implements TicketService {
     private SessionService sessionService;
 
     @Autowired
-    private SeatService seatService;
-
-    @Autowired
-    private OrderService orderService;
+    private MovieService movieService;
 
     @Override
     public void createTicket(TicketEntity ticketEntity) {
+        setTicketCoefficients(ticketEntity);
         ticketRepository.save(ticketEntity);
     }
 
@@ -50,14 +48,13 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public void updateTicket(TicketEntity ticketEntity) {
-        ticketRepository.save(ticketEntity);
-    }
-
-    @Override
     public void updateTicket(Long id, TicketEntity ticketEntity) {
-        ticketEntity.setId(id);
-        ticketRepository.save(ticketEntity);
+        if (getTicket(id) != null) {
+            ticketEntity.setId(id);
+            ticketRepository.save(ticketEntity);
+        } else {
+            throw new TicketNotFoundException(TICKET_NOT_FOUND_MESSAGE + id);
+        }
     }
 
     @Override
@@ -65,35 +62,28 @@ public class TicketServiceImpl implements TicketService {
         ticketRepository.deleteById(id);
     }
 
-    @Override
-    public void deleteTicket(TicketEntity ticketEntity) {
-        ticketRepository.delete(ticketEntity);
-    }
+    public void setTicketCoefficients(TicketEntity ticket) {
+        SessionEntity sessionEntity = ticket.getSession();
+        MovieEntity movieEntity = movieService.getMovie(sessionEntity.getMovie().getId());
+        LocalDate sessionDate = sessionEntity.getDate();
+        SeatEntity seatEntity = ticket.getSeat();
 
+        List<BigDecimal> coeffValues = sessionService.getCoefs(movieEntity, sessionDate, seatEntity);
+        List<CoefficientEntity> ticketCoefficients = new ArrayList<>();
 
-
-    @Override
-    public void generateTicket(TicketDto ticketDto) {
-        ticketRepository.save(buildTicketEntity(ticketDto));
-    }
-
-    @Override
-    public void updateTicket(Long id, TicketDto ticketDto) {
-        if (getTicket(id) != null){
-            TicketEntity ticketEntity = buildTicketEntity(ticketDto);
-            ticketEntity.setId(id);
-            ticketRepository.save(ticketEntity);
+        for (BigDecimal coeff : coeffValues) {
+            /* Do not write coefficient to DB if == 1 */
+            if (!coeff.equals(CoefficientType.DEF.getValue())) {
+                for (CoefficientType enumCoeff : CoefficientType.values()) {
+                    if (coeff.equals(enumCoeff.getValue())) {
+                        CoefficientEntity coefficientEntity = new CoefficientEntity();
+                        coefficientEntity.setId(enumCoeff.getId());
+                        ticketCoefficients.add(coefficientEntity);
+                    }
+                }
+            }
         }
-    }
-
-    @Override
-    public TicketEntity buildTicketEntity(TicketDto ticketDto){
-       return TicketEntity.builder()
-//                .order(orderService.getOrder(ticketDto.getOrderId()))
-                .session(sessionService.getSession(ticketDto.getSessionId()))
-                .seat(seatService.getSeat(ticketDto.getSeatId()))
-                .price(ticketDto.getPrice())
-                .build();
+        ticket.setCoefficients(ticketCoefficients);
     }
 
 }
