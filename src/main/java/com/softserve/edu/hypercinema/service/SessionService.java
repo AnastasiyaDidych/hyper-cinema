@@ -26,7 +26,7 @@ public interface SessionService {
    // void generateSession(MovieEntity movieEntity, HallEntity hallEntity,
                //          String date, String time);
 
-    public void generateSession(SessionDto sessionDto);
+
 
 
 }
