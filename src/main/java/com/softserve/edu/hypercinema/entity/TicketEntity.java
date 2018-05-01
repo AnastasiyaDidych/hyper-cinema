@@ -22,8 +22,8 @@ public class TicketEntity extends BaseEntity{
     private Long id;
 
 //    @NotEmpty
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "order_id", nullable = false)
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @JoinColumn(name = "order_id") //removed nullable = false
     private OrderEntity order;
 
 //    @NotEmpty
@@ -40,7 +40,6 @@ public class TicketEntity extends BaseEntity{
             inverseJoinColumns = @JoinColumn(name = "coefficient_id"))
     private List<CoefficientEntity> coefficients;
 
-//    @NotEmpty
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "seat_id")
     private SeatEntity seat;

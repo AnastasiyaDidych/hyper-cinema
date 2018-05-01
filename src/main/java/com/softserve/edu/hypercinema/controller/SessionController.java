@@ -3,6 +3,13 @@ package com.softserve.edu.hypercinema.controller;
 
 import com.softserve.edu.hypercinema.converter.SessionConverter;
 import com.softserve.edu.hypercinema.dto.SessionDto;
+import com.softserve.edu.hypercinema.service.SessionService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.softserve.edu.hypercinema.entity.SessionEntity;
 import com.softserve.edu.hypercinema.service.SessionService;
 import com.softserve.edu.hypercinema.util.SessionUtil;
@@ -63,5 +70,6 @@ public class SessionController {
         sessionUtil.generateSession(sessionDto);
     }
 
-}
+    }
+
 
