@@ -3,7 +3,9 @@ package com.softserve.edu.hypercinema.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Type;
 import sun.security.krb5.internal.Ticket;
+
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -31,13 +33,15 @@ public class SessionEntity extends BaseEntity {
     @Column (name = "end_time")
     private LocalTime endTime;
 
+    @Column (name = "virtual_active")
+    private boolean virtualActive;
+
     @OneToMany(mappedBy = "session")
     private List<TicketEntity> tickets;
 
     @ManyToOne
     @JoinColumn(name = "movie_id")
     private MovieEntity movie;
-
 
     @ManyToOne
     @JoinColumn(name = "hall_id")

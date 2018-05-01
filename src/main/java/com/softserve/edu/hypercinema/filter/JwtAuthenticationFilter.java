@@ -36,7 +36,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 	public JwtAuthenticationFilter(AuthenticationManager authenticationManager, SecretKey secretKey) {
 		this.authenticationManager = authenticationManager;
 		this.secretKey = secretKey;
-		this.setFilterProcessesUrl("/api/auth/login");
+		this.setFilterProcessesUrl("/auth/login");
 	}
 
 	@Override
@@ -68,6 +68,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 				.signWith(SignatureAlgorithm.HS512, secretKey)
 				.compact();
 		res.addHeader(HEADER_STRING, TOKEN_PREFIX + token);
+		System.out.println(token);
 	}
 
 }

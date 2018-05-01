@@ -33,7 +33,6 @@ public class MovieEntity extends BaseEntity{
 
     private int duration;
 
-
     private String genre;
 
     @Column(name = "start_rent")
@@ -50,7 +49,6 @@ public class MovieEntity extends BaseEntity{
 
     @Column(columnDefinition = "DECIMAL(5,2)")
     private BigDecimal price;
-
 
     @OneToMany(mappedBy = "movie")
     private List<SessionEntity> schedule;

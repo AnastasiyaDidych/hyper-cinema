@@ -7,10 +7,12 @@ import java.math.BigDecimal;
 @Data
 public class TicketDto extends BaseDto{
 
-    private SessionDto session;
+//    private Long orderId;
+
+    private Long sessionId;
 
     private BigDecimal price;
 
-    private SeatDto seat;
+    private Long seatId;
 
 }

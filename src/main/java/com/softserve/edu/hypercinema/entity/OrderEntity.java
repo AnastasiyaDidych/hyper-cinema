@@ -32,4 +32,8 @@ public class OrderEntity extends BaseEntity {
     @OneToMany(mappedBy = "order")
     private List<TicketEntity> tickets;
 
+    public OrderEntity(Long id) {
+        this.id = id;
+    }
+
 }
