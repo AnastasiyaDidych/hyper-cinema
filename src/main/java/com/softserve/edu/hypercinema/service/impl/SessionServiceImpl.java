@@ -24,7 +24,7 @@ public class SessionServiceImpl  implements SessionService {
 
     private final String MOVIE_ALREADY_EXISTS_MESSAGE = "tu loh";
     private final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    private DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH mm");
+    private DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm");
 
     @Autowired
     private SessionRepository sessionRepository;

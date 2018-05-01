@@ -8,6 +8,7 @@ import com.softserve.edu.hypercinema.entity.MovieEntity;
 import com.softserve.edu.hypercinema.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -39,8 +40,9 @@ public class MovieController {
     }
 
     @GetMapping
-    public List<MovieEntity> getAllMovies() {
-        return movieService.getMovies();
+    //@PreAuthorize("hasRole('USER')")
+    public List<MovieDto> getAllMovies() {
+        return movieConverter.convertToDto(movieService.getMovies());
     }
 
     @GetMapping("/{id}")
@@ -49,17 +51,20 @@ public class MovieController {
     }
 
     @PostMapping
+//    @PreAuthorize("hasRole('ADMIN')")
     @ResponseStatus(HttpStatus.CREATED)
     public void createMovie(@RequestBody MovieDto movieDto) {
         movieService.createMovie(movieConverter.convertToEntity(movieDto));
     }
 
-    @PutMapping("/update/{id}")
-    public void updateMovie(@RequestBody MovieDto movieDto) {
-        movieService.updateMovie(movieConverter.convertToEntity(movieDto));
+    @PutMapping("/{id}")
+//    @PreAuthorize("hasRole('ADMIN')")
+    public void updateMovie(@RequestBody MovieDto movieDto, @PathVariable Long id) {
+        movieService.updateMovie(movieConverter.convertToEntity(movieDto),id);
     }
 
     @DeleteMapping("/{id}")
+//    @PreAuthorize("hasRole('ADMIN')")
     public void deleteMovie(@PathVariable("id") Long id) {
         movieService.deleteMovie(id);
     }

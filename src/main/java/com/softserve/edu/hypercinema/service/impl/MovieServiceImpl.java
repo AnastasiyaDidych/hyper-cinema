@@ -1,6 +1,7 @@
 package com.softserve.edu.hypercinema.service.impl;
 
 import com.softserve.edu.hypercinema.entity.MovieEntity;
+import com.softserve.edu.hypercinema.exception.InvalidDataException;
 import com.softserve.edu.hypercinema.exception.MovieAlreadyExistsException;
 import com.softserve.edu.hypercinema.exception.MovieNotFoundException;
 import com.softserve.edu.hypercinema.repository.MovieRepository;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import javax.validation.UnexpectedTypeException;
 import java.util.List;
 
 @Slf4j
@@ -19,7 +21,8 @@ import java.util.List;
 public class MovieServiceImpl implements MovieService {
 
     private final String MOVIE_ALREADY_EXISTS_MESSAGE = "Movie with title %s already exists";
-    private final String MOVIE_NOT_FOUND_MESSAGE = "Movie %s has not found";
+    private final String INCALID_MOVIE_DATA = "Invalid data in movie";
+    private final String MOVIE_NOT_FOUND_MESSAGE = "Movie with id = %d has not found";
 
     @Autowired
     private MovieRepository movieRepository;
@@ -30,20 +33,27 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public MovieEntity createMovie(MovieEntity movieEntity) {
+    public void createMovie(MovieEntity movieEntity) {
         movieRepository.findByTitle(movieEntity.getTitle()).ifPresent(movie -> {
             throw new MovieAlreadyExistsException(String.format(MOVIE_ALREADY_EXISTS_MESSAGE,movie.getTitle()));
         });
-        return movieRepository.save(movieEntity);
+        try {
+            movieRepository.save(movieEntity);
+        } catch(UnexpectedTypeException e) {
+            System.out.println(e.getMessage());
+            throw new InvalidDataException(INCALID_MOVIE_DATA);
+        }
     }
 
     @Override
     public MovieEntity getMovie(Long id) {
-        return movieRepository.findById(id).orElseThrow(() ->new MovieNotFoundException(MOVIE_NOT_FOUND_MESSAGE));
+        return movieRepository.findById(id).orElseThrow(() ->new MovieNotFoundException(String.format(MOVIE_NOT_FOUND_MESSAGE,id)));
     }
 
     @Override
-    public void updateMovie(MovieEntity movie) {
+    public void updateMovie(MovieEntity movie, Long id) {
+        MovieEntity movieEntity = getMovie(id);
+        movie.setId(movieEntity.getId());
         movieRepository.save(movie);
         log.info("Movie successfully updated");
     }
