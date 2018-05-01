@@ -20,7 +20,7 @@ import java.util.List;
 
 @Service
 @Transactional
-public class SessionServiceImpl  implements SessionService {
+public class SessionServiceImpl implements SessionService {
 
     private final String MOVIE_ALREADY_EXISTS_MESSAGE = "movie already exist";
     private final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -31,7 +31,6 @@ public class SessionServiceImpl  implements SessionService {
 
     @Autowired
     private TicketService ticketService;
-
 
 
     @Override
@@ -71,34 +70,6 @@ public class SessionServiceImpl  implements SessionService {
 
     }
 
-
-
-
-
-    public void generateSessionsForOneFilmForOneHallEnd(SessionDto sessionDto) {
-
-    }
-
-    public void copySessionsForOneWeek(SessionDto sessionDto) {
-
-    }
-
-
-    @Override
-    public void generateSession(SessionDto sessionDto)   {
-
-        SessionEntity sessionEntity = new SessionEntity();
-        MovieEntity movieEntity = movieService.getMovie(sessionDto.getMovieId());
-        sessionEntity.setMovie(movieEntity);
-        sessionEntity.setHall(hallService.getHall(sessionDto.getHallId()));
-        sessionEntity.setDate(LocalDate.parse(sessionDto.getDate(),DATE_FORMAT));
-        LocalTime startTime = LocalTime.parse(sessionDto.getStartTime(),TIME_FORMATTER);
-        sessionEntity.setStartTime(startTime);
-        sessionEntity.setEndTime(startTime.plusMinutes(movieEntity.getDuration()+15));
-        //generateTicketsForSession(sessionEntity);
-        createSession(sessionEntity);
-
-    }
 
 }
 
