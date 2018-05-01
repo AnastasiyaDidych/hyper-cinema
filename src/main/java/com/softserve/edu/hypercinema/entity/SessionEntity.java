@@ -8,7 +8,6 @@ import sun.security.krb5.internal.Ticket;
 
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
@@ -46,6 +45,5 @@ public class SessionEntity extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "hall_id")
     private HallEntity hall;
-
 
 }

@@ -1,11 +1,10 @@
 package com.softserve.edu.hypercinema.service.impl;
 
-import com.softserve.edu.hypercinema.constants.CoefficientType;
-import com.softserve.edu.hypercinema.constants.SeatStatus;
 import com.softserve.edu.hypercinema.dto.SessionDto;
-import com.softserve.edu.hypercinema.entity.*;
+import com.softserve.edu.hypercinema.entity.MovieEntity;
+import com.softserve.edu.hypercinema.entity.SessionEntity;
+import com.softserve.edu.hypercinema.entity.TicketEntity;
 import com.softserve.edu.hypercinema.repository.SessionRepository;
-import com.softserve.edu.hypercinema.repository.TicketRepository;
 import com.softserve.edu.hypercinema.service.HallService;
 import com.softserve.edu.hypercinema.service.MovieService;
 import com.softserve.edu.hypercinema.service.SessionService;
@@ -48,7 +47,7 @@ public class SessionServiceImpl  implements SessionService {
 
     @Override
     public void createSession(SessionEntity sessionEntity) {
-            sessionRepository.save(sessionEntity);
+        sessionRepository.save(sessionEntity);
     }
 
     @Override

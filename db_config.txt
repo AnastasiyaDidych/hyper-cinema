@@ -73,10 +73,11 @@ VALUES
 
 INSERT INTO coefficient (id, type, value)
 VALUES
-(1, 'premier', 1.7),
-(2, 'pm session', 1.2),
-(3, 'am session', 0.7),
-(4, 'last day', 0.7);
+(1, 'PREMIER', 2.00),
+(2, 'END', 0.80),
+(3, 'VIP', 1.30),
+(4, 'BASE', 1.10),
+(5, 'DEF', 1.00);
 
 
 INSERT INTO ticket_coefficient (coefficient_id, ticket_id)
