@@ -5,6 +5,7 @@ import com.softserve.edu.hypercinema.constants.SeatStatus;
 import com.softserve.edu.hypercinema.dto.SessionDto;
 import com.softserve.edu.hypercinema.entity.*;
 import com.softserve.edu.hypercinema.repository.SessionRepository;
+import com.softserve.edu.hypercinema.repository.TicketRepository;
 import com.softserve.edu.hypercinema.service.HallService;
 import com.softserve.edu.hypercinema.service.MovieService;
 import com.softserve.edu.hypercinema.service.SessionService;
@@ -24,8 +25,9 @@ import java.util.List;
 @Transactional
 public class SessionServiceImpl  implements SessionService {
 
-    final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    DateTimeFormatter TIME_FORMATER=DateTimeFormatter.ofPattern("HH mm");
+    private final String MOVIE_ALREADY_EXISTS_MESSAGE = "movie already exist";
+    private final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm");
 
     @Autowired
     private SessionRepository sessionRepository;
@@ -46,7 +48,7 @@ public class SessionServiceImpl  implements SessionService {
 
     @Override
     public void createSession(SessionEntity sessionEntity) {
-        sessionRepository.save(sessionEntity);
+            sessionRepository.save(sessionEntity);
     }
 
     @Override
@@ -64,6 +66,21 @@ public class SessionServiceImpl  implements SessionService {
         return sessionRepository.findAll();
     }
 
+    public void generateSession(MovieEntity movieEntity, HallEntity hallEntity,
+                                String date, String time)   {
+
+         SessionEntity sessionEntity = new SessionEntity();
+         sessionEntity.setMovie(movieEntity);
+         sessionEntity.setHall(hallEntity);
+         sessionEntity.setDate(LocalDate.parse(date));
+         LocalTime startTime = LocalTime.parse(time);
+         sessionEntity.setStartTime(startTime);
+         sessionEntity.setEndTime(startTime.plusMinutes(movieEntity.getDuration()+15));
+         generateTicketsForSession(sessionEntity);
+         createSession(sessionEntity);
+
+    }
+
 
 
 
@@ -72,6 +89,7 @@ public class SessionServiceImpl  implements SessionService {
             TicketEntity ticketEntity = new TicketEntity();
             ticketEntity.setSession(sessionEntity);
             sessionEntity.getTickets().add(ticketEntity);
+
             //ticketRepository.save(ticketEntity);
             ticketService.createTicket(ticketEntity);
         }
@@ -172,11 +190,13 @@ public class SessionServiceImpl  implements SessionService {
 
     public BigDecimal getBaseSeatCoef(SeatEntity seatEntity){
 
+
         BigDecimal coef = CoefficientType.DEF.getValue();
         if (seatEntity.getStatus().equalsIgnoreCase(SeatStatus.BASE.getStatus())){
             coef = CoefficientType.BASE.getValue();
         }
         return coef;
     }
+
 }
 
