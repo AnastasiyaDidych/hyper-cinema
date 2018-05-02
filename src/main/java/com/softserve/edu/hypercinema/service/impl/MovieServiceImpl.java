@@ -23,8 +23,6 @@ import java.util.List;
 public class MovieServiceImpl implements MovieService {
 
     private final String MOVIE_ALREADY_EXISTS_MESSAGE = "Movie with title %s already exists";
-
-    private final String INCALID_MOVIE_DATA = "Invalid data in movie";
     private final String MOVIE_NOT_FOUND_MESSAGE = "Movie with id = %d has not found";
 
     @Autowired
@@ -63,8 +61,6 @@ public class MovieServiceImpl implements MovieService {
             movieRepository.save(movie);
             log.info("Movie successfully updated");
     }
-
-
 
     @Override
     public void deleteMovie(Long id) {

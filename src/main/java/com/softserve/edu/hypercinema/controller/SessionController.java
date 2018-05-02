@@ -1,6 +1,5 @@
 package com.softserve.edu.hypercinema.controller;
 
-
 import com.softserve.edu.hypercinema.converter.SessionConverter;
 import com.softserve.edu.hypercinema.dto.SessionDto;
 import com.softserve.edu.hypercinema.service.SessionService;
