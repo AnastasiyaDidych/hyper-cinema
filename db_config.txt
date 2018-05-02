@@ -46,7 +46,7 @@ VALUES
 
 INSERT INTO movie (id, age_rating, description, duration, end_rent, genre, price, start_rent, title)
 VALUES
-(1, 18, 'soo romantic', '126', '2018-04-20', 'horror', 184.00, '2018-03-09', '50 Shadows of Gray'),
+(1, 18, 'soo romantic', '126', '2018-04-28', 'horror', 184.00, '2018-03-09', '50 Shadows of Gray'),
 (2, 16, 'cool film', '120', '2018-04-25', 'horror', 100.20, '2018-02-09', 'Dracula');
 
 

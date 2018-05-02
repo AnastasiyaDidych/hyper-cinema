@@ -34,7 +34,7 @@ public class TicketEntity extends BaseEntity{
     @Column(name = "price", columnDefinition = "DECIMAL(6,2)")
     private BigDecimal price;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.DETACH)
     @JoinTable(name = "ticket_coefficient",
             joinColumns = @JoinColumn(name = "ticket_id"),
             inverseJoinColumns = @JoinColumn(name = "coefficient_id"))
