@@ -4,7 +4,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.security.core.Authentication;
+
 //import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.softserve.edu.hypercinema.entity.RoleEntity;
@@ -18,6 +24,7 @@ import com.softserve.edu.hypercinema.service.UserService;
 import javax.transaction.Transactional;
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -48,13 +55,12 @@ public class UserServiceImpl implements UserService {
                 new UserNotFoundException(USER_EMAIL_NOT_FOUND_MESSAGE + principal.getName()));
     }
 
-    /*
-    @Override
-    public UserEntity getUser(Authentication authentication) {
-        String email =  ((String) authentication.getPrincipal());
-        return userRepository.findByEmail(email).orElseThrow(() ->
-                new UserNotFoundException(USER_EMAIL_NOT_FOUND_MESSAGE + email));
-    }*/
+//    @Override
+//    public UserEntity getUser(Authentication authentication) {
+//        String email =  ((String) authentication.getPrincipal());
+//        return userRepository.findByEmail(email).orElseThrow(() ->
+//                new UserNotFoundException(USER_EMAIL_NOT_FOUND_MESSAGE + email));
+//    }
 
     @Override
     public void createUser(UserEntity userEntity) {
@@ -81,7 +87,7 @@ public class UserServiceImpl implements UserService {
         user.setLastName(userEntity.getLastName());
         user.setPhone(userEntity.getPhone());
         if (StringUtils.isNotEmpty(userEntity.getPassword())) {
-            //user.setPassword(bCryptPasswordEncoder.encode(userEntity.getPassword()));
+            user.setPassword(bCryptPasswordEncoder.encode(userEntity.getPassword()));
         }
         userRepository.save(user);
     }
@@ -92,5 +98,6 @@ public class UserServiceImpl implements UserService {
         userRepository.deleteById(id);
         log.info("User deleted: {}", user.getEmail());
     }
+
 
 }

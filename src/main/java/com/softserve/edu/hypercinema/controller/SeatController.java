@@ -6,8 +6,10 @@ import com.softserve.edu.hypercinema.service.SeatService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+
 @RestController
-@RequestMapping("/api/seats")
+@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
+@RequestMapping("/seats")
 public class SeatController {
 
     @Autowired
@@ -16,9 +18,10 @@ public class SeatController {
     @Autowired
     private SeatConverter seatConverter;
 
-
     @GetMapping("/{id}")
+    //    @PreAuthorize("hasRole('USER')")
     public SeatDto getSeat(@PathVariable("id") Long id) {
         return seatConverter.convertToDto(seatService.getSeat(id));
     }
+
 }

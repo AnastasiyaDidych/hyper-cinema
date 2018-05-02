@@ -9,4 +9,6 @@ public class SeatDto extends BaseDto{
 
     private int number;
 
+    private String status;
+
 }
