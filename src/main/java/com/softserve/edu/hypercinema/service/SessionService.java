@@ -1,5 +1,7 @@
 package com.softserve.edu.hypercinema.service;
 
+import com.softserve.edu.hypercinema.dto.SessionDto;
+import com.softserve.edu.hypercinema.entity.HallEntity;
 import com.softserve.edu.hypercinema.entity.MovieEntity;
 import com.softserve.edu.hypercinema.entity.SeatEntity;
 import com.softserve.edu.hypercinema.entity.SessionEntity;
@@ -23,10 +25,10 @@ public interface SessionService {
    // void updateSession(SessionEntity sessionEntity,Principal principal);
 
     List<SessionEntity> getSessions();
-   // void generateSession(MovieEntity movieEntity, HallEntity hallEntity,
-               //          String date, String time);
 
-    List<BigDecimal> getCoefs(MovieEntity movieEntity, LocalDate sessionDay, SeatEntity seatEntity);
+    void generateSession(MovieEntity movieEntity, HallEntity hallEntity, String date, String time);
+
+    void generateSession(SessionDto sessionDto);
 
 
     BigDecimal getBasePrice(SessionEntity sessionEntity);

@@ -1,9 +1,9 @@
 package com.softserve.edu.hypercinema.service.impl;
 
+import com.softserve.edu.hypercinema.constants.CoefficientType;
+import com.softserve.edu.hypercinema.constants.SeatStatus;
 import com.softserve.edu.hypercinema.dto.SessionDto;
-import com.softserve.edu.hypercinema.entity.MovieEntity;
-import com.softserve.edu.hypercinema.entity.SessionEntity;
-import com.softserve.edu.hypercinema.entity.TicketEntity;
+import com.softserve.edu.hypercinema.entity.*;
 import com.softserve.edu.hypercinema.repository.SessionRepository;
 import com.softserve.edu.hypercinema.service.HallService;
 import com.softserve.edu.hypercinema.service.MovieService;
@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -22,7 +23,9 @@ import java.util.List;
 
 @Service
 @Transactional
-public class SessionServiceImpl  implements SessionService {
+public class SessionServiceImpl implements SessionService {
+
+    private final MathContext mc = new MathContext(3);
 
     private final String MOVIE_ALREADY_EXISTS_MESSAGE = "movie already exist";
     private final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -66,25 +69,22 @@ public class SessionServiceImpl  implements SessionService {
     }
 
     public void generateSession(MovieEntity movieEntity, HallEntity hallEntity,
-                                String date, String time)   {
+                                String date, String time) {
 
-         SessionEntity sessionEntity = new SessionEntity();
-         sessionEntity.setMovie(movieEntity);
-         sessionEntity.setHall(hallEntity);
-         sessionEntity.setDate(LocalDate.parse(date));
-         LocalTime startTime = LocalTime.parse(time);
-         sessionEntity.setStartTime(startTime);
-         sessionEntity.setEndTime(startTime.plusMinutes(movieEntity.getDuration()+15));
-         generateTicketsForSession(sessionEntity);
-         createSession(sessionEntity);
+        SessionEntity sessionEntity = new SessionEntity();
+        sessionEntity.setMovie(movieEntity);
+        sessionEntity.setHall(hallEntity);
+        sessionEntity.setDate(LocalDate.parse(date));
+        LocalTime startTime = LocalTime.parse(time);
+        sessionEntity.setStartTime(startTime);
+        sessionEntity.setEndTime(startTime.plusMinutes(movieEntity.getDuration() + 15));
+        generateTicketsForSession(sessionEntity);
+        createSession(sessionEntity);
 
     }
 
-
-
-
     private void generateTicketsForSession(SessionEntity sessionEntity) {
-        for(int i =0;i<=sessionEntity.getHall().getCapacity();i++) {
+        for (int i = 0; i <= sessionEntity.getHall().getCapacity(); i++) {
             TicketEntity ticketEntity = new TicketEntity();
             ticketEntity.setSession(sessionEntity);
             sessionEntity.getTickets().add(ticketEntity);
@@ -93,17 +93,18 @@ public class SessionServiceImpl  implements SessionService {
             ticketService.createTicket(ticketEntity);
         }
     }
+
     @Override
-    public void generateSession(SessionDto sessionDto)   {
+    public void generateSession(SessionDto sessionDto) {
 
         SessionEntity sessionEntity = new SessionEntity();
         MovieEntity movieEntity = movieService.getMovie(sessionDto.getMovieId());
         sessionEntity.setMovie(movieEntity);
         sessionEntity.setHall(hallService.getHall(sessionDto.getHallId()));
-        sessionEntity.setDate(LocalDate.parse(sessionDto.getDate(),DATE_FORMAT));
-        LocalTime startTime = LocalTime.parse(sessionDto.getStartTime(),TIME_FORMATER);
+        sessionEntity.setDate(LocalDate.parse(sessionDto.getDate(), DATE_FORMAT));
+        LocalTime startTime = LocalTime.parse(sessionDto.getStartTime(), TIME_FORMATTER);
         sessionEntity.setStartTime(startTime);
-        sessionEntity.setEndTime(startTime.plusMinutes(movieEntity.getDuration()+15));
+        sessionEntity.setEndTime(startTime.plusMinutes(movieEntity.getDuration() + 15));
         //generateTicketsForSession(sessionEntity);
         createSession(sessionEntity);
 
@@ -114,7 +115,6 @@ public class SessionServiceImpl  implements SessionService {
     public BigDecimal getBasePrice(SessionEntity sessionEntity) {
         MovieEntity movieEntity = sessionEntity.getMovie();
         LocalDate sessionDay = sessionEntity.getDate();
-        HallEntity hallEntity = sessionEntity.getHall();
         List<BigDecimal> coefs = new ArrayList<>();
 
         coefs.add(getPremierCoef(movieEntity, sessionDay));
@@ -123,15 +123,14 @@ public class SessionServiceImpl  implements SessionService {
 
         BigDecimal total = movieEntity.getPrice();
         for (BigDecimal coef: coefs) {
-            total = total.multiply(coef);
+            total = total.multiply(coef, mc);
         }
         return total;
     }
 
     @Override
     public BigDecimal getVipPrice(SessionEntity sessionEntity) {
-        BigDecimal total = getBasePrice(sessionEntity);
-        return total.add(total.multiply(CoefficientType.VIP.getValue()));
+        return getBasePrice(sessionEntity).multiply(CoefficientType.VIP.getValue(),mc);
     }
 
     @Override
@@ -181,7 +180,7 @@ public class SessionServiceImpl  implements SessionService {
     public BigDecimal getVipSeatCoef(SeatEntity seatEntity){
 
         BigDecimal coef = CoefficientType.DEF.getValue();
-        if (seatEntity.getStatus().equalsIgnoreCase(SeatStatus.VIP.getStatus())){
+        if (seatEntity.getType().equalsIgnoreCase(SeatStatus.VIP.getStatus())){
             coef = CoefficientType.VIP.getValue();
         }
         return coef;
@@ -189,9 +188,8 @@ public class SessionServiceImpl  implements SessionService {
 
     public BigDecimal getBaseSeatCoef(SeatEntity seatEntity){
 
-
         BigDecimal coef = CoefficientType.DEF.getValue();
-        if (seatEntity.getStatus().equalsIgnoreCase(SeatStatus.BASE.getStatus())){
+        if (seatEntity.getType().equalsIgnoreCase(SeatStatus.BASE.getStatus())){
             coef = CoefficientType.BASE.getValue();
         }
         return coef;
