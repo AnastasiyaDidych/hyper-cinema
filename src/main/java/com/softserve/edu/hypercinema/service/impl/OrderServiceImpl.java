@@ -109,9 +109,10 @@ public class OrderServiceImpl implements OrderService {
 //        OrderEntity order = orderRepository.findById(id).orElseThrow(() ->
 //                new OrderNotFoundException(ORDER_NOT_FOUND_MESSAGE + id));
 //        UserEntity user = order.getUser();
-//        user.getOrders().removeAll(order.getTickets());
+//
+//        user.getOrders().remove(order);
 //        userService.updateUser(user);
-//        orderRepository.deleteById(id);
+        orderRepository.deleteById(id);
     }
 
     @Override

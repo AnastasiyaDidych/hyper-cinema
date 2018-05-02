@@ -29,11 +29,7 @@ public class OrderEntity extends BaseEntity {
     @JoinColumn(name = "user_id", nullable = false)
     private UserEntity user;
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order", cascade = CascadeType.REMOVE)
     private List<TicketEntity> tickets;
-
-    public OrderEntity(Long id) {
-        this.id = id;
-    }
 
 }
