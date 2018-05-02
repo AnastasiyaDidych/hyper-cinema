@@ -1,17 +1,19 @@
 package com.softserve.edu.hypercinema.service;
 
 import com.softserve.edu.hypercinema.entity.OrderEntity;
+import org.springframework.security.core.Authentication;
+import java.security.Principal;
 import java.util.List;
 
 
 public interface OrderService {
 
 
-    void createOrder(OrderEntity orderEntity);
+    List<OrderEntity> getOrders(Principal principal);
 
-    List<OrderEntity> getOrders();
+    List<OrderEntity> getOrders(Authentication authentication);
 
-    OrderEntity getOrder(Long id);
+    OrderEntity getOrder(Long id, Authentication authentication);
 
     void updateOrder(OrderEntity orderEntity);
 
@@ -19,4 +21,5 @@ public interface OrderService {
 
     void deleteOrder(OrderEntity orderEntity);
 
+    void createOrder(OrderEntity orderEntity, Principal principal);
 }

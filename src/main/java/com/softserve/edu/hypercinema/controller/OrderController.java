@@ -5,8 +5,11 @@ import com.softserve.edu.hypercinema.dto.OrderDto;
 import com.softserve.edu.hypercinema.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -20,30 +23,43 @@ public class OrderController {
     @Autowired
     private OrderConverter orderConvertor;
 
+    @PreAuthorize("hasRole('USER')")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void createOrder(@RequestBody OrderDto order) {
-        orderService.createOrder(orderConvertor.convertToEntity(order));
+    public void createUserOrder(@RequestBody OrderDto order, Principal principal) {
+        orderService.createOrder(orderConvertor.convertToEntity(order), principal);
     }
 
+    @PreAuthorize("hasRole('MANAGER')")
     @PutMapping
     public void updateOrder(@RequestBody OrderDto order) {
         orderService.updateOrder(orderConvertor.convertToEntity(order));
     }
 
+    @PreAuthorize("hasRole('USER')")
     @GetMapping("/{id}")
-    public OrderDto getOrder(@PathVariable Long id) {
-        return orderConvertor.convertToDto(orderService.getOrder(id));
+    public OrderDto getOrder(@PathVariable Long id, Authentication authentication) {
+        return orderConvertor.convertToDto(orderService.getOrder(id, authentication));
+
     }
 
+    @PreAuthorize("hasRole('MANAGER')")
     @DeleteMapping("/{id}")
     public void deleteOrder(@PathVariable Long id) {
         orderService.deleteOrder(id);
     }
 
-    @GetMapping
-    public List<OrderDto> getListOrders() {
-        return orderConvertor.convertToDto(orderService.getOrders());
+
+    @PreAuthorize("hasRole('MANAGER')")
+    @DeleteMapping
+    public void deleteOrder(@RequestBody OrderDto order) {
+        orderService.deleteOrder(orderConvertor.convertToEntity(order));
     }
 
+
+    @PreAuthorize("hasRole('USER')")
+    @GetMapping
+    public List<OrderDto> getListOrders(Authentication authentication) {
+        return orderConvertor.convertToDto(orderService.getOrders(authentication));
+    }
 }
