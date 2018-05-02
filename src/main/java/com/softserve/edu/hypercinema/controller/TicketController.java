@@ -4,43 +4,51 @@ import com.softserve.edu.hypercinema.converter.TicketConverter;
 import com.softserve.edu.hypercinema.dto.TicketDto;
 import com.softserve.edu.hypercinema.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/tickets")
+@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
+@RequestMapping("/tickets")
 public class TicketController {
 
     @Autowired
-    TicketService ticketService;
+    private TicketService ticketService;
 
     @Autowired
-    TicketConverter ticketConverter;
+    private TicketConverter ticketConverter;
 
+//    @PreAuthorize("hasRole('USER')")
     @PostMapping
-    public void createTicket(@RequestBody TicketDto ticketDto){
-        ticketService.createTicket(ticketConverter.convertToEntity(ticketDto));
+    @ResponseStatus(HttpStatus.CREATED)
+    public void createTicket(@RequestBody TicketDto ticket){
+        ticketService.createTicket(ticketConverter.convertToEntity(ticket));
     }
 
-    @PutMapping
-    public void updateTicket(@RequestBody TicketDto ticketDto){
-        ticketService.updateTicket(ticketConverter.convertToEntity(ticketDto));
+//    @PreAuthorize("hasRole('MANAGER')")
+    @PutMapping("/{id}")
+    public void updateTicket(@PathVariable Long id, @RequestBody TicketDto ticket){
+        ticketService.updateTicket(id, ticketConverter.convertToEntity(ticket));
     }
 
+//    @PreAuthorize("hasRole('MANAGER')")
     @GetMapping("/{id}")
     public TicketDto getTicket(@PathVariable Long id){
         return ticketConverter.convertToDto(ticketService.getTicket(id));
     }
 
+//    @PreAuthorize("hasRole('MANAGER')")
     @GetMapping
     public List<TicketDto> getTickets(){
         return ticketConverter.convertToDto(ticketService.getTickets());
     }
 
-    @DeleteMapping
-    public void deleteTicket(@RequestBody TicketDto ticketDto){
-        ticketService.deleteTicket(ticketConverter.convertToEntity(ticketDto));
+//    @PreAuthorize("hasRole('MANAGER')")
+    @DeleteMapping("/{id}")
+    public void deleteTicket(@PathVariable Long id){
+        ticketService.deleteTicket(id);
     }
 
 }

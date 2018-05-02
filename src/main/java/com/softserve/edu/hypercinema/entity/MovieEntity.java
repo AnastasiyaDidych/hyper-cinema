@@ -23,7 +23,7 @@ public class MovieEntity extends BaseEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     @NotEmpty
     private String title;
 
@@ -47,12 +47,11 @@ public class MovieEntity extends BaseEntity{
     @Column(name = "age_rating")
     private int ageRating;
 
-    @Column(columnDefinition = "DECIMAL(5,2)")
+    @Column(columnDefinition = "DECIMAL(5,2)", nullable = false)
     private BigDecimal price;
 
-
     @OneToMany(mappedBy = "movie")
-    private List<ScheduleEntity> schedule;
+    private List<SessionEntity> sessions;
 
 }
 
