@@ -49,8 +49,10 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     public void updateTicket(Long id, TicketEntity ticketEntity) {
-        if (getTicket(id) != null) {
+        TicketEntity ticketEntity1 = getTicket(id);
+        if (ticketEntity1 != null) {
             ticketEntity.setId(id);
+            ticketEntity.setOrder(ticketEntity1.getOrder());
             ticketRepository.save(ticketEntity);
         } else {
             throw new TicketNotFoundException(TICKET_NOT_FOUND_MESSAGE + id);

@@ -32,6 +32,7 @@ public class OrderConverterImpl implements OrderConverter {
     @Override
     public OrderDto convertToDto(OrderEntity orderEntity) {
         OrderDto orderDto = modelMapper.map(orderEntity, OrderDto.class);
+        orderDto.setTickets(ticketConverter.convertToDto(orderEntity.getTickets()));
         BigDecimal price = BigDecimal.ZERO;
         for (TicketEntity ticketEntity : orderEntity.getTickets()) {
             price = price.add(ticketEntity.getPrice());

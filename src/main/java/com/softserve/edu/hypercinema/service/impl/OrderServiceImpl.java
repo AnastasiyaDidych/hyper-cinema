@@ -62,6 +62,8 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<OrderEntity> getOrders(Authentication authentication) {
         if (!AuthUtil.isAdmin(authentication) || !AuthUtil.isManager(authentication)) {
+            List<OrderEntity> orders = userService.getUser(authentication).getOrders();
+            orders.forEach(e -> System.out.println(e.getTickets().toString()));
             return userService.getUser(authentication).getOrders();
         } else return orderRepository.findAll();
 
