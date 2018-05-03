@@ -31,6 +31,4 @@ public class SessionConverterImpl implements SessionConverter {
         sessionDto.setVipPrice(sessionService.getVipPrice(entity));
         return sessionDto;
     }
-
-
 }

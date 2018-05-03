@@ -1,20 +1,16 @@
 package com.softserve.edu.hypercinema.controller;
 
 import com.softserve.edu.hypercinema.converter.UserConverter;
+import com.softserve.edu.hypercinema.dto.UserDto;
 import com.softserve.edu.hypercinema.exception.UserAlreadyExistsException;
-import com.softserve.edu.hypercinema.dto.SessionDto;
+import com.softserve.edu.hypercinema.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import com.softserve.edu.hypercinema.dto.UserDto;
-import com.softserve.edu.hypercinema.service.UserService;
 
 import java.security.Principal;
-import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)

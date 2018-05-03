@@ -2,13 +2,11 @@ package com.softserve.edu.hypercinema.service.impl;
 
 import com.softserve.edu.hypercinema.constants.CoefficientType;
 import com.softserve.edu.hypercinema.constants.SeatStatus;
-import com.softserve.edu.hypercinema.dto.SessionDto;
-import com.softserve.edu.hypercinema.entity.*;
+import com.softserve.edu.hypercinema.entity.MovieEntity;
+import com.softserve.edu.hypercinema.entity.SeatEntity;
+import com.softserve.edu.hypercinema.entity.SessionEntity;
 import com.softserve.edu.hypercinema.repository.SessionRepository;
-import com.softserve.edu.hypercinema.service.HallService;
-import com.softserve.edu.hypercinema.service.MovieService;
 import com.softserve.edu.hypercinema.service.SessionService;
-import com.softserve.edu.hypercinema.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,8 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
