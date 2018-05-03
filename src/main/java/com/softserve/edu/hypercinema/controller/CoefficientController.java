@@ -5,6 +5,7 @@ import com.softserve.edu.hypercinema.dto.CoefficientDto;
 import com.softserve.edu.hypercinema.service.CoefficientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -29,6 +30,7 @@ public class CoefficientController {
         coefficientService.updateCoefficient(coefficientConverter.convertToEntity(coefficientDto));
     }
 
+    @PreAuthorize("hasRole('MANAGER')")
     @GetMapping("/{id}")
     public CoefficientDto getCoefficient(@PathVariable Long id) {
         return coefficientConverter.convertToDto(coefficientService.getCoefficient(id));

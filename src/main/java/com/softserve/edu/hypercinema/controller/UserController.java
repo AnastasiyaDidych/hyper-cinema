@@ -19,7 +19,7 @@ import java.util.List;
 @RestController
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RequestMapping("/users")
-public class UserApiController {
+public class UserController {
 
     @Autowired
     private UserService userService;
@@ -41,13 +41,11 @@ public class UserApiController {
        }
     }
 
-
     @PreAuthorize("hasRole('USER')")
     @PutMapping
     public void updateUser(@RequestBody UserDto userDto, Principal principal) {
         userService.updateUser(userConverter.convertToEntity(userDto), principal);
     }
-
 
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/{id}")
@@ -60,7 +58,6 @@ public class UserApiController {
     public void deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
     }
-
 
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/me")

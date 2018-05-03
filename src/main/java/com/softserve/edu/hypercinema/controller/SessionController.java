@@ -30,11 +30,7 @@ public class SessionController {
     @Autowired
     private SessionConverter sessionConverter;
 
-
     private SessionUtil sessionUtil;
-
-
-
 
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('MANAGER')")
@@ -48,26 +44,22 @@ public class SessionController {
         sessionService.deleteSession(id);
     }
 
-
     @GetMapping("/{id}")
     public SessionDto getSession(@PathVariable Long id) {
         return sessionConverter.convertToDto(sessionService.getSession(id));
     }
-
 
     @GetMapping
     public List<SessionDto> getSessions() {
         return sessionConverter.convertToDto(sessionService.getSessions());
     }
 
-
     @PostMapping
     @PreAuthorize("hasRole('MANAGER')")
     public void generateSession(@RequestBody SessionDto sessionDto) {
 
         sessionUtil.generateSession(sessionDto);
-    }
-
+        }
     }
 
 

@@ -26,20 +26,9 @@ import java.util.List;
 public class SessionServiceImpl  implements SessionService {
 
     private final MathContext mc = new MathContext(3);
-    final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    DateTimeFormatter TIME_FORMATER=DateTimeFormatter.ofPattern("HH mm");
 
     @Autowired
     private SessionRepository sessionRepository;
-
-    @Autowired
-    private TicketService ticketService;
-
-    @Autowired
-    private MovieService movieService;
-
-    @Autowired
-    private HallService hallService;
 
     @Override
     public SessionEntity getSession(Long id) {
@@ -101,7 +90,6 @@ public class SessionServiceImpl  implements SessionService {
     public boolean isBetweenTwoDates(LocalDate start, LocalDate end, LocalDate sessionDay) {
 
         boolean result = false;
-
         if((sessionDay.isAfter(start)) && (sessionDay.isBefore(end))) {
             result = true;
         }
@@ -113,7 +101,6 @@ public class SessionServiceImpl  implements SessionService {
         BigDecimal coef = CoefficientType.DEF.getValue();
         LocalDate startPremierTime = movieEntity.getStartRent();
         LocalDate endPremierTime = startPremierTime.plusWeeks(1);
-
         if(isBetweenTwoDates(startPremierTime, endPremierTime, sessionDay)){
             coef = CoefficientType.PREMIER.getValue();
         }
@@ -125,7 +112,6 @@ public class SessionServiceImpl  implements SessionService {
         BigDecimal coef = CoefficientType.DEF.getValue();
         LocalDate endRent = movieEntity.getEndRent();
         LocalDate fiveDays = endRent.minusDays(5);
-
         if(isBetweenTwoDates(fiveDays, endRent, sessionDay)){
             coef = CoefficientType.END.getValue();
         }
