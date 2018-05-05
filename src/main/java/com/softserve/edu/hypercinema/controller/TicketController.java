@@ -5,6 +5,7 @@ import com.softserve.edu.hypercinema.dto.TicketDto;
 import com.softserve.edu.hypercinema.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,16 +27,16 @@ public class TicketController {
         ticketService.updateTicket(id, ticketConverter.convertToEntity(ticket));
     }
 
-    @PreAuthorize("hasRole('MANAGER')")
+    @PreAuthorize("hasRole('USER')")
     @GetMapping("/{id}")
-    public TicketDto getTicket(@PathVariable Long id){
-        return ticketConverter.convertToDto(ticketService.getTicket(id));
+    public TicketDto getTicket(@PathVariable Long id, Authentication authentication){
+        return ticketConverter.convertToDto(ticketService.getTicket(id, authentication));
     }
 
-    @PreAuthorize("hasRole('MANAGER')")
+    @PreAuthorize("hasRole('USER')")
     @GetMapping
-    public List<TicketDto> getTickets(){
-        return ticketConverter.convertToDto(ticketService.getTickets());
+    public List<TicketDto> getTickets(Authentication authentication){
+        return ticketConverter.convertToDto(ticketService.getTickets(authentication));
     }
 
     @PreAuthorize("hasRole('MANAGER')")
