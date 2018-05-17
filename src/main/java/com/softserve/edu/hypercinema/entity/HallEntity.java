@@ -1,6 +1,7 @@
 package com.softserve.edu.hypercinema.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -35,6 +36,7 @@ public class HallEntity extends BaseEntity {
     private List<SeatEntity> seats;
 
     @OneToMany(mappedBy = "hall")
+    @JsonIgnore
     private List<SessionEntity> sessions;
 
 
