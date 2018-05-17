@@ -3,6 +3,9 @@ package com.softserve.edu.hypercinema.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Type;
+import sun.security.krb5.internal.Ticket;
+
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -30,7 +33,7 @@ public class SessionEntity extends BaseEntity {
     private LocalTime endTime;
 
     @Column(name = "virtual_active")
-    private boolean virtualActive;
+    private Boolean virtualActive;
 
     @OneToMany(mappedBy = "session")
     private List<TicketEntity> tickets;

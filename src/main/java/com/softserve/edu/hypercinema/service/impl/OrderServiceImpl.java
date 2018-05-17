@@ -121,4 +121,16 @@ public class OrderServiceImpl implements OrderService {
 
         orderRepository.delete(orderEntity);
     }
+
+
+    // VR
+    @Override
+    public List<OrderEntity> getAllOrders (){
+        return orderRepository.findAll();
+    }
+
+    @Override
+    public OrderEntity getOrder(Long id) {
+        return orderRepository.getOne(id);
+    }
 }

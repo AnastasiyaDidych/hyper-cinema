@@ -4,6 +4,7 @@ import com.softserve.edu.hypercinema.entity.UserEntity;
 import org.springframework.security.core.Authentication;
 
 import java.security.Principal;
+import java.util.List;
 
 public interface UserService {
 
