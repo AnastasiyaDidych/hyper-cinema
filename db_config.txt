@@ -44,12 +44,12 @@ VALUES
 (3, 9, 7, 'base', 3);
 
 
-INSERT INTO movie (id, age_rating, description, duration, end_rent, genre, price, start_rent, title)
+INSERT INTO movie (id, age_rating, description, duration, end_rent, genre, price, start_rent, title, tmdb_id)
 VALUES
-(1, 18, 'soo romantic', '126', '2018-04-28', 'horror', 184.00, '2018-03-09', '50 Shadows of Gray'),
-(2, 16, 'cool film', '120', '2018-04-25', 'horror', 100.20, '2018-02-09', 'Dracula'),
-(3,	12,	'19th Marvel Cinematic Film', '150', '2018-05-26', 'fantasy', 110.00, '2018-04-26', 'Avengers: Infinity War'),
-(4,	12,	'french comedy', '103', '2018-05-06', 'comedy', 120.00, '2018-04-19', 'Taxi 5');
+(1, 18, 'soo romantic', '126', '2018-04-28', 'horror', 184.00, '2018-03-09', '50 Shades of Gray', 216015),
+(2, 16, 'cool film', '120', '2018-04-25', 'horror', 100.20, '2018-02-09', 'Deadpool 2' , 383498),
+(3,	12,	'19th Marvel Cinematic Film', '150', '2018-05-26', 'fantasy', 110.00, '2018-04-26', 'Avengers: Infinity War', 299536),
+(4,	12,	'french comedy', '103', '2018-05-06', 'comedy', 120.00, '2018-04-19', 'Taxi 5',434355);
 
 
 
