@@ -62,4 +62,17 @@ public class OrderController {
     public List<OrderDto> getListOrders(Authentication authentication) {
         return orderConvertor.convertToDto(orderService.getOrders(authentication));
     }
+
+
+    // VR
+
+    @GetMapping("/all")
+    public List<OrderDto> getAllOrders() {
+        return orderConvertor.convertToDto(orderService.getAllOrders());
+    }
+
+    @GetMapping("/{id}")
+    public OrderDto getOrder(@PathVariable Long id) {
+        return orderConvertor.convertToDto(orderService.getOrder(id));
+    }
 }
