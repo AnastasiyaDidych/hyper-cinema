@@ -1,6 +1,5 @@
 package com.softserve.edu.hypercinema.entity;
 
-import com.softserve.edu.hypercinema.validator.IsTicketAvailable;
 import lombok.*;
 
 import javax.persistence.*;
@@ -16,7 +15,6 @@ import java.util.List;
 @Setter
 @Builder
 @AllArgsConstructor
-//@IsTicketAvailable
 public class TicketEntity extends BaseEntity{
 
     @Id

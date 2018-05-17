@@ -23,7 +23,7 @@ public class OrderController {
     @Autowired
     private OrderConverter orderConvertor;
 
-    @PreAuthorize("hasRole('USER')")
+//    @PreAuthorize("hasRole('USER')")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void createUserOrder(@RequestBody OrderDto order, Principal principal) {
@@ -38,8 +38,8 @@ public class OrderController {
 
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/{id}")
-    public OrderDto getOrder(@PathVariable Long id, Authentication authentication) {
-        return orderConvertor.convertToDto(orderService.getOrder(id, authentication));
+    public OrderDto getOrder(@PathVariable Long id/*, Authentication authentication*/) {
+        return orderConvertor.convertToDto(orderService.getOrder(id/*, authentication*/));
 
     }
 
@@ -71,8 +71,4 @@ public class OrderController {
         return orderConvertor.convertToDto(orderService.getAllOrders());
     }
 
-    @GetMapping("/{id}")
-    public OrderDto getOrder(@PathVariable Long id) {
-        return orderConvertor.convertToDto(orderService.getOrder(id));
-    }
 }

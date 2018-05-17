@@ -27,7 +27,7 @@ public class MovieController {
     private MovieConverter movieConverter;
 
     @GetMapping
-    @PreAuthorize("hasRole('USER')")
+//    @PreAuthorize("hasRole('USER')")
     public List<MovieDto> getAllMovies() {
         return movieConverter.convertToDto(movieService.getMovies());
 
