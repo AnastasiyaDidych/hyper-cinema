@@ -28,5 +28,4 @@ public class ApiExceptionHandlerController {
         }
         return ResponseEntity.status(httpStatus).body(new MessageDto(e.getMessage()));
     }
-
 }

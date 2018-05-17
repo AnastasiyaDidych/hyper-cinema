@@ -29,34 +29,34 @@ public class SessionController {
 
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('MANAGER')")
+//    @PreAuthorize("hasRole('MANAGER')")
     public void updateSession(@RequestBody SessionDto sessionDto) {
         sessionService.updateSession(sessionConverter.convertToEntity(sessionDto));
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('MANAGER')")
+//    @PreAuthorize("hasRole('MANAGER')")
     public void deleteSession(@PathVariable Long id) {
         sessionService.deleteSession(id);
     }
 
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('USER')")
+//    @PreAuthorize("hasRole('USER')")
     public SessionDto getSession(@PathVariable Long id) {
         return sessionConverter.convertToDto(sessionService.getSession(id));
     }
 
 
     @GetMapping
-    @PreAuthorize("hasRole('USER')")
+//    @PreAuthorize("hasRole('USER')")
     public List<SessionDto> getSessions() {
         return sessionConverter.convertToDto(sessionService.getSessions());
     }
 
 
     @PostMapping
-    @PreAuthorize("hasRole('MANAGER')")
+//    @PreAuthorize("hasRole('MANAGER')")
     public void generateSession(@RequestBody SessionDto sessionDto) {
         sessionService.generateSession(sessionDto);
     }

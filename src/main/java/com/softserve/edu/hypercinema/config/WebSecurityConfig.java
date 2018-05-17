@@ -37,7 +37,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/users").permitAll()
                 .antMatchers(HttpMethod.GET, "/halls/*", "/movies/*", "/sessions/*").permitAll()
-                .anyRequest().authenticated()
+
+//                .anyRequest().authenticated()
                 .and()
                 .addFilter(new JwtAuthenticationFilter(authenticationManager(), secretKey()))
                 .addFilter(new JwtAuthorizationFilter(authenticationManager(), secretKey(), userDetailsService))
