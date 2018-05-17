@@ -3,13 +3,7 @@ package com.softserve.edu.hypercinema.service.impl;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.security.core.Authentication;
-
-//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.core.Authentication;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -24,7 +18,7 @@ import com.softserve.edu.hypercinema.service.UserService;
 import javax.transaction.Transactional;
 import java.security.Principal;
 import java.util.ArrayList;
-import java.util.Optional;
+import java.util.List;
 
 @Service
 @Transactional
@@ -55,12 +49,12 @@ public class UserServiceImpl implements UserService {
                 new UserNotFoundException(USER_EMAIL_NOT_FOUND_MESSAGE + principal.getName()));
     }
 
-//    @Override
-//    public UserEntity getUser(Authentication authentication) {
-//        String email =  ((String) authentication.getPrincipal());
-//        return userRepository.findByEmail(email).orElseThrow(() ->
-//                new UserNotFoundException(USER_EMAIL_NOT_FOUND_MESSAGE + email));
-//    }
+    @Override
+    public UserEntity getUser(Authentication authentication) {
+        String email = ((String) authentication.getPrincipal());
+        return userRepository.findByEmail(email).orElseThrow(() ->
+                new UserNotFoundException(USER_EMAIL_NOT_FOUND_MESSAGE + email));
+    }
 
     @Override
     public void createUser(UserEntity userEntity) {
@@ -73,11 +67,6 @@ public class UserServiceImpl implements UserService {
         userEntity.setRoles(roleEntities);
         userRepository.save(userEntity);
         log.info("New user account created: {}", userEntity.getEmail());
-    }
-
-    @Override
-    public void updateUser(UserEntity userEntity) {
-        userRepository.save(userEntity);
     }
 
     @Override
@@ -98,6 +87,5 @@ public class UserServiceImpl implements UserService {
         userRepository.deleteById(id);
         log.info("User deleted: {}", user.getEmail());
     }
-
 
 }

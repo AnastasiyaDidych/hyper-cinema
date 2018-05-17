@@ -3,6 +3,8 @@ package com.softserve.edu.hypercinema.dto;
 
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class HallDto extends BaseDto {
 
@@ -13,4 +15,6 @@ public class HallDto extends BaseDto {
     private String type;
 
     private String tech;
+
+    private List<SeatDto> seats;
 }

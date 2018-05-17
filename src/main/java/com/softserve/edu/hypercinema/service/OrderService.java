@@ -1,24 +1,19 @@
 package com.softserve.edu.hypercinema.service;
 
-import com.softserve.edu.hypercinema.dto.OrderDto;
 import com.softserve.edu.hypercinema.entity.OrderEntity;
-import com.softserve.edu.hypercinema.entity.UserEntity;
-import com.softserve.edu.hypercinema.repository.OrderRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import javax.transaction.Transactional;
+import org.springframework.security.core.Authentication;
+import java.security.Principal;
 import java.util.List;
 
 
 public interface OrderService {
 
 
-    void createOrder(OrderEntity orderEntity);
+    List<OrderEntity> getOrders(Principal principal);
 
-    List<OrderEntity> getOrders();
+    List<OrderEntity> getOrders(Authentication authentication);
 
-    OrderEntity getOrder(Long id);
+    OrderEntity getOrder(Long id, Authentication authentication);
 
     void updateOrder(OrderEntity orderEntity);
 
@@ -26,5 +21,11 @@ public interface OrderService {
 
     void deleteOrder(OrderEntity orderEntity);
 
-    void createOrder(OrderDto orderDto);
+    void createOrder(OrderEntity orderEntity, Principal principal);
+
+    // VR
+
+    List<OrderEntity> getAllOrders ();
+
+    OrderEntity getOrder(Long id);
 }

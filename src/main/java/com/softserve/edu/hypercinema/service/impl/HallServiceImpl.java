@@ -50,13 +50,6 @@ public class HallServiceImpl implements HallService {
     }
 
     @Override
-    public void updateHall(Long id, HallEntity hallEntity) {
-        hallEntity.setId(id);
-        hallRepository.save(hallEntity);
-    }
-
-
-    @Override
     public void deleteHall(Long id) {
         hallRepository.deleteById(id);
     }
@@ -71,13 +64,13 @@ public class HallServiceImpl implements HallService {
     }
 
 
-    private void fillStaticHall(HallEntity hallEntity/*, int row_capacity*/) {
+    private void fillStaticHall(HallEntity hallEntity) {
 
         final int row_capacity = 10;
-        int capacity = hallEntity.getCapacity();
+        int capacity = hallEntity.getCapacity(); //101
 
-        int rows = (capacity / row_capacity) + (capacity % 10 == 0 ? 0 : 1);
-        int k = capacity - ((rows - 1) * row_capacity);
+        int rows = (capacity / row_capacity) + (capacity % 10 == 0 ? 0 : 1); //10 + 1 = 11
+        int k = capacity - ((rows - 1) * row_capacity); //101 - (11-1)*10  = 1
 
         seatService.createSeat(SeatEntity.builder()
                 .number(1)

@@ -1,7 +1,7 @@
 package com.softserve.edu.hypercinema.service;
 
-import com.softserve.edu.hypercinema.dto.TicketDto;
 import com.softserve.edu.hypercinema.entity.TicketEntity;
+import org.springframework.security.core.Authentication;
 
 import java.util.List;
 
@@ -11,20 +11,14 @@ public interface TicketService {
 
     TicketEntity getTicket(Long id);
 
+    TicketEntity getTicket(Long id, Authentication authentication);
+
     List<TicketEntity> getTickets();
 
-    void updateTicket(TicketEntity ticketEntity);
+    List<TicketEntity> getTickets(Authentication authentication);
 
     void updateTicket(Long id, TicketEntity ticketEntity);
 
     void deleteTicket(Long id);
-
-    void deleteTicket(TicketEntity ticketEntity);
-
-    void generateTicket(TicketDto ticketDto);
-
-    void updateTicket(Long id, TicketDto ticketDto);
-
-    TicketEntity buildTicketEntity(TicketDto ticketDto);
 
 }

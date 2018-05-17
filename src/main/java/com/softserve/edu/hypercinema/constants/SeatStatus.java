@@ -10,7 +10,7 @@ public enum SeatStatus {
         this.status = status;
     }
 
-    public String getStatus(){
+    public String getStatus() {
         return this.status;
     }
 }

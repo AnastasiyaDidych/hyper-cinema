@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RequestMapping("/halls")
@@ -35,6 +37,10 @@ public class HallController {
     }
 
 
+    @GetMapping
+    public List<HallDto> getHalls(){
+        return hallConverter.convertToDto(hallService.getHalls());
+    }
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('MANAGER')")
     public void deleteHall(@PathVariable Long id) {

@@ -4,16 +4,23 @@ import lombok.Data;
 
 import java.math.BigDecimal;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.List;
+
+
 @Data
 public class SessionDto extends BaseDto {
 
-
+    private Long id;
     private Long movieId;
     private Long hallId;
     private String date;
     private String startTime;
+    private String endTime;
     private boolean virtualActive;
     private BigDecimal basePrice;
     private BigDecimal vipPrice;
+    private String title;
 
 }

@@ -1,5 +1,7 @@
 package com.softserve.edu.hypercinema.filter;
 
+import com.softserve.edu.hypercinema.dto.TokenDto;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.BadCredentialsException;
 import com.softserve.edu.hypercinema.dto.UserCredentialsDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -22,12 +24,12 @@ import java.util.Date;
 import java.util.stream.Collectors;
 
 import static com.softserve.edu.hypercinema.constants.JwtConstants.EXPIRATION_TIME;
-import static com.softserve.edu.hypercinema.constants.JwtConstants.HEADER_STRING;
-import static com.softserve.edu.hypercinema.constants.JwtConstants.TOKEN_PREFIX;
 
+@Slf4j
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
-	private static final String CREDENTIALS_READ_ERROR_MESSAGE = "Failed to read credentials";
+	private static final String CREDENTIALS_READ_ERROR_MESSAGE = "Could not read credentials";
+	private static final String TOKEN_WRITE_ERROR_MESSAGE = "Could not write token to response object";
 
 	private AuthenticationManager authenticationManager;
 
@@ -67,8 +69,12 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 				.setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
 				.signWith(SignatureAlgorithm.HS512, secretKey)
 				.compact();
-		res.addHeader(HEADER_STRING, TOKEN_PREFIX + token);
-		System.out.println(token);
+		res.setContentType("application/json");
+		try {
+			new ObjectMapper().writeValue(res.getWriter(), new TokenDto(token));
+		} catch (IOException e) {
+			log.error(TOKEN_WRITE_ERROR_MESSAGE, e);
+		}
 	}
 
 }
