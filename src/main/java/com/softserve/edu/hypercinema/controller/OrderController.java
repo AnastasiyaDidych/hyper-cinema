@@ -23,41 +23,41 @@ public class OrderController {
     @Autowired
     private OrderConverter orderConvertor;
 
-    @PreAuthorize("hasRole('USER')")
+//    @PreAuthorize("hasRole('USER')")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void createUserOrder(@RequestBody OrderDto order, Principal principal) {
         orderService.createOrder(orderConvertor.convertToEntity(order), principal);
     }
 
-    @PreAuthorize("hasRole('MANAGER')")
+//    @PreAuthorize("hasRole('MANAGER')")
     @PutMapping
     public void updateOrder(@RequestBody OrderDto order) {
         orderService.updateOrder(orderConvertor.convertToEntity(order));
     }
 
-    @PreAuthorize("hasRole('USER')")
+//    @PreAuthorize("hasRole('USER')")
     @GetMapping("/{id}")
     public OrderDto getOrder(@PathVariable Long id, Authentication authentication) {
         return orderConvertor.convertToDto(orderService.getOrder(id, authentication));
 
     }
 
-    @PreAuthorize("hasRole('MANAGER')")
+//    @PreAuthorize("hasRole('MANAGER')")
     @DeleteMapping("/{id}")
     public void deleteOrder(@PathVariable Long id) {
         orderService.deleteOrder(id);
     }
 
 
-    @PreAuthorize("hasRole('MANAGER')")
+//    @PreAuthorize("hasRole('MANAGER')")
     @DeleteMapping
     public void deleteOrder(@RequestBody OrderDto order) {
         orderService.deleteOrder(orderConvertor.convertToEntity(order));
     }
 
 
-    @PreAuthorize("hasRole('USER')")
+//    @PreAuthorize("hasRole('USER')")
     @GetMapping
     public List<OrderDto> getListOrders(Authentication authentication) {
         return orderConvertor.convertToDto(orderService.getOrders(authentication));

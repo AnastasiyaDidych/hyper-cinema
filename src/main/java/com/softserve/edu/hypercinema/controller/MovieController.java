@@ -27,34 +27,34 @@ public class MovieController {
     private MovieConverter movieConverter;
 
     @GetMapping
-    @PreAuthorize("hasRole('USER')")
+//    @PreAuthorize("hasRole('USER')")
     public List<MovieDto> getAllMovies() {
         return movieConverter.convertToDto(movieService.getMovies());
 
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('USER')")
+//    @PreAuthorize("hasRole('USER')")
     public MovieDto getMovieById(@PathVariable("id") Long id ){
         return movieConverter.convertToDto(movieService.getMovie(id));
     }
 
     @PostMapping
-    @PreAuthorize("hasRole('MANAGER')")
+//    @PreAuthorize("hasRole('MANAGER')")
     @ResponseStatus(HttpStatus.CREATED)
     public void createMovie(@RequestBody MovieDto movieDto) {
         movieService.createMovie(movieConverter.convertToEntity(movieDto));
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('MANAGER')")
+//    @PreAuthorize("hasRole('MANAGER')")
     public void updateMovie(@RequestBody MovieDto movieDto, @PathVariable("id") Long id) {
         MovieEntity movieEntity = movieConverter.convertToEntity(movieDto);
         movieService.updateMovie(movieEntity,id);
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('MANAGER')")
+//    @PreAuthorize("hasRole('MANAGER')")
     public void deleteMovie(@PathVariable("id") Long id) {
         movieService.deleteMovie(id);
     }
