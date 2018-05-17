@@ -28,25 +28,25 @@ public class UserApiController {
         userService.createUser(userConverter.convertToEntity(userDto));
     }
 
-    @PreAuthorize("hasRole('USER')")
+//    @PreAuthorize("hasRole('USER')")
     @PutMapping
     public void updateUser(@RequestBody UserDto userDto, Principal principal) {
         userService.updateUser(userConverter.convertToEntity(userDto), principal);
     }
 
-    @PreAuthorize("hasRole('USER')")
+//    @PreAuthorize("hasRole('USER')")
     @GetMapping("/{id}")
     public UserDto getUser(@PathVariable Long id) {
         return userConverter.convertToDto(userService.getUser(id));
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public void deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
     }
 
-    @PreAuthorize("hasRole('USER')")
+//    @PreAuthorize("hasRole('USER')")
     @GetMapping("/me")
     public UserDto getCurrentUser(Principal principal) {
         return userConverter.convertToDto(userService.getUser(principal));

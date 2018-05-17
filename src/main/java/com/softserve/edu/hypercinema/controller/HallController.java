@@ -24,14 +24,14 @@ public class HallController {
     private HallConverter hallConverter;
 
     @PostMapping
-    @PreAuthorize("hasRole('MANAGER')")
+//    @PreAuthorize("hasRole('MANAGER')")
     @ResponseStatus(HttpStatus.CREATED)
     public void createHall(@RequestBody HallDto hallDto) {
         hallService.createHall(hallConverter.convertToEntity(hallDto));
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('USER')")
+//    @PreAuthorize("hasRole('USER')")
     public HallDto getHall(@PathVariable Long id) {
         return hallConverter.convertToDto(hallService.getHall(id));
     }
@@ -42,7 +42,7 @@ public class HallController {
         return hallConverter.convertToDto(hallService.getHalls());
     }
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('MANAGER')")
+//    @PreAuthorize("hasRole('MANAGER')")
     public void deleteHall(@PathVariable Long id) {
         hallService.deleteHall(id);
     }

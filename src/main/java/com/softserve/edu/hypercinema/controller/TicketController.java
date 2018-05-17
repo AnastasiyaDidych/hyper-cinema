@@ -21,25 +21,25 @@ public class TicketController {
     @Autowired
     private TicketConverter ticketConverter;
 
-    @PreAuthorize("hasRole('MANAGER')")
+//    @PreAuthorize("hasRole('MANAGER')")
     @PutMapping("/{id}")
     public void updateTicket(@PathVariable Long id, @RequestBody TicketDto ticket){
         ticketService.updateTicket(id, ticketConverter.convertToEntity(ticket));
     }
 
-    @PreAuthorize("hasRole('USER')")
+//    @PreAuthorize("hasRole('USER')")
     @GetMapping("/{id}")
     public TicketDto getTicket(@PathVariable Long id, Authentication authentication){
         return ticketConverter.convertToDto(ticketService.getTicket(id, authentication));
     }
 
-    @PreAuthorize("hasRole('USER')")
+//    @PreAuthorize("hasRole('USER')")
     @GetMapping
     public List<TicketDto> getTickets(Authentication authentication){
         return ticketConverter.convertToDto(ticketService.getTickets(authentication));
     }
 
-    @PreAuthorize("hasRole('MANAGER')")
+//    @PreAuthorize("hasRole('MANAGER')")
     @DeleteMapping("/{id}")
     public void deleteTicket(@PathVariable Long id){
         ticketService.deleteTicket(id);

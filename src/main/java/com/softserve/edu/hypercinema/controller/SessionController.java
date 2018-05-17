@@ -24,27 +24,27 @@ public class SessionController {
     private SessionConverter sessionConverter;
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('MANAGER')")
+//    @PreAuthorize("hasRole('MANAGER')")
     public void updateSession(@RequestBody SessionDto sessionDto) {
         sessionService.updateSession(sessionConverter.convertToEntity(sessionDto));
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('MANAGER')")
+//    @PreAuthorize("hasRole('MANAGER')")
     public void deleteSession(@PathVariable Long id) {
         sessionService.deleteSession(id);
     }
 
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('USER')")
+//    @PreAuthorize("hasRole('USER')")
     public SessionDto getSession(@PathVariable Long id) {
         return sessionConverter.convertToDto(sessionService.getSession(id));
     }
 
 
     @GetMapping
-    @PreAuthorize("hasRole('USER')")
+//    @PreAuthorize("hasRole('USER')")
     public List<SessionDto> getSessions() {
         return sessionConverter.convertToDto(sessionService.getSessions());
     }
@@ -57,19 +57,19 @@ public class SessionController {
     }
 
     @PostMapping("/generateday/{id}")
-    @PreAuthorize("hasRole('MANAGER')")
+//    @PreAuthorize("hasRole('MANAGER')")
     public void generateForDay(@PathVariable Long id) {
         sessionService.generateSessionsForOneFilmForOneHallEnd(id);
     }
 
     @PostMapping("/generateweek")
-    @PreAuthorize("hasRole('MANAGER')")
+//    @PreAuthorize("hasRole('MANAGER')")
     public void generateForWeek(@RequestParam String date) {
         sessionService.copySessionsForOneWeek(date);
     }
 
     @GetMapping("/schedule")
-    @PreAuthorize("hasRole('USER')")
+//    @PreAuthorize("hasRole('USER')")
     public List<Schedule> test1() {
         return sessionService.schedule();
     }
