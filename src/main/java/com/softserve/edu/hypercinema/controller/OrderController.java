@@ -38,8 +38,8 @@ public class OrderController {
 
 //    @PreAuthorize("hasRole('USER')")
     @GetMapping("/{id}")
-    public OrderDto getOrder(@PathVariable Long id, Authentication authentication) {
-        return orderConvertor.convertToDto(orderService.getOrder(id, authentication));
+    public OrderDto getOrder(@PathVariable Long id/*, Authentication authentication*/) {
+        return orderConvertor.convertToDto(orderService.getOrder(id/*, authentication*/));
 
     }
 
@@ -62,4 +62,13 @@ public class OrderController {
     public List<OrderDto> getListOrders(Authentication authentication) {
         return orderConvertor.convertToDto(orderService.getOrders(authentication));
     }
+
+
+    // VR
+
+    @GetMapping("/all")
+    public List<OrderDto> getAllOrders() {
+        return orderConvertor.convertToDto(orderService.getAllOrders());
+    }
+
 }
