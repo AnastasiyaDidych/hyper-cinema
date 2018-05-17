@@ -2,10 +2,13 @@ package com.softserve.edu.hypercinema.controller;
 
 
 import com.softserve.edu.hypercinema.converter.SessionConverter;
+import com.softserve.edu.hypercinema.dto.Schedule;
 import com.softserve.edu.hypercinema.dto.SessionDto;
+import com.softserve.edu.hypercinema.entity.SessionEntity;
 import com.softserve.edu.hypercinema.service.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,12 +17,16 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RequestMapping("/sessions")
 public class SessionController {
-
     @Autowired
     private SessionService sessionService;
 
     @Autowired
     private SessionConverter sessionConverter;
+
+
+
+
+
 
     @PutMapping("/{id}")
 //    @PreAuthorize("hasRole('MANAGER')")
@@ -51,9 +58,26 @@ public class SessionController {
     @PostMapping
 //    @PreAuthorize("hasRole('MANAGER')")
     public void generateSession(@RequestBody SessionDto sessionDto) {
-
-//        sessionUtil.generateSession(sessionDto);
+        sessionService.generateSession(sessionDto);
     }
 
+    @PostMapping("/generateday/{id}")
+    @PreAuthorize("hasRole('MANAGER')")
+    public void generateForDay(@PathVariable Long id) {
+        sessionService.generateSessionsForOneFilmForOneHallEnd(id);
     }
+
+    @PostMapping("/generateweek")
+    @PreAuthorize("hasRole('MANAGER')")
+    public void generateForWeek(@RequestParam String date) {
+        sessionService.copySessionsForOneWeek(date);
+    }
+
+    @GetMapping("/schedule")
+    @PreAuthorize("hasRole('USER')")
+    public List<Schedule> test1() {
+        return sessionService.schedule();
+    }
+
+}
 

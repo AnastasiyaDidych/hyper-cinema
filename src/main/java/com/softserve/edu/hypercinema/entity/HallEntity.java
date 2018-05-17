@@ -36,6 +36,7 @@ public class HallEntity extends BaseEntity {
     private List<SeatEntity> seats;
 
     @OneToMany(mappedBy = "hall")
+    @JsonIgnore
     private List<SessionEntity> sessions;
 
 

@@ -33,7 +33,7 @@ public class SessionEntity extends BaseEntity {
     private LocalTime endTime;
 
     @Column(name = "virtual_active")
-    private boolean virtualActive;
+    private Boolean virtualActive;
 
     @OneToMany(mappedBy = "session")
     private List<TicketEntity> tickets;

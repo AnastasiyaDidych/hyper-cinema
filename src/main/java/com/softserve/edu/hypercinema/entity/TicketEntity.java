@@ -1,5 +1,6 @@
 package com.softserve.edu.hypercinema.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -29,12 +30,13 @@ public class TicketEntity extends BaseEntity{
 //    @NotEmpty
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "session_id",  nullable = false)
+    @JsonIgnore
     private SessionEntity session;
 
     @Column(name = "price", columnDefinition = "DECIMAL(6,2)")
     private BigDecimal price;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.DETACH)
     @JoinTable(name = "ticket_coefficient",
             joinColumns = @JoinColumn(name = "ticket_id"),
             inverseJoinColumns = @JoinColumn(name = "coefficient_id"))
