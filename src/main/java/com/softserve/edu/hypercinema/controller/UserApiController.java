@@ -47,7 +47,7 @@ public class UserApiController {
         userService.deleteUser(id);
     }
 
-    @PreAuthorize("hasRole('USER')")
+        @PreAuthorize("hasRole('USER')")
     @GetMapping("/me")
     public UserDto getCurrentUser(Principal principal) {
         return userConverter.convertToDto(userService.getUser(principal));

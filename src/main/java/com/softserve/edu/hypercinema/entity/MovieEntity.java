@@ -36,6 +36,9 @@ public class MovieEntity extends BaseEntity{
 
     private String genre;
 
+    @Column(name = "tmdb_id")
+    private double tmdbId;
+
     @Column(name = "start_rent")
     @DateTimeFormat(pattern = "MM.dd.yyyy")
     private LocalDate startRent;
