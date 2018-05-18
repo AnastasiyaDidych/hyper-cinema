@@ -63,7 +63,6 @@ public class OrderController {
         return orderConvertor.convertToDto(orderService.getOrders(authentication));
     }
 
-
     // VR
 
     @GetMapping("/all")
