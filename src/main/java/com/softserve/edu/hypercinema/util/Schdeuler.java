@@ -25,8 +25,6 @@ public class Schdeuler {
                 sessionEntities.get(i).setActive(false);
             }
             sessionRepository.save(sessionEntities.get(i));
-
-
         }
     }
 
