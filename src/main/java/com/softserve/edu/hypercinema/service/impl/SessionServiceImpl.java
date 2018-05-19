@@ -76,18 +76,6 @@ public class SessionServiceImpl  implements SessionService {
         return sessionRepository.findAll();
     }
 
-
-    private void generateTicketsForSession(SessionEntity sessionEntity) {
-        for (int i = 0; i <= sessionEntity.getHall().getCapacity(); i++) {
-            TicketEntity ticketEntity = new TicketEntity();
-            ticketEntity.setSession(sessionEntity);
-            sessionEntity.getTickets().add(ticketEntity);
-
-            //ticketRepository.save(ticketEntity);
-            ticketService.createTicket(ticketEntity);
-        }
-    }
-
     @Override
     public void generateSession(SessionDto sessionDto) {
 
