@@ -13,7 +13,8 @@ public class SessionDto extends BaseDto {
     private String date;
     private String startTime;
     private String endTime;
-    private boolean virtualActive;
+    private Boolean virtualActive;
+    private Boolean active;
     private BigDecimal basePrice;
     private BigDecimal vipPrice;
     private String title;
