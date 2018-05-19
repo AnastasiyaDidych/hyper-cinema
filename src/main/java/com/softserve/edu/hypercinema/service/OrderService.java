@@ -22,4 +22,7 @@ public interface OrderService {
     void deleteOrder(OrderEntity orderEntity);
 
     void createOrder(OrderEntity orderEntity, Principal principal);
+
+    List<OrderEntity> getAllOrders ();
+
 }

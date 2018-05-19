@@ -18,6 +18,7 @@ import com.softserve.edu.hypercinema.service.UserService;
 import javax.transaction.Transactional;
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @Transactional

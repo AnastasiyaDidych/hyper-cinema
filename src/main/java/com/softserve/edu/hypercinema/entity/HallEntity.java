@@ -1,6 +1,5 @@
 package com.softserve.edu.hypercinema.entity;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,6 +31,7 @@ public class HallEntity extends BaseEntity {
     @Column(name = "tech", nullable = false)
     private String tech;
 
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "hall")
     private List<SeatEntity> seats;
 

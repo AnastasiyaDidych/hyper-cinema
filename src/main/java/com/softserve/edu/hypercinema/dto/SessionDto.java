@@ -4,6 +4,11 @@ import lombok.Data;
 
 import java.math.BigDecimal;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.List;
+
+
 @Data
 public class SessionDto extends BaseDto {
 

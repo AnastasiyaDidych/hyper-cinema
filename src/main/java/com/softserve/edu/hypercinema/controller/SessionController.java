@@ -23,11 +23,6 @@ public class SessionController {
     @Autowired
     private SessionConverter sessionConverter;
 
-
-
-
-
-
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('MANAGER')")
     public void updateSession(@RequestBody SessionDto sessionDto) {

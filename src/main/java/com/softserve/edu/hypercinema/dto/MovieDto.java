@@ -9,6 +9,7 @@ import java.time.LocalDate;
 @Data
 public class MovieDto extends BaseDto{
 
+    private long id;
     private String title;
 
     private String description;
@@ -16,6 +17,8 @@ public class MovieDto extends BaseDto{
     private int duration;
 
     private String genre;
+
+    private double tmdbId;
 
     private LocalDate startRent;
 

@@ -5,9 +5,14 @@ import com.softserve.edu.hypercinema.entity.*;
 import com.softserve.edu.hypercinema.exception.AccessViolationException;
 import com.softserve.edu.hypercinema.exception.OrderNotFoundException;
 import com.softserve.edu.hypercinema.exception.TicketNotFoundException;
+import com.softserve.edu.hypercinema.exception.TicketUnavaiableException;
 import com.softserve.edu.hypercinema.repository.TicketRepository;
-import com.softserve.edu.hypercinema.service.*;
+import com.softserve.edu.hypercinema.service.MovieService;
+import com.softserve.edu.hypercinema.service.SessionService;
+import com.softserve.edu.hypercinema.service.TicketService;
+import com.softserve.edu.hypercinema.service.UserService;
 import com.softserve.edu.hypercinema.util.AuthUtil;
+import com.softserve.edu.hypercinema.util.BarcodeGenerator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -26,6 +31,7 @@ public class TicketServiceImpl implements TicketService {
 
     private static final String TICKET_NOT_FOUND_MESSAGE = "Could not find Ticket with id=";
     private static final String TICKET_ACCESS_VIOLATION_MESSAGE = "It is not your ticket";
+    private static final String TICKET_UNAVAILABLE_MESSAGE = "This Seat is unavailable";
 
     @Autowired
     private TicketRepository ticketRepository;
@@ -41,8 +47,9 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     public void createTicket(TicketEntity ticketEntity) {
+        ticketEntity.setBarcode(BarcodeGenerator.generateStringBarcode(ticketEntity));
         setTicketCoefficients(ticketEntity);
-        ticketRepository.save(ticketEntity);
+        ticketRepository.save(validateTicket(ticketEntity));
     }
 
     @Override
@@ -66,6 +73,11 @@ public class TicketServiceImpl implements TicketService {
     @Override
     public List<TicketEntity> getTickets() {
         return ticketRepository.findAll();
+    }
+
+    @Override
+    public List<TicketEntity> getUnavailableTickets(Long sessionId){
+        return ticketRepository.findAllTicketsBySessionId(sessionId);
     }
 
     @Override
@@ -95,12 +107,24 @@ public class TicketServiceImpl implements TicketService {
         ticketRepository.deleteById(id);
     }
 
+    private TicketEntity validateTicket(TicketEntity ticketEntity) {
+
+        List<TicketEntity> tickets = ticketRepository.findAllTicketBySessionIdAndSeatId(
+                ticketEntity.getSession().getId(),
+                ticketEntity.getSeat().getId());
+        if (!tickets.isEmpty()) {
+            throw new TicketUnavaiableException(TICKET_UNAVAILABLE_MESSAGE);
+        }
+        return ticketEntity;
+    }
+
     public void setTicketCoefficients(TicketEntity ticket) {
         SessionEntity sessionEntity = ticket.getSession();
         MovieEntity movieEntity = movieService.getMovie(sessionEntity.getMovie().getId());
         LocalDate sessionDate = sessionEntity.getDate();
         SeatEntity seatEntity = ticket.getSeat();
 
+        // TODO method, which returns List<CoefficientEntity>
         List<BigDecimal> coeffValues = sessionService.getCoefs(movieEntity, sessionDate, seatEntity);
         List<CoefficientEntity> ticketCoefficients = new ArrayList<>();
 

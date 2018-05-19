@@ -1,10 +1,10 @@
 package com.softserve.edu.hypercinema.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -22,19 +22,22 @@ public class TicketEntity extends BaseEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-//    @NotEmpty
+//    @NotNull
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    @JoinColumn(name = "order_id") //removed nullable = false
+    @JoinColumn(name = "order_id")
     private OrderEntity order;
 
-//    @NotEmpty
+//    @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "session_id",  nullable = false)
-    @JsonIgnore
+    @JoinColumn(name = "session_id")
     private SessionEntity session;
 
     @Column(name = "price", columnDefinition = "DECIMAL(6,2)")
     private BigDecimal price;
+
+//    @NotEmpty
+    @Column(name = "barcode")
+    private String barcode;
 
     @ManyToMany(cascade = CascadeType.DETACH)
     @JoinTable(name = "ticket_coefficient",
@@ -42,6 +45,7 @@ public class TicketEntity extends BaseEntity{
             inverseJoinColumns = @JoinColumn(name = "coefficient_id"))
     private List<CoefficientEntity> coefficients;
 
+//    @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "seat_id")
     private SeatEntity seat;
