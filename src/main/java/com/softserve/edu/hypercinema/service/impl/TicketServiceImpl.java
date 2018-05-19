@@ -109,15 +109,12 @@ public class TicketServiceImpl implements TicketService {
 
     private TicketEntity validateTicket(TicketEntity ticketEntity) {
 
-        System.out.println("Ticket validation...");
         List<TicketEntity> tickets = ticketRepository.findAllTicketBySessionIdAndSeatId(
                 ticketEntity.getSession().getId(),
                 ticketEntity.getSeat().getId());
         if (!tickets.isEmpty()) {
-            System.out.println("Ticket not valid");
             throw new TicketUnavaiableException(TICKET_UNAVAILABLE_MESSAGE);
         }
-        System.out.println("Ticket valid");
         return ticketEntity;
     }
 

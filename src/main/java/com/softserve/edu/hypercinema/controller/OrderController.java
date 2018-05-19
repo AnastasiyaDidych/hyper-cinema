@@ -27,7 +27,6 @@ public class OrderController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void createUserOrder(@RequestBody OrderDto order, Principal principal) {
-        System.out.println("Creating new Order...");
         orderService.createOrder(orderConvertor.convertToEntity(order), principal);
     }
 

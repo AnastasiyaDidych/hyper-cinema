@@ -48,14 +48,9 @@ public class OrderServiceImpl implements OrderService {
         order.setPending(true);
         order.setConfirmed(true);
 
-        System.out.println("user = " + user.getEmail());
-
         orderRepository.saveAndFlush(order);
 
-        System.out.println("OrderId = " + order.getId());
-
         for (TicketEntity ticket : tickets) {
-            System.out.println("Ticket: SeatId= " + ticket.getSeat().getId() + " SessionId= " + ticket.getSession().getId());
             ticket.setOrder(order);
             ticketService.createTicket(ticket);
         }
