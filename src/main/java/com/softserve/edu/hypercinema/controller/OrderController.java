@@ -23,10 +23,11 @@ public class OrderController {
     @Autowired
     private OrderConverter orderConvertor;
 
-//    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('USER')")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void createUserOrder(@RequestBody OrderDto order, Principal principal) {
+        System.out.println("Creating new Order...");
         orderService.createOrder(orderConvertor.convertToEntity(order), principal);
     }
 
@@ -38,8 +39,8 @@ public class OrderController {
 
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/{id}")
-    public OrderDto getOrder(@PathVariable Long id/*, Authentication authentication*/) {
-        return orderConvertor.convertToDto(orderService.getOrder(id/*, authentication*/));
+    public OrderDto getOrder(@PathVariable Long id, Authentication authentication) {
+        return orderConvertor.convertToDto(orderService.getOrder(id, authentication));
 
     }
 
@@ -56,15 +57,13 @@ public class OrderController {
         orderService.deleteOrder(orderConvertor.convertToEntity(order));
     }
 
-
     @PreAuthorize("hasRole('USER')")
     @GetMapping
     public List<OrderDto> getListOrders(Authentication authentication) {
         return orderConvertor.convertToDto(orderService.getOrders(authentication));
     }
 
-    // VR
-
+    @PreAuthorize("hasRole('MANAGER')")
     @GetMapping("/all")
     public List<OrderDto> getAllOrders() {
         return orderConvertor.convertToDto(orderService.getAllOrders());

@@ -34,16 +34,9 @@ public class TicketController {
         ticketService.updateTicket(id, ticketConverter.convertToEntity(ticket));
     }
 
-        @PreAuthorize("hasRole('USER')")
-    @GetMapping("/{id}")
-    public TicketDto getTicket(@PathVariable Long id, Authentication authentication) {
-        return ticketConverter.convertToDto(ticketService.getTicket(id, authentication));
-    }
-
-    @PreAuthorize("hasRole('USER')")
-    @GetMapping
-    public List<TicketDto> getTickets(Authentication authentication) {
-        return ticketConverter.convertToDto(ticketService.getTickets(authentication));
+    @GetMapping("/{sessionId}")
+    public List<TicketDto> getUnavailableTickets(@PathVariable Long sessionId) {
+        return ticketConverter.convertToDto(ticketService.getUnavailableTickets(sessionId));
     }
 
     @PreAuthorize("hasRole('MANAGER')")
@@ -53,12 +46,6 @@ public class TicketController {
     }
 
 //    ---------- Full DTO ----------
-
-    @PreAuthorize("hasRole('MANAGER')")
-    @PostMapping("/full/{id}")
-    public void updateFullTicket(@PathVariable Long id, @RequestBody TicketFullDto fullTicket){
-        ticketService.updateTicket(id, ticketConverter.convertFromFullDto(fullTicket));
-    }
 
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/full")
@@ -70,12 +57,6 @@ public class TicketController {
     @GetMapping("/full/{id}")
     public TicketFullDto getFullTicket(@PathVariable Long id, Authentication authentication){
         return ticketConverter.convertToFullDto(ticketService.getTicket(id, authentication));
-    }
-
-    @PreAuthorize("hasRole('MANAGER')")
-    @DeleteMapping("/full/{id}")
-    public void deleteFullTicket(@PathVariable Long id){
-        deleteTicket(id);
     }
 
 }

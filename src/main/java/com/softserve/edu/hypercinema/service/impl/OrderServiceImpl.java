@@ -47,18 +47,20 @@ public class OrderServiceImpl implements OrderService {
         order.setUser(user);
         order.setPending(true);
         order.setConfirmed(true);
+
+        System.out.println("user = " + user.getEmail());
+
         orderRepository.saveAndFlush(order);
 
+        System.out.println("OrderId = " + order.getId());
+
         for (TicketEntity ticket : tickets) {
+            System.out.println("Ticket: SeatId= " + ticket.getSeat().getId() + " SessionId= " + ticket.getSession().getId());
             ticket.setOrder(order);
             ticketService.createTicket(ticket);
         }
     }
 
-    //    @Override
-//    public List<OrderEntity> getOrders() {
-//        return orderRepository.findAll();
-//    }
     @Override
     public List<OrderEntity> getOrders(Authentication authentication) {
         if (!AuthUtil.isAdmin(authentication) || !AuthUtil.isManager(authentication)) {
@@ -122,15 +124,9 @@ public class OrderServiceImpl implements OrderService {
         orderRepository.delete(orderEntity);
     }
 
-
-    // VR
     @Override
     public List<OrderEntity> getAllOrders (){
         return orderRepository.findAll();
     }
 
-    @Override
-    public OrderEntity getOrder(Long id) {
-        return orderRepository.getOne(id);
-    }
 }
