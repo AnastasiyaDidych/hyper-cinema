@@ -47,6 +47,7 @@ public class OrderServiceImpl implements OrderService {
         order.setUser(user);
         order.setPending(true);
         order.setConfirmed(true);
+
         orderRepository.saveAndFlush(order);
 
         for (TicketEntity ticket : tickets) {
@@ -55,10 +56,6 @@ public class OrderServiceImpl implements OrderService {
         }
     }
 
-    //    @Override
-//    public List<OrderEntity> getOrders() {
-//        return orderRepository.findAll();
-//    }
     @Override
     public List<OrderEntity> getOrders(Authentication authentication) {
         if (!AuthUtil.isAdmin(authentication) || !AuthUtil.isManager(authentication)) {
@@ -122,15 +119,9 @@ public class OrderServiceImpl implements OrderService {
         orderRepository.delete(orderEntity);
     }
 
-
-    // VR
     @Override
     public List<OrderEntity> getAllOrders (){
         return orderRepository.findAll();
     }
 
-    @Override
-    public OrderEntity getOrder(Long id) {
-        return orderRepository.getOne(id);
-    }
 }

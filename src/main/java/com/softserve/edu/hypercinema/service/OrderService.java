@@ -23,9 +23,6 @@ public interface OrderService {
 
     void createOrder(OrderEntity orderEntity, Principal principal);
 
-    // VR
-
     List<OrderEntity> getAllOrders ();
 
-    OrderEntity getOrder(Long id);
 }

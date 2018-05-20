@@ -76,18 +76,6 @@ public class SessionServiceImpl  implements SessionService {
         return sessionRepository.findAll();
     }
 
-
-    private void generateTicketsForSession(SessionEntity sessionEntity) {
-        for (int i = 0; i <= sessionEntity.getHall().getCapacity(); i++) {
-            TicketEntity ticketEntity = new TicketEntity();
-            ticketEntity.setSession(sessionEntity);
-            sessionEntity.getTickets().add(ticketEntity);
-
-            //ticketRepository.save(ticketEntity);
-            ticketService.createTicket(ticketEntity);
-        }
-    }
-
     @Override
     public void generateSession(SessionDto sessionDto) {
 
@@ -99,7 +87,8 @@ public class SessionServiceImpl  implements SessionService {
         LocalTime startTime = LocalTime.parse(sessionDto.getStartTime(), TIME_FORMATTER);
         sessionEntity.setStartTime(startTime);
         sessionEntity.setEndTime(startTime.plusMinutes(movieEntity.getDuration() + 15));
-        sessionEntity.setVirtualActive(sessionDto.isVirtualActive());
+        sessionEntity.setVirtualActive(sessionDto.getVirtualActive());
+        sessionEntity.setActive(sessionDto.getActive());
         //generateTicketsForSession(sessionEntity);
         createSession(sessionEntity);
 
@@ -122,6 +111,7 @@ public class SessionServiceImpl  implements SessionService {
             LocalTime endTime = (startTime.plusMinutes(movieEntity.getDuration() + 15));
             sessionEntity1.setEndTime(endTime);
             sessionEntity1.setVirtualActive(sessionEntity.getVirtualActive());
+            sessionEntity1.setActive(sessionEntity.getActive());
             if (isOpen(LocalTime.of(6, 0, 0), LocalTime.of(23, 0, 0), startTime)) {
                 createSession(sessionEntity1);
             } else
@@ -146,6 +136,7 @@ public class SessionServiceImpl  implements SessionService {
                 sessionEntity1.setStartTime(sessionEntity.getStartTime());
                 sessionEntity1.setEndTime(sessionEntity.getEndTime());
                 sessionEntity1.setVirtualActive(sessionEntity.getVirtualActive());
+                sessionEntity1.setActive(sessionEntity.getActive());
                 LocalDate localDate1 = sessionEntity.getDate();
                 sessionEntity1.setDate(localDate1.plusDays(i));
                 sessionRepository.save(sessionEntity1);

@@ -35,6 +35,9 @@ public class SessionEntity extends BaseEntity {
     @Column(name = "virtual_active")
     private Boolean virtualActive;
 
+    @Column(name = "active")
+    private Boolean active;
+
     @OneToMany(mappedBy = "session")
     private List<TicketEntity> tickets;
 

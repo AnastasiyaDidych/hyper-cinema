@@ -76,6 +76,11 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
+    public List<TicketEntity> getUnavailableTickets(Long sessionId){
+        return ticketRepository.findAllTicketsBySessionId(sessionId);
+    }
+
+    @Override
     public List<TicketEntity> getTickets(Authentication authentication) {
         if (!AuthUtil.isAdmin(authentication) || !AuthUtil.isManager(authentication)) {
             List<OrderEntity> orders = userService.getUser(authentication).getOrders();
@@ -103,6 +108,7 @@ public class TicketServiceImpl implements TicketService {
     }
 
     private TicketEntity validateTicket(TicketEntity ticketEntity) {
+
         List<TicketEntity> tickets = ticketRepository.findAllTicketBySessionIdAndSeatId(
                 ticketEntity.getSession().getId(),
                 ticketEntity.getSeat().getId());

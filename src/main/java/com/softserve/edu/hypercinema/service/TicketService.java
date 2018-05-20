@@ -15,6 +15,8 @@ public interface TicketService {
 
     List<TicketEntity> getTickets();
 
+    List<TicketEntity> getUnavailableTickets(Long sessionId);
+
     List<TicketEntity> getTickets(Authentication authentication);
 
     void updateTicket(Long id, TicketEntity ticketEntity);
