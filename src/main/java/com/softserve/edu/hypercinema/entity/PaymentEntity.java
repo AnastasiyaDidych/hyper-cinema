@@ -13,7 +13,7 @@ import java.util.List;
 @Setter
 @Builder
 @AllArgsConstructor
-public class UserPayment extends BaseEntity {
+public class PaymentEntity extends BaseEntity {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
@@ -22,10 +22,10 @@ public class UserPayment extends BaseEntity {
     private String cardNumber;
     private int expiryMonth;
     private int expiryYear;
-    private String holderName;
-    private boolean defaultPayment;
+//    private String holderName;
+//    private boolean defaultPayment;
 
-    @ManyToOne
-    @JoinColumn(name="user_id")
-    private UserEntity user;
+    @OneToOne
+    @JoinColumn(name="order_id")
+    private OrderEntity order;
 }

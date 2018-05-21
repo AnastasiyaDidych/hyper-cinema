@@ -7,6 +7,7 @@ import com.softserve.edu.hypercinema.exception.OrderNotFoundException;
 import com.softserve.edu.hypercinema.entity.OrderEntity;
 import com.softserve.edu.hypercinema.repository.OrderRepository;
 import com.softserve.edu.hypercinema.service.OrderService;
+import com.softserve.edu.hypercinema.service.PaymentService;
 import com.softserve.edu.hypercinema.service.TicketService;
 import com.softserve.edu.hypercinema.service.UserService;
 import com.softserve.edu.hypercinema.util.AuthUtil;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.security.Principal;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
@@ -39,6 +41,9 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private TicketService ticketService;
 
+    @Autowired
+    private PaymentService paymentService;
+
 
     @Override
     public void createOrder(OrderEntity order, Principal principal) {
@@ -50,7 +55,11 @@ public class OrderServiceImpl implements OrderService {
         order.setUser(user);
         order.setPending(true);
         order.setConfirmed(true);
+        order.setOrderDate(Calendar.getInstance().getTime());
+
         orderRepository.saveAndFlush(order);
+
+        paymentService.createPayment(order.getPayment());
 
         for (TicketEntity ticket : tickets) {
             ticket.setOrder(order);

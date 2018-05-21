@@ -5,6 +5,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -31,5 +33,14 @@ public class OrderEntity extends BaseEntity {
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.REMOVE)
     private List<TicketEntity> tickets;
+
+    @Column(name = "order_date")
+    private Date orderDate;
+
+    @Column(name ="sum" )
+    private BigDecimal orderTotal;
+
+    @OneToOne(cascade=CascadeType.ALL)
+    private PaymentEntity payment;
 
 }
