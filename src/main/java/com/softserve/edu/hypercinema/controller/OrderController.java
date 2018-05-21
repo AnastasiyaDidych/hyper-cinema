@@ -23,7 +23,7 @@ public class OrderController {
     @Autowired
     private OrderConverter orderConvertor;
 
-//    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('USER')")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void createUserOrder(@RequestBody OrderDto order, Principal principal) {
