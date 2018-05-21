@@ -20,7 +20,7 @@ public class SeatController {
     private SeatConverter seatConverter;
 
     @GetMapping("/{id}")
-//    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('USER')")
     public SeatDto getSeat(@PathVariable("id") Long id) {
         return seatConverter.convertToDto(seatService.getSeat(id));
     }
