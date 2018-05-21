@@ -50,4 +50,12 @@ public class TicketEntity extends BaseEntity{
     @JoinColumn(name = "seat_id")
     private SeatEntity seat;
 
+
+    public long getSessionId() {
+        return  this.session.getId();
+    }
+
+    public long getSeatId() {
+        return  this.seat.getId();
+    }
 }

@@ -31,7 +31,7 @@ public class HallEntity extends BaseEntity {
     @Column(name = "tech", nullable = false)
     private String tech;
 
-    @JsonIgnore
+//    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "hall")
     private List<SeatEntity> seats;
 

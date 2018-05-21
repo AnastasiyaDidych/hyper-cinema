@@ -22,4 +22,5 @@ public class HallConverterImpl implements HallConverter {
     public HallDto convertToDto(HallEntity hallEntity) {
         return modelMapper.map(hallEntity, HallDto.class);
     }
+
 }

@@ -23,5 +23,6 @@ public class SessionDto extends BaseDto {
     private BigDecimal basePrice;
     private BigDecimal vipPrice;
     private String title;
+    private List<TicketDto> tickets;
 
 }
