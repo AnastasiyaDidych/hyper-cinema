@@ -51,7 +51,7 @@ public class SessionController {
 
 
     @PostMapping
-//    @PreAuthorize("hasRole('MANAGER')")
+    @PreAuthorize("hasRole('MANAGER')")
     public void generateSession(@RequestBody SessionDto sessionDto) {
         sessionService.generateSession(sessionDto);
     }
