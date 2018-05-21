@@ -2,7 +2,8 @@ package com.softserve.edu.hypercinema.constants;
 
 public enum SeatStatus {
     VIP("VIP"),
-    BASE("base");
+    BASE("base"),
+    VIRTUAL("virtual");
 
     private String status;
 
