@@ -55,10 +55,6 @@ public class OrderServiceImpl implements OrderService {
         }
     }
 
-    //    @Override
-//    public List<OrderEntity> getOrders() {
-//        return orderRepository.findAll();
-//    }
     @Override
     public List<OrderEntity> getOrders(Authentication authentication) {
         if (!AuthUtil.isAdmin(authentication) || !AuthUtil.isManager(authentication)) {
@@ -66,14 +62,6 @@ public class OrderServiceImpl implements OrderService {
             orders.forEach(e -> System.out.println(e.getTickets().toString()));
             return userService.getUser(authentication).getOrders();
         } else return orderRepository.findAll();
-
-
-//        if (AuthUtil.isUser(authentication)) {
-//            return userService.getUser(authentication).getOrders();
-//        } else if (AuthUtil.isAdmin(authentication) || AuthUtil.isManager(authentication)) {
-//            return orderRepository.findAll();
-//        }
-//        return null;
     }
 
     @Override
@@ -96,24 +84,11 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void updateOrder(OrderEntity orderEntity) {
-//        OrderEntity order = orderRepository.findById(orderEntity.getId()).orElseThrow(() ->
-//                new OrderNotFoundException(ORDER_NOT_FOUND_MESSAGE + orderEntity.getId()));
-//        if (orderEntity.isConfirmed()) {
-//            order.getUser().setOrders(new ArrayList<>(order.getTickets()));
-//            order.setConfirmed(true);
-//        }
-//        order.setPending(orderEntity.isPending());
-//        orderRepository.save(order);
     }
 
     @Override
     public void deleteOrder(Long id) {
-//        OrderEntity order = orderRepository.findById(id).orElseThrow(() ->
-//                new OrderNotFoundException(ORDER_NOT_FOUND_MESSAGE + id));
-//        UserEntity user = order.getUser();
-//
-//        user.getOrders().remove(order);
-//        userService.updateUser(user);
+
         orderRepository.deleteById(id);
     }
 
