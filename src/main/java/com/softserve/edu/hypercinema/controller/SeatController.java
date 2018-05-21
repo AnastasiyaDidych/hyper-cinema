@@ -27,7 +27,6 @@ public class SeatController {
 
     @PutMapping("/{id}")
     public void updateSeat(@RequestBody SeatDto seatDto) {
-
         System.out.println("2");
         seatConverter.convertToDto(seatService.updateSeat(seatConverter.convertToEntity(seatDto)));
     }

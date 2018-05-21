@@ -38,8 +38,8 @@ public class OrderController {
 
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/{id}")
-    public OrderDto getOrder(@PathVariable Long id/*, Authentication authentication*/) {
-        return orderConvertor.convertToDto(orderService.getOrder(id/*, authentication*/));
+    public OrderDto getOrder(@PathVariable Long id, Authentication authentication) {
+        return orderConvertor.convertToDto(orderService.getOrder(id, authentication));
 
     }
 

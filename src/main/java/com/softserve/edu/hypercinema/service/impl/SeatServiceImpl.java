@@ -48,6 +48,7 @@ public class SeatServiceImpl implements SeatService {
         seat.setNumber(seatEntity.getNumber());
         seat.setType(seatEntity.getType());
         return seatRepository.save(seat);
+
     }
 
     @Override
