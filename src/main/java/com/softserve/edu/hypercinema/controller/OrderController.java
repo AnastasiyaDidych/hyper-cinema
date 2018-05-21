@@ -56,10 +56,16 @@ public class OrderController {
         orderService.deleteOrder(orderConvertor.convertToEntity(order));
     }
 
-
     @PreAuthorize("hasRole('USER')")
     @GetMapping
     public List<OrderDto> getListOrders(Authentication authentication) {
         return orderConvertor.convertToDto(orderService.getOrders(authentication));
     }
+
+    @PreAuthorize("hasRole('MANAGER')")
+    @GetMapping("/all")
+    public List<OrderDto> getAllOrders() {
+        return orderConvertor.convertToDto(orderService.getAllOrders());
+    }
+
 }

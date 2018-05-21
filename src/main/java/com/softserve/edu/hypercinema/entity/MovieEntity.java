@@ -1,5 +1,6 @@
 package com.softserve.edu.hypercinema.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -23,7 +24,7 @@ public class MovieEntity extends BaseEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(unique = true, nullable = false)
     @NotEmpty
     private String title;
 
@@ -34,6 +35,9 @@ public class MovieEntity extends BaseEntity{
     private int duration;
 
     private String genre;
+
+    @Column(name = "tmdb_id")
+    private double tmdbId;
 
     @Column(name = "start_rent")
     @DateTimeFormat(pattern = "MM.dd.yyyy")
@@ -47,11 +51,12 @@ public class MovieEntity extends BaseEntity{
     @Column(name = "age_rating")
     private int ageRating;
 
-    @Column(columnDefinition = "DECIMAL(5,2)", nullable = false)
+    @Column(columnDefinition = "DECIMAL(5,2)")
     private BigDecimal price;
 
     @OneToMany(mappedBy = "movie")
-    private List<SessionEntity> sessions;
+    @JsonIgnore
+    private List<SessionEntity> schedule;
 
 }
 

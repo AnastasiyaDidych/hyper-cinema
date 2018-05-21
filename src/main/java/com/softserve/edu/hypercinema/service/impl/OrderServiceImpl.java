@@ -47,6 +47,7 @@ public class OrderServiceImpl implements OrderService {
         order.setUser(user);
         order.setPending(true);
         order.setConfirmed(true);
+
         orderRepository.saveAndFlush(order);
 
         for (TicketEntity ticket : tickets) {
@@ -97,4 +98,10 @@ public class OrderServiceImpl implements OrderService {
 
         orderRepository.delete(orderEntity);
     }
+
+    @Override
+    public List<OrderEntity> getAllOrders (){
+        return orderRepository.findAll();
+    }
+
 }
