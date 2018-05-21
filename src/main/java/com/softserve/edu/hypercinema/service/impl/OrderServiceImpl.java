@@ -10,6 +10,7 @@ import com.softserve.edu.hypercinema.service.OrderService;
 import com.softserve.edu.hypercinema.service.TicketService;
 import com.softserve.edu.hypercinema.service.UserService;
 import com.softserve.edu.hypercinema.util.AuthUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,7 @@ import java.util.List;
 
 @Service
 @Transactional
+@Slf4j
 public class OrderServiceImpl implements OrderService {
 
     private static final String ORDER_NOT_FOUND_MESSAGE = "Could not find order with id=";
@@ -40,14 +42,14 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void createOrder(OrderEntity order, Principal principal) {
-
+        log.info("Creating new Order...");
         UserEntity user = userService.getUser(principal);
+        log.info("User = " + user.getEmail());
         List<TicketEntity> tickets = order.getTickets();
         order.setTickets(Collections.emptyList());
         order.setUser(user);
         order.setPending(true);
         order.setConfirmed(true);
-
         orderRepository.saveAndFlush(order);
 
         for (TicketEntity ticket : tickets) {

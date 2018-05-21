@@ -27,11 +27,14 @@ public class MovieController {
     private MovieConverter movieConverter;
 
     @GetMapping
+//    @PreAuthorize("hasRole('USER')")
     public List<MovieDto> getAllMovies() {
         return movieConverter.convertToDto(movieService.getMovies());
+
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('USER')")
     public MovieDto getMovieById(@PathVariable("id") Long id ){
         return movieConverter.convertToDto(movieService.getMovie(id));
     }
