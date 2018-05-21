@@ -25,4 +25,10 @@ public class SeatController {
         return seatConverter.convertToDto(seatService.getSeat(id));
     }
 
+    @PutMapping("/{id}")
+    public void updateSeat(@RequestBody SeatDto seatDto) {
+
+        System.out.println("2");
+        seatConverter.convertToDto(seatService.updateSeat(seatConverter.convertToEntity(seatDto)));
+    }
 }

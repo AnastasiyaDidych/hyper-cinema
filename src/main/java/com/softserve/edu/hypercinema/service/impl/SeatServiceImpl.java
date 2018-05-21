@@ -1,5 +1,6 @@
 package com.softserve.edu.hypercinema.service.impl;
 
+import com.softserve.edu.hypercinema.dto.SeatDto;
 import com.softserve.edu.hypercinema.entity.HallEntity;
 import com.softserve.edu.hypercinema.entity.SeatEntity;
 import com.softserve.edu.hypercinema.exception.SeatNotFoundException;
@@ -38,8 +39,15 @@ public class SeatServiceImpl implements SeatService {
     }
 
     @Override
-    public void updateSeat(SeatEntity seatEntity) {
-        seatRepository.save(seatEntity);
+    public SeatEntity updateSeat(SeatEntity seatEntity) {
+        System.out.println("1");
+        SeatEntity seat = new SeatEntity();
+        seat.setId(seatEntity.getId());
+        seat.setHall(seatEntity.getHall());
+        seat.setRow(seatEntity.getRow());
+        seat.setNumber(seatEntity.getNumber());
+        seat.setType(seatEntity.getType());
+        return seatRepository.save(seat);
     }
 
     @Override

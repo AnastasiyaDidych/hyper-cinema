@@ -29,4 +29,6 @@ public class TicketFullDto extends BaseDto {
 
     private String barcode;
 
+    private Long seatId;
+
 }

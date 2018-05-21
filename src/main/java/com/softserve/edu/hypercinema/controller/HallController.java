@@ -41,6 +41,7 @@ public class HallController {
     public List<HallDto> getHalls(){
         return hallConverter.convertToDto(hallService.getHalls());
     }
+
     @DeleteMapping("/{id}")
 //    @PreAuthorize("hasRole('MANAGER')")
     public void deleteHall(@PathVariable Long id) {

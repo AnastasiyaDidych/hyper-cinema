@@ -30,20 +30,13 @@ public class TicketConverterImpl implements TicketConverter {
     private TicketService ticketService;
 
     @Override
-    public TicketEntity convertToEntity(TicketDto dto) {
-        TicketEntity ticketEntity = modelMapper.map(dto, TicketEntity.class);
-        ticketEntity.setSession(sessionService.getSession(dto.getSessionId()));
-        ticketEntity.setSeat(seatService.getSeat(dto.getSeatId()));
-//        ticketEntity.setPrice(dto.getPrice());
-        return ticketEntity;
+    public TicketEntity convertToEntity(TicketDto ticketDto) {
+        return modelMapper.map(ticketDto, TicketEntity.class);
     }
 
     @Override
-    public TicketDto convertToDto(TicketEntity entity) {
-        TicketDto ticketDto = modelMapper.map(entity, TicketDto.class);
-        ticketDto.setSessionId(entity.getSession().getId());
-        ticketDto.setSeatId(entity.getSeat().getId());
-        return ticketDto;
+    public TicketDto convertToDto(TicketEntity ticketEntity) {
+        return modelMapper.map(ticketEntity, TicketDto.class);
     }
 
     @Override

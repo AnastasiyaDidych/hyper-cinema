@@ -7,6 +7,7 @@ import java.util.List;
 
 @Data
 public class HallDto extends BaseDto {
+    private Long id;
 
     private String name;
 

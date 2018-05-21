@@ -13,7 +13,7 @@ public interface SeatService {
 
     SeatEntity getSeat(Long id);
 
-    void updateSeat(SeatEntity seatEntity);
+    SeatEntity updateSeat(SeatEntity seatEntity);
 
     void deleteSeat(Long id);
 
