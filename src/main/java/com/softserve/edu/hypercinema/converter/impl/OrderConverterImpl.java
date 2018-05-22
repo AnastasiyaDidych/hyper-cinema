@@ -30,10 +30,15 @@ public class OrderConverterImpl implements OrderConverter {
         OrderEntity orderEntity = new OrderEntity();
         orderEntity.setPending(orderDto.isPending());
         orderEntity.setConfirmed(orderDto.isConfirmed());
-        orderEntity.setTickets(ticketConverter.convertToEntity(orderDto.getTickets()));
+
+//        orderEntity.setTickets(ticketConverter.convertToEntity(orderDto.getTickets()));
         orderEntity.setOrderDate(orderDto.getOrderDate());
         orderEntity.setOrderTotal(orderDto.getOrderTotal());
         orderEntity.setPayment(paymentConverter.convertToEntity(orderDto.getPaymentDto()));
+
+//        orderEntity.setTickets(ticketConverter.convertToEntity(orderDto.getTickets()));
+        orderEntity.setTickets(ticketConverter.convertFromFullDtos(orderDto.getTickets()));
+
         return orderEntity;
 
         //maybe use mapper in next time
@@ -42,12 +47,20 @@ public class OrderConverterImpl implements OrderConverter {
     @Override
     public OrderDto convertToDto(OrderEntity orderEntity) {
         OrderDto orderDto = modelMapper.map(orderEntity, OrderDto.class);
-        orderDto.setTickets(ticketConverter.convertToDto(orderEntity.getTickets()));
+
+//        orderDto.setTickets(ticketConverter.convertToDto(orderEntity.getTickets()));
 //        BigDecimal price = BigDecimal.ZERO;
 //        for (TicketEntity ticketEntity : orderEntity.getTickets()) {
 //            price = price.add(ticketEntity.getPrice());
 //        }
-//        orderDto.setOrderTotal(price);
+
+
+        orderDto.setTickets(ticketConverter.convertToFullDto(orderEntity.getTickets()));
+        BigDecimal price = BigDecimal.ZERO;
+        for (TicketEntity ticketEntity : orderEntity.getTickets()) {
+            price = price.add(ticketEntity.getPrice());
+        }
+        orderDto.setOrderTotal(price);
         return orderDto;
     }
 

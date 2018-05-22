@@ -12,6 +12,8 @@ public interface TicketConverter extends GenericConverter<TicketDto, TicketEntit
 
     TicketEntity convertFromFullDto(TicketFullDto fullTicket);
 
+    List<TicketEntity> convertFromFullDtos(List<TicketFullDto> fullTickets);
+
     List<TicketFullDto> convertToFullDto(List<TicketEntity> ticketEntityList);
 
 }

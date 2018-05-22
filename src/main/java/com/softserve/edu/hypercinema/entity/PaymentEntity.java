@@ -15,7 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 public class PaymentEntity extends BaseEntity {
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
     private String type;
     private String cardName;
@@ -25,7 +25,7 @@ public class PaymentEntity extends BaseEntity {
 //    private String holderName;
 //    private boolean defaultPayment;
 
-    @OneToOne
-    @JoinColumn(name="order_id")
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="order_id", nullable = false)
     private OrderEntity order;
 }

@@ -64,9 +64,16 @@ public class TicketConverterImpl implements TicketConverter {
         return ticketService.getTicket(fullTicket.getId());
     }
 
+    @Override
+    public List<TicketEntity> convertFromFullDtos(List<TicketFullDto> fullTickets) {
+        return fullTickets.stream().map(this::convertFromFullDto).collect(Collectors.toList());
+    }
+
 
     @Override
     public List<TicketFullDto> convertToFullDto(List<TicketEntity> ticketEntityList) {
         return ticketEntityList.stream().map(this::convertToFullDto).collect(Collectors.toList());
     }
+
+
 }

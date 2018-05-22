@@ -14,9 +14,11 @@ public class OrderDto extends BaseDto {
     private boolean pending;
     private boolean confirmed;
     private BigDecimal orderTotal;
-    private List<TicketDto> tickets;
+//    private List<TicketDto> tickets;
     private Date orderDate;
     private PaymentDto paymentDto;
+
+    private List<TicketFullDto> tickets;
 
 
 }

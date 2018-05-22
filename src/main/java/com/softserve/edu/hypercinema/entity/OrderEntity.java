@@ -17,7 +17,7 @@ import java.util.List;
 public class OrderEntity extends BaseEntity {
 
     @Id
-    @Column(name = "id")
+//    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -40,7 +40,8 @@ public class OrderEntity extends BaseEntity {
     @Column(name ="sum" )
     private BigDecimal orderTotal;
 
-    @OneToOne(cascade=CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY,
+    cascade = CascadeType.ALL, mappedBy = "order")
     private PaymentEntity payment;
 
 }
