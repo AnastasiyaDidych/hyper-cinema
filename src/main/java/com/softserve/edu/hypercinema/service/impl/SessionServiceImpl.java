@@ -170,12 +170,18 @@ public class SessionServiceImpl  implements SessionService {
     }
 
     @Override
+    public BigDecimal getVirtualPrice(SessionEntity sessionEntity) {
+        return getBasePrice(sessionEntity).multiply(CoefficientType.VIRTUAL.getValue(), mc);
+    }
+
+    @Override
     public List<BigDecimal> getCoefs(MovieEntity movieEntity, LocalDate sessionDay, SeatEntity seatEntity) {
         List<BigDecimal> coefs = new ArrayList<>();
         coefs.add(getPremierCoef(movieEntity, sessionDay));
         coefs.add(getEndRentCoef(movieEntity, sessionDay));
         coefs.add(getBaseSeatCoef(seatEntity));
         coefs.add(getVipSeatCoef(seatEntity));
+        coefs.add(getVirtualSeatCoef(seatEntity));
         return coefs;
     }
 
@@ -231,6 +237,15 @@ public class SessionServiceImpl  implements SessionService {
         return coef;
     }
 
+    public BigDecimal getVirtualSeatCoef(SeatEntity seatEntity) {
+
+        BigDecimal coef = CoefficientType.DEF.getValue();
+        if (seatEntity.getType().equalsIgnoreCase(SeatStatus.VIRTUAL.getStatus())) {
+            coef = CoefficientType.VIRTUAL.getValue();
+        }
+        return coef;
+    }
+
     @Override
     public boolean isOpen(LocalTime start, LocalTime end, LocalTime time) {
         boolean result = false;
@@ -244,13 +259,13 @@ public class SessionServiceImpl  implements SessionService {
     @Override
     public List<Schedule> schedule(){
         List<Schedule> schedules = new LinkedList<>();
-        for(int i = 0; i < sessionRepository.getDisMovies().size(); i++){
+        for(int i = 0; i <=sessionRepository.getDisMovies().size(); i++){
             Long id = new Long(i+1);
             for(int q = 0 ; q < sessionRepository.getDisDates(id).size(); q++){
                 Schedule schedule = new Schedule();
-                schedule.setTitle(sessionRepository.getDisMovies().get(i).getTitle());
                 schedule.setLocalDate(sessionRepository.getDisDates(id).get(q));
                 schedule.setSessionEntityList(scheduleConverter.convertToDto(sessionRepository.getDisStatrtTimes(id,schedule.getLocalDate())));
+                schedule.setTitle(sessionRepository.findById(schedule.getSessionEntityList().get(0).getId()).orElse(null).getMovie().getTitle());
                 schedules.add(schedule);
             }
         }
