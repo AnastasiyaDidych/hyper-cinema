@@ -21,6 +21,8 @@ public interface TicketService {
 
     List<TicketEntity> getTickets(Authentication authentication);
 
+    List<TicketEntity> getMyTickets(Authentication authentication);
+
     void updateTicket(Long id, TicketEntity ticketEntity);
 
     void deleteTicket(Long id);

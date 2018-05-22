@@ -3,7 +3,6 @@ package com.softserve.edu.hypercinema.controller;
 import com.softserve.edu.hypercinema.converter.TicketConverter;
 import com.softserve.edu.hypercinema.dto.TicketDto;
 import com.softserve.edu.hypercinema.dto.TicketFullDto;
-import com.softserve.edu.hypercinema.service.MailService;
 import com.softserve.edu.hypercinema.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -52,8 +51,14 @@ public class TicketController {
 
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/full")
-    public List<TicketFullDto> getFullTickets(Authentication authentication) {
+    public List<TicketFullDto> getAllFullTickets(Authentication authentication) {
         return ticketConverter.convertToFullDto(ticketService.getTickets(authentication));
+    }
+
+    @PreAuthorize("hasRole('USER')")
+    @GetMapping("/my")
+    public List<TicketFullDto> getMyFullTickets(Authentication authentication) {
+        return ticketConverter.convertToFullDto(ticketService.getMyTickets(authentication));
     }
 
     @PreAuthorize("hasRole('USER')")

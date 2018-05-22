@@ -95,6 +95,12 @@ public class TicketServiceImpl implements TicketService {
         return ticketRepository.findAll();
     }
 
+
+    public List<TicketEntity> getMyTickets(Authentication authentication){
+        UserEntity user = userService.getUser(authentication);
+        return ticketRepository.findAllTicketsByUserId(user.getId());
+    }
+
     @Override
     public void updateTicket(Long id, TicketEntity ticketEntity) {
         TicketEntity ticketEntity1 = getTicket(id);
