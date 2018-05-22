@@ -7,7 +7,8 @@ public enum CoefficientType {
     END(2L, BigDecimal.valueOf(0.8), "END"),
     VIP(3L, BigDecimal.valueOf(1.3), "VIP"),
     BASE(4L, BigDecimal.valueOf(1.1), "BASE"),
-    DEF(5L, BigDecimal.valueOf(1), "DEF");
+    VIRTUAL(5L, BigDecimal.valueOf(1.1), "VIRTUAL"),
+    DEF(6L, BigDecimal.valueOf(1), "DEF");
 
     private Long id;
     private BigDecimal value;
