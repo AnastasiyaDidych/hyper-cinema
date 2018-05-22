@@ -259,13 +259,13 @@ public class SessionServiceImpl  implements SessionService {
     @Override
     public List<Schedule> schedule(){
         List<Schedule> schedules = new LinkedList<>();
-        for(int i = 0; i < sessionRepository.getDisMovies().size(); i++){
+        for(int i = 0; i <=sessionRepository.getDisMovies().size(); i++){
             Long id = new Long(i+1);
             for(int q = 0 ; q < sessionRepository.getDisDates(id).size(); q++){
                 Schedule schedule = new Schedule();
-                schedule.setTitle(sessionRepository.getDisMovies().get(i).getTitle());
                 schedule.setLocalDate(sessionRepository.getDisDates(id).get(q));
                 schedule.setSessionEntityList(scheduleConverter.convertToDto(sessionRepository.getDisStatrtTimes(id,schedule.getLocalDate())));
+                schedule.setTitle(sessionRepository.findById(schedule.getSessionEntityList().get(0).getId()).orElse(null).getMovie().getTitle());
                 schedules.add(schedule);
             }
         }
