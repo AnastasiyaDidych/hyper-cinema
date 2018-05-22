@@ -37,6 +37,8 @@ public interface SessionService {
 
     BigDecimal getVipPrice(SessionEntity sessionEntity);
 
+    BigDecimal getVirtualPrice(SessionEntity sessionEntity);
+
     List<BigDecimal> getCoefs(MovieEntity movieEntity, LocalDate sessionDay, SeatEntity seatEntity);
 
     List<Schedule> schedule();

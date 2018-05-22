@@ -34,6 +34,7 @@ public class SessionConverterImpl implements SessionConverter {
         sessionDto.setHallId(entity.getHall().getId());
         sessionDto.setBasePrice(sessionService.getBasePrice(entity));
         sessionDto.setVipPrice(sessionService.getVipPrice(entity));
+        sessionDto.setVirtualPrice(sessionService.getVirtualPrice(entity));
         sessionDto.setTitle(movieService.getMovie(sessionDto.getMovieId()).getTitle());
         return sessionDto;
     }
