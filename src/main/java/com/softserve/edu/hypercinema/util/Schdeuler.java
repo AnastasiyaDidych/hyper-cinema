@@ -16,28 +16,28 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Schdeuler {
     @Autowired
     SessionRepository sessionRepository;
-
-    @Scheduled(fixedRate = 60000)
-    public void changeActive() {
-        List<SessionEntity> sessionEntities = sessionRepository.findAllByActiveAndDate(true, LocalDate.now());
-        for (int i = 0; i < sessionEntities.size(); i++) {
-            if (sessionEntities.get(i).getStartTime().isBefore(LocalTime.now())) {
-                sessionEntities.get(i).setActive(false);
-            }
-            sessionRepository.save(sessionEntities.get(i));
-        }
-    }
-
-    @Scheduled(fixedRate = 86400000)
-    public void changeActiveByDay() {
-        List<SessionEntity> sessionEntities = sessionRepository.findAll();
-        for (int i = 0; i < sessionEntities.size(); i++) {
-            if (sessionEntities.get(i).getDate().isBefore(LocalDate.now())) {
-                sessionEntities.get(i).setActive(false);
-            }
-            sessionRepository.save(sessionEntities.get(i));
-        }
-    }
+//
+//    @Scheduled(fixedRate = 60000)
+//    public void changeActive() {
+//        List<SessionEntity> sessionEntities = sessionRepository.findAllByActiveAndDate(true, LocalDate.now());
+//        for (int i = 0; i < sessionEntities.size(); i++) {
+//            if (sessionEntities.get(i).getStartTime().isBefore(LocalTime.now())) {
+//                sessionEntities.get(i).setActive(false);
+//            }
+//            sessionRepository.save(sessionEntities.get(i));
+//        }
+//    }
+//
+//    @Scheduled(fixedRate = 86400000)
+//    public void changeActiveByDay() {
+//        List<SessionEntity> sessionEntities = sessionRepository.findAll();
+//        for (int i = 0; i < sessionEntities.size(); i++) {
+//            if (sessionEntities.get(i).getDate().isBefore(LocalDate.now())) {
+//                sessionEntities.get(i).setActive(false);
+//            }
+//            sessionRepository.save(sessionEntities.get(i));
+//        }
+//    }
 
 
 }
