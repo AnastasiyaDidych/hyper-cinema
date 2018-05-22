@@ -9,5 +9,6 @@ import java.util.List;
 public class Schedule {
     String title;
     LocalDate localDate;
+    Long movieId;
     List<ScheduleDto> sessionEntityList;
 }
