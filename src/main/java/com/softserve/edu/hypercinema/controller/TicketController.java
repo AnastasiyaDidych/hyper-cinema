@@ -6,6 +6,8 @@ import com.softserve.edu.hypercinema.dto.TicketFullDto;
 import com.softserve.edu.hypercinema.service.MailService;
 import com.softserve.edu.hypercinema.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -64,6 +66,11 @@ public class TicketController {
     @GetMapping("/send/{id}")
     public void sendTicketByMail(@PathVariable Long id, Authentication authentication){
         ticketService.sendMessage(ticketService.getTicket(id, authentication));
+    }
+
+    @GetMapping
+    public Page<TicketFullDto> getPage(Pageable pageable){
+        return ticketConverter.covertPageToFullDto(ticketService.getTicketsByPage(pageable));
     }
 
 }

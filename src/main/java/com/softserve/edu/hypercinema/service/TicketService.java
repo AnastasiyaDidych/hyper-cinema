@@ -1,6 +1,8 @@
 package com.softserve.edu.hypercinema.service;
 
 import com.softserve.edu.hypercinema.entity.TicketEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 
 import java.util.List;
@@ -24,5 +26,7 @@ public interface TicketService {
     void deleteTicket(Long id);
 
     void sendMessage(TicketEntity ticketEntity);
+
+    Page<TicketEntity> getTicketsByPage(Pageable pageable);
 
 }
