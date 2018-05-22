@@ -259,7 +259,7 @@ public class SessionServiceImpl  implements SessionService {
     @Override
     public List<Schedule> schedule(){
         List<Schedule> schedules = new LinkedList<>();
-        for(int i = 0; i <=sessionRepository.getDisMovies().size(); i++){
+        for(int i = 0; i <= sessionRepository.getDisMovies().size(); i++){
             Long id = new Long(i+1);
             for(int q = 0 ; q < sessionRepository.getDisDates(id).size(); q++){
                 Schedule schedule = new Schedule();
