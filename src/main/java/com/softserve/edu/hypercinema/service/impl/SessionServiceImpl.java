@@ -170,12 +170,18 @@ public class SessionServiceImpl  implements SessionService {
     }
 
     @Override
+    public BigDecimal getVirtualPrice(SessionEntity sessionEntity) {
+        return getBasePrice(sessionEntity).multiply(CoefficientType.VIRTUAL.getValue(), mc);
+    }
+
+    @Override
     public List<BigDecimal> getCoefs(MovieEntity movieEntity, LocalDate sessionDay, SeatEntity seatEntity) {
         List<BigDecimal> coefs = new ArrayList<>();
         coefs.add(getPremierCoef(movieEntity, sessionDay));
         coefs.add(getEndRentCoef(movieEntity, sessionDay));
         coefs.add(getBaseSeatCoef(seatEntity));
         coefs.add(getVipSeatCoef(seatEntity));
+        coefs.add(getVirtualSeatCoef(seatEntity));
         return coefs;
     }
 
@@ -227,6 +233,15 @@ public class SessionServiceImpl  implements SessionService {
         BigDecimal coef = CoefficientType.DEF.getValue();
         if (seatEntity.getType().equalsIgnoreCase(SeatStatus.BASE.getStatus())) {
             coef = CoefficientType.BASE.getValue();
+        }
+        return coef;
+    }
+
+    public BigDecimal getVirtualSeatCoef(SeatEntity seatEntity) {
+
+        BigDecimal coef = CoefficientType.DEF.getValue();
+        if (seatEntity.getType().equalsIgnoreCase(SeatStatus.VIRTUAL.getStatus())) {
+            coef = CoefficientType.VIRTUAL.getValue();
         }
         return coef;
     }

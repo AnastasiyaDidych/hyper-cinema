@@ -3,6 +3,7 @@ package com.softserve.edu.hypercinema.controller;
 import com.softserve.edu.hypercinema.converter.TicketConverter;
 import com.softserve.edu.hypercinema.dto.TicketDto;
 import com.softserve.edu.hypercinema.dto.TicketFullDto;
+import com.softserve.edu.hypercinema.service.MailService;
 import com.softserve.edu.hypercinema.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -23,13 +24,13 @@ public class TicketController {
     private TicketConverter ticketConverter;
 
     @PreAuthorize("hasRole('USER')")
-    @PutMapping
+    @PostMapping
     public void addTicket(@RequestBody TicketDto ticket) {
         ticketService.createTicket(ticketConverter.convertToEntity(ticket));
     }
 
     @PreAuthorize("hasRole('MANAGER')")
-    @PostMapping("/{id}")
+    @PutMapping("/{id}")
     public void updateTicket(@PathVariable Long id, @RequestBody TicketDto ticket){
         ticketService.updateTicket(id, ticketConverter.convertToEntity(ticket));
     }
@@ -57,6 +58,12 @@ public class TicketController {
     @GetMapping("/full/{id}")
     public TicketFullDto getFullTicket(@PathVariable Long id, Authentication authentication){
         return ticketConverter.convertToFullDto(ticketService.getTicket(id, authentication));
+    }
+
+    @PreAuthorize("hasRole('USER')")
+    @GetMapping("/send/{id}")
+    public void sendTicketByMail(@PathVariable Long id, Authentication authentication){
+        ticketService.sendMessage(ticketService.getTicket(id, authentication));
     }
 
 }

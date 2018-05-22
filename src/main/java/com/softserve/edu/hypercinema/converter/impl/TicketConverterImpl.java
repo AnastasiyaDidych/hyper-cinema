@@ -56,7 +56,6 @@ public class TicketConverterImpl implements TicketConverter {
         ticketFullDto.setSeatNumber(ticketEntity.getSeat().getNumber());
         ticketFullDto.setHallName(ticketEntity.getSession().getHall().getName());
         ticketFullDto.setBarcode(ticketEntity.getBarcode());
-        ticketFullDto.setVirtualActive(ticketEntity.getSession().getVirtualActive());
         return ticketFullDto;
     }
 

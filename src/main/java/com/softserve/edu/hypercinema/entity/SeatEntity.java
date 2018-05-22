@@ -31,7 +31,7 @@ public class SeatEntity extends BaseEntity{
     @OneToMany(mappedBy = "seat")
     private List<TicketEntity> tickets;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "hall_id")
     private HallEntity hall;
 

@@ -23,4 +23,6 @@ public interface TicketService {
 
     void deleteTicket(Long id);
 
+    void sendMessage(TicketEntity ticketEntity);
+
 }

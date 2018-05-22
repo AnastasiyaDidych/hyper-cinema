@@ -6,15 +6,14 @@ import com.softserve.edu.hypercinema.exception.AccessViolationException;
 import com.softserve.edu.hypercinema.exception.OrderNotFoundException;
 import com.softserve.edu.hypercinema.exception.TicketNotFoundException;
 import com.softserve.edu.hypercinema.exception.TicketUnavaiableException;
+import com.softserve.edu.hypercinema.mail.Mail;
 import com.softserve.edu.hypercinema.repository.TicketRepository;
-import com.softserve.edu.hypercinema.service.MovieService;
-import com.softserve.edu.hypercinema.service.SessionService;
-import com.softserve.edu.hypercinema.service.TicketService;
-import com.softserve.edu.hypercinema.service.UserService;
+import com.softserve.edu.hypercinema.service.*;
 import com.softserve.edu.hypercinema.util.AuthUtil;
 import com.softserve.edu.hypercinema.util.BarcodeGenerator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
@@ -44,6 +43,9 @@ public class TicketServiceImpl implements TicketService {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private MailService mailService;
 
     @Override
     public void createTicket(TicketEntity ticketEntity) {
@@ -107,6 +109,8 @@ public class TicketServiceImpl implements TicketService {
         ticketRepository.deleteById(id);
     }
 
+
+
     private TicketEntity validateTicket(TicketEntity ticketEntity) {
 
         List<TicketEntity> tickets = ticketRepository.findAllTicketBySessionIdAndSeatId(
@@ -143,5 +147,17 @@ public class TicketServiceImpl implements TicketService {
         ticket.setCoefficients(ticketCoefficients);
     }
 
+
+    @Override
+    public void sendMessage(TicketEntity ticketEntity) {
+        UserEntity userEntity = ticketEntity.getOrder().getUser();
+
+        Mail mail = new Mail();
+        mail.setTo(userEntity.getEmail());
+        mail.setSubject("HyperCinema tickets");
+        mail.setContent("Hello, " + userEntity.getFirstName() + "! " +
+                "\n \n Your ticket: " + ticketEntity.getBarcode());
+        mailService.sendMessage(mail);
+    }
 
 }

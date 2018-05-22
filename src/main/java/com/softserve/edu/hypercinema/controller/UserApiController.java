@@ -10,7 +10,6 @@ import com.softserve.edu.hypercinema.dto.UserDto;
 import com.softserve.edu.hypercinema.service.UserService;
 
 import java.security.Principal;
-import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
@@ -47,7 +46,7 @@ public class UserApiController {
         userService.deleteUser(id);
     }
 
-        @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('USER')")
     @GetMapping("/me")
     public UserDto getCurrentUser(Principal principal) {
         return userConverter.convertToDto(userService.getUser(principal));
