@@ -266,6 +266,7 @@ public class SessionServiceImpl  implements SessionService {
                 schedule.setLocalDate(sessionRepository.getDisDates(id).get(q));
                 schedule.setSessionEntityList(scheduleConverter.convertToDto(sessionRepository.getDisStatrtTimes(id,schedule.getLocalDate())));
                 schedule.setTitle(sessionRepository.findById(schedule.getSessionEntityList().get(0).getId()).orElse(null).getMovie().getTitle());
+                schedule.setMovieId(sessionRepository.findById(schedule.getSessionEntityList().get(0).getId()).orElse(null).getMovie().getId());
                 schedules.add(schedule);
             }
         }
