@@ -14,6 +14,8 @@ import com.softserve.edu.hypercinema.util.BarcodeGenerator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
@@ -93,6 +95,12 @@ public class TicketServiceImpl implements TicketService {
         return ticketRepository.findAll();
     }
 
+
+    public List<TicketEntity> getMyTickets(Authentication authentication){
+        UserEntity user = userService.getUser(authentication);
+        return ticketRepository.findAllTicketsByUserId(user.getId());
+    }
+
     @Override
     public void updateTicket(Long id, TicketEntity ticketEntity) {
         TicketEntity ticketEntity1 = getTicket(id);
@@ -158,6 +166,11 @@ public class TicketServiceImpl implements TicketService {
         mail.setContent("Hello, " + userEntity.getFirstName() + "! " +
                 "\n \n Your ticket: " + ticketEntity.getBarcode());
         mailService.sendMessage(mail);
+    }
+
+    @Override
+    public Page<TicketEntity> getTicketsByPage(Pageable pageable){
+        return ticketRepository.findAll(pageable);
     }
 
 }

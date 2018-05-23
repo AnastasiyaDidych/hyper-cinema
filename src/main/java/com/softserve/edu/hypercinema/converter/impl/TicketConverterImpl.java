@@ -9,6 +9,7 @@ import com.softserve.edu.hypercinema.service.SessionService;
 import com.softserve.edu.hypercinema.service.TicketService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -31,7 +32,7 @@ public class TicketConverterImpl implements TicketConverter {
 
     @Override
     public TicketEntity convertToEntity(TicketDto dto) {
-        TicketEntity ticketEntity = new TicketEntity();
+        TicketEntity ticketEntity = modelMapper.map(dto, TicketEntity.class);
         ticketEntity.setSession(sessionService.getSession(dto.getSessionId()));
         ticketEntity.setSeat(seatService.getSeat(dto.getSeatId()));
         return ticketEntity;
@@ -40,8 +41,8 @@ public class TicketConverterImpl implements TicketConverter {
     @Override
     public TicketDto convertToDto(TicketEntity entity) {
         TicketDto ticketDto = modelMapper.map(entity, TicketDto.class);
-        ticketDto.setSeatId(entity.getSeat().getId());
         ticketDto.setSessionId(entity.getSession().getId());
+        ticketDto.setSeatId(entity.getSeat().getId());
         return ticketDto;
     }
 
@@ -64,16 +65,14 @@ public class TicketConverterImpl implements TicketConverter {
         return ticketService.getTicket(fullTicket.getId());
     }
 
-    @Override
-    public List<TicketEntity> convertFromFullDtos(List<TicketFullDto> fullTickets) {
-        return fullTickets.stream().map(this::convertFromFullDto).collect(Collectors.toList());
-    }
-
 
     @Override
     public List<TicketFullDto> convertToFullDto(List<TicketEntity> ticketEntityList) {
         return ticketEntityList.stream().map(this::convertToFullDto).collect(Collectors.toList());
     }
 
-
+    @Override
+    public Page<TicketFullDto> covertPageToFullDto(Page<TicketEntity> entityPages) {
+        return entityPages.map(this::convertToFullDto);
+    }
 }
