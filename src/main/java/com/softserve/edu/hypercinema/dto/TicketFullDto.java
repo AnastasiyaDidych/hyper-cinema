@@ -31,4 +31,6 @@ public class TicketFullDto extends BaseDto {
 
     private boolean virtualActive;
 
+    private String userEmail;
+
 }
