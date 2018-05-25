@@ -278,8 +278,14 @@ public class SessionServiceImpl  implements SessionService {
         return schedules;
     }
 
+    @Override
+    public List<SessionEntity> getAllByActive(boolean b) {
+      return sessionRepository.findAllByActive(true);
+    }
+
     private BigDecimal roundPrice(BigDecimal price){
         return price.setScale(priceScale, RoundingMode.UP);
     }
+
 }
 
