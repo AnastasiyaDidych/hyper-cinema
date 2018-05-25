@@ -13,6 +13,7 @@ import java.util.List;
 public interface SessionRepository extends JpaRepository<SessionEntity,Long> {
 
     List<SessionEntity> findAllByDate(LocalDate localDate);
+
     List<SessionEntity> findAllByActiveAndDate(Boolean aBoolean,LocalDate localDate);
 
     @Query(value = "SELECT distinct s.movie FROM SessionEntity s where s.active=true")
@@ -23,4 +24,6 @@ public interface SessionRepository extends JpaRepository<SessionEntity,Long> {
 
     @Query("SELECT distinct s FROM SessionEntity s where movie_id=?1 and s.date=?2 and s.active=true")
     List<SessionEntity> getDisStatrtTimes(Long id,LocalDate localDate);
+
+    List<SessionEntity> findAllByActive(boolean b);
 }

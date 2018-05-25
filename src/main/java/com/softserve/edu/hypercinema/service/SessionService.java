@@ -7,6 +7,7 @@ import com.softserve.edu.hypercinema.entity.HallEntity;
 import com.softserve.edu.hypercinema.entity.MovieEntity;
 import com.softserve.edu.hypercinema.entity.SeatEntity;
 import com.softserve.edu.hypercinema.entity.SessionEntity;
+import org.springframework.boot.web.servlet.server.Session;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -42,5 +43,7 @@ public interface SessionService {
     List<BigDecimal> getCoefs(MovieEntity movieEntity, LocalDate sessionDay, SeatEntity seatEntity);
 
     List<Schedule> schedule();
+
+    List<SessionEntity> getAllByActive(boolean b);
 
 }
