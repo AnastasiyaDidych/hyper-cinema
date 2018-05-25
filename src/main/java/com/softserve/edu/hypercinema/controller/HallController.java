@@ -31,7 +31,6 @@ public class HallController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('USER')")
     public HallDto getHall(@PathVariable Long id) {
         return hallConverter.convertToDto(hallService.getHall(id));
     }
