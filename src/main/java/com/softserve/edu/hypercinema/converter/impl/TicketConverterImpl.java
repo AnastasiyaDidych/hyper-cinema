@@ -9,6 +9,7 @@ import com.softserve.edu.hypercinema.service.SessionService;
 import com.softserve.edu.hypercinema.service.TicketService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -56,6 +57,7 @@ public class TicketConverterImpl implements TicketConverter {
         ticketFullDto.setSeatNumber(ticketEntity.getSeat().getNumber());
         ticketFullDto.setHallName(ticketEntity.getSession().getHall().getName());
         ticketFullDto.setBarcode(ticketEntity.getBarcode());
+        ticketFullDto.setUserEmail(ticketEntity.getOrder().getUser().getEmail());
         return ticketFullDto;
     }
 
@@ -68,5 +70,10 @@ public class TicketConverterImpl implements TicketConverter {
     @Override
     public List<TicketFullDto> convertToFullDto(List<TicketEntity> ticketEntityList) {
         return ticketEntityList.stream().map(this::convertToFullDto).collect(Collectors.toList());
+    }
+
+    @Override
+    public Page<TicketFullDto> covertPageToFullDto(Page<TicketEntity> entityPages) {
+        return entityPages.map(this::convertToFullDto);
     }
 }
