@@ -7,9 +7,12 @@ import com.softserve.edu.hypercinema.exception.OrderNotFoundException;
 import com.softserve.edu.hypercinema.entity.OrderEntity;
 import com.softserve.edu.hypercinema.repository.OrderRepository;
 import com.softserve.edu.hypercinema.service.OrderService;
+import com.softserve.edu.hypercinema.service.PaymentService;
 import com.softserve.edu.hypercinema.service.TicketService;
 import com.softserve.edu.hypercinema.service.UserService;
 import com.softserve.edu.hypercinema.util.AuthUtil;
+import com.softserve.edu.hypercinema.util.CodeConfig;
+import com.softserve.edu.hypercinema.util.VoucherGenerator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -17,6 +20,9 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.security.Principal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
@@ -39,6 +45,9 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private TicketService ticketService;
 
+    @Autowired
+    private PaymentService paymentService;
+
 
     @Override
     public void createOrder(OrderEntity order, Principal principal) {
@@ -48,9 +57,14 @@ public class OrderServiceImpl implements OrderService {
         List<TicketEntity> tickets = order.getTickets();
         order.setTickets(Collections.emptyList());
         order.setUser(user);
-        order.setPending(true);
+        order.setPended(true);
         order.setConfirmed(true);
+        order.setOrderNumber(VoucherGenerator.generate(new CodeConfig(null,null,null,null,null)));
+        order.setOrderDate(LocalDateTime.now());
+
         orderRepository.saveAndFlush(order);
+
+//        paymentService.createPayment(order.getPayment());
 
         for (TicketEntity ticket : tickets) {
             ticket.setOrder(order);
@@ -65,14 +79,6 @@ public class OrderServiceImpl implements OrderService {
             orders.forEach(e -> System.out.println(e.getTickets().toString()));
             return userService.getUser(authentication).getOrders();
         } else return orderRepository.findAll();
-
-
-//        if (AuthUtil.isUser(authentication)) {
-//            return userService.getUser(authentication).getOrders();
-//        } else if (AuthUtil.isAdmin(authentication) || AuthUtil.isManager(authentication)) {
-//            return orderRepository.findAll();
-//        }
-//        return null;
     }
 
     @Override
@@ -95,24 +101,18 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void updateOrder(OrderEntity orderEntity) {
-//        OrderEntity order = orderRepository.findById(orderEntity.getId()).orElseThrow(() ->
-//                new OrderNotFoundException(ORDER_NOT_FOUND_MESSAGE + orderEntity.getId()));
-//        if (orderEntity.isConfirmed()) {
-//            order.getUser().setOrders(new ArrayList<>(order.getTickets()));
-//            order.setConfirmed(true);
-//        }
-//        order.setPending(orderEntity.isPending());
-//        orderRepository.save(order);
     }
 
     @Override
     public void deleteOrder(Long id) {
+
 //        OrderEntity order = orderRepository.findById(id).orElseThrow(() ->
 //                new OrderNotFoundException(ORDER_NOT_FOUND_MESSAGE + id));
 //        UserEntity user = order.getUser();
 //        user.getOrders().removeAll(order.getTickets());
 //        userService.updateUser(user);
-//        orderRepository.deleteById(id);
+
+        orderRepository.deleteById(id);
     }
 
     @Override

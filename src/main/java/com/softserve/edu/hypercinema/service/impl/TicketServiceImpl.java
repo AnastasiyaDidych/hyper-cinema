@@ -51,9 +51,11 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     public void createTicket(TicketEntity ticketEntity) {
+
         if (!ticketEntity.getSeat().getType().equals(SeatType.VIRTUAL.getType())) {
             validateTicket(ticketEntity);
         }
+
         ticketEntity.setBarcode(BarcodeGenerator.generateStringBarcode(ticketEntity));
         setTicketCoefficients(ticketEntity);
         ticketRepository.save(ticketEntity);

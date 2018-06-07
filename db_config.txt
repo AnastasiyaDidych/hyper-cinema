@@ -63,11 +63,18 @@ VALUES
 
 
 
-INSERT INTO order_ (id, is_confirmed, is_pending, user_id)
+INSERT INTO order_ (id, is_confirmed, is_pending, user_id, payment_id)
 VALUES
-(1, true, false, 1),
-(2, true, false, 2),
-(3, true, false, 3);
+(1, true, false, 1, 1),
+(2, true, false, 2, 2),
+(3, true, false, 3, 3);
+
+
+INSERT INTO payments (id, card_name, card_number, expiry_month, expiry_year, type, order_id)
+VALUES
+('1', 'monobank', '1111222233334444', '6', '2018', 'visa', '1'),
+('2', 'mytreasure', '0000111122223333', '12', '2020', 'mc', '2'),
+('3', 'monobank', '1111222233334444', '6', '2018', 'visa', '3');
 
 
 INSERT INTO ticket (id, price, order_id, seat_id, session_id, barcode)
@@ -92,4 +99,5 @@ VALUES
 (2, 2),
 (3, 2),
 (4, 3);
+
 

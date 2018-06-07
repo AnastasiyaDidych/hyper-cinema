@@ -1,6 +1,6 @@
 package com.softserve.edu.hypercinema.exception;
 
-public class OrderNotFoundException extends OrderException {
+public class OrderNotFoundException extends DatabaseItemNotFoundException {
     public OrderNotFoundException(){
 
     }

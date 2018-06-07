@@ -26,18 +26,18 @@ public class TicketController {
 
     @PreAuthorize("hasRole('USER')")
     @PostMapping
-    public void addTicket(@RequestBody TicketDto ticket) {
+    public void addTicket(@RequestBody TicketFullDto ticket) {
         ticketService.createTicket(ticketConverter.convertToEntity(ticket));
     }
 
     @PreAuthorize("hasRole('MANAGER')")
     @PutMapping("/{id}")
-    public void updateTicket(@PathVariable Long id, @RequestBody TicketDto ticket){
+    public void updateTicket(@PathVariable Long id, @RequestBody TicketFullDto ticket){
         ticketService.updateTicket(id, ticketConverter.convertToEntity(ticket));
     }
 
     @GetMapping("/{sessionId}")
-    public List<TicketDto> getUnavailableTickets(@PathVariable Long sessionId) {
+    public List<TicketFullDto> getUnavailableTickets(@PathVariable Long sessionId) {
         return ticketConverter.convertToDto(ticketService.getUnavailableTickets(sessionId));
     }
 
@@ -64,7 +64,7 @@ public class TicketController {
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/full/{id}")
     public TicketFullDto getFullTicket(@PathVariable Long id, Authentication authentication){
-        return ticketConverter.convertToFullDto(ticketService.getTicket(id, authentication));
+        return ticketConverter.convertToDto(ticketService.getTicket(id, authentication));
     }
 
     @PreAuthorize("hasRole('USER')")

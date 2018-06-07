@@ -1,8 +1,11 @@
 package com.softserve.edu.hypercinema.controller;
 
 import com.softserve.edu.hypercinema.converter.OrderConverter;
+import com.softserve.edu.hypercinema.converter.PaymentConverter;
 import com.softserve.edu.hypercinema.dto.OrderDto;
+import com.softserve.edu.hypercinema.dto.PaymentDto;
 import com.softserve.edu.hypercinema.service.OrderService;
+import com.softserve.edu.hypercinema.service.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -23,10 +26,17 @@ public class OrderController {
     @Autowired
     private OrderConverter orderConvertor;
 
+    @Autowired
+    private PaymentConverter paymentConverter;
+
+    @Autowired
+    private PaymentService paymentService;
+
     @PreAuthorize("hasRole('USER')")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void createUserOrder(@RequestBody OrderDto order, Principal principal) {
+        System.out.println("order " + order);
         orderService.createOrder(orderConvertor.convertToEntity(order), principal);
     }
 
@@ -61,6 +71,21 @@ public class OrderController {
     @GetMapping
     public List<OrderDto> getListOrders(Authentication authentication) {
         return orderConvertor.convertToDto(orderService.getOrders(authentication));
+    }
+
+
+    @PreAuthorize("hasRole('MANAGER')")
+    @GetMapping("/payments/{id}")
+    public PaymentDto getUserPaymentInfo(@PathVariable Long id, Authentication authentication) {
+        return paymentConverter.convertToDto(paymentService.getPayment(id, authentication));
+
+    }
+
+
+    @PreAuthorize("hasRole('MANAGER')")
+    @GetMapping("/payments")
+    public List<PaymentDto> getListPayments(Authentication authentication) {
+        return paymentConverter.convertToDto(paymentService.getPayments(authentication));
     }
 
 

@@ -30,24 +30,33 @@ public class TicketConverterImpl implements TicketConverter {
     @Autowired
     private TicketService ticketService;
 
+
     @Override
-    public TicketEntity convertToEntity(TicketDto dto) {
-        TicketEntity ticketEntity = modelMapper.map(dto, TicketEntity.class);
+    public TicketEntity convertFromFullDto(TicketFullDto fullTicket) {
+        return ticketService.getTicket(fullTicket.getId());
+    }
+
+
+    @Override
+    public List<TicketFullDto> convertToFullDto(List<TicketEntity> ticketEntityList) {
+        return ticketEntityList.stream().map(this::convertToDto).collect(Collectors.toList());
+    }
+
+    @Override
+    public Page<TicketFullDto> covertPageToFullDto(Page<TicketEntity> entityPages) {
+        return entityPages.map(this::convertToDto);
+    }
+
+    @Override
+    public TicketEntity convertToEntity(TicketFullDto dto) {
+                TicketEntity ticketEntity = modelMapper.map(dto, TicketEntity.class);
         ticketEntity.setSession(sessionService.getSession(dto.getSessionId()));
         ticketEntity.setSeat(seatService.getSeat(dto.getSeatId()));
         return ticketEntity;
     }
 
     @Override
-    public TicketDto convertToDto(TicketEntity entity) {
-        TicketDto ticketDto = modelMapper.map(entity, TicketDto.class);
-        ticketDto.setSessionId(entity.getSession().getId());
-        ticketDto.setSeatId(entity.getSeat().getId());
-        return ticketDto;
-    }
-
-    @Override
-    public TicketFullDto convertToFullDto(TicketEntity ticketEntity) {
+    public TicketFullDto convertToDto(TicketEntity ticketEntity) {
         TicketFullDto ticketFullDto = modelMapper.map(ticketEntity, TicketFullDto.class);
         ticketFullDto.setFilmName(ticketEntity.getSession().getMovie().getTitle());
         ticketFullDto.setTech(ticketEntity.getSession().getHall().getTech());
@@ -59,21 +68,5 @@ public class TicketConverterImpl implements TicketConverter {
         ticketFullDto.setBarcode(ticketEntity.getBarcode());
         ticketFullDto.setUserEmail(ticketEntity.getOrder().getUser().getEmail());
         return ticketFullDto;
-    }
-
-    @Override
-    public TicketEntity convertFromFullDto(TicketFullDto fullTicket) {
-        return ticketService.getTicket(fullTicket.getId());
-    }
-
-
-    @Override
-    public List<TicketFullDto> convertToFullDto(List<TicketEntity> ticketEntityList) {
-        return ticketEntityList.stream().map(this::convertToFullDto).collect(Collectors.toList());
-    }
-
-    @Override
-    public Page<TicketFullDto> covertPageToFullDto(Page<TicketEntity> entityPages) {
-        return entityPages.map(this::convertToFullDto);
     }
 }
