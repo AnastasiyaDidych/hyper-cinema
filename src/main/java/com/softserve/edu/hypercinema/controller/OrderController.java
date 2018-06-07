@@ -36,6 +36,7 @@ public class OrderController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void createUserOrder(@RequestBody OrderDto order, Principal principal) {
+        System.out.println("order " + order);
         orderService.createOrder(orderConvertor.convertToEntity(order), principal);
     }
 

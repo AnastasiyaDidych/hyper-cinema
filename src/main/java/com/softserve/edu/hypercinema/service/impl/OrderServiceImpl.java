@@ -11,6 +11,8 @@ import com.softserve.edu.hypercinema.service.PaymentService;
 import com.softserve.edu.hypercinema.service.TicketService;
 import com.softserve.edu.hypercinema.service.UserService;
 import com.softserve.edu.hypercinema.util.AuthUtil;
+import com.softserve.edu.hypercinema.util.CodeConfig;
+import com.softserve.edu.hypercinema.util.VoucherGenerator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -18,6 +20,8 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.security.Principal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
@@ -53,13 +57,14 @@ public class OrderServiceImpl implements OrderService {
         List<TicketEntity> tickets = order.getTickets();
         order.setTickets(Collections.emptyList());
         order.setUser(user);
-        order.setPending(true);
+        order.setPended(true);
         order.setConfirmed(true);
-        order.setOrderDate(Calendar.getInstance().getTime());
+        order.setOrderNumber(VoucherGenerator.generate(new CodeConfig(null,null,null,null,null)));
+        order.setOrderDate(LocalDateTime.now());
 
         orderRepository.saveAndFlush(order);
 
-        paymentService.createPayment(order.getPayment());
+//        paymentService.createPayment(order.getPayment());
 
         for (TicketEntity ticket : tickets) {
             ticket.setOrder(order);

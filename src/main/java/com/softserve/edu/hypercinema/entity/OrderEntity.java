@@ -6,7 +6,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -17,12 +18,12 @@ import java.util.List;
 public class OrderEntity extends BaseEntity {
 
     @Id
-//    @Column(name = "id")
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "is_pending")
-    private boolean pending;
+    @Column(name = "is_pended")
+    private boolean pended;
   
     @Column(name = "is_confirmed")
     private boolean confirmed;
@@ -35,13 +36,16 @@ public class OrderEntity extends BaseEntity {
     private List<TicketEntity> tickets;
 
     @Column(name = "order_date")
-    private Date orderDate;
+    private LocalDateTime orderDate;
 
     @Column(name ="sum" )
     private BigDecimal orderTotal;
 
-    @OneToOne(fetch = FetchType.LAZY,
-    cascade = CascadeType.ALL, mappedBy = "order")
-    private PaymentEntity payment;
+    @Column(name ="order_number" )
+    private String orderNumber;
+
+//    @OneToOne(fetch = FetchType.LAZY,
+//    cascade = CascadeType.ALL, mappedBy = "order")
+//    private PaymentEntity payment;
 
 }

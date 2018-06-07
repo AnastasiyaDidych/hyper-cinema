@@ -7,13 +7,9 @@ import org.springframework.data.domain.Page;
 
 import java.util.List;
 
-public interface TicketConverter extends GenericConverter<TicketDto, TicketEntity> {
-
-    TicketFullDto convertToFullDto(TicketEntity ticketEntity);
+public interface TicketConverter extends GenericConverter<TicketFullDto, TicketEntity> {
 
     TicketEntity convertFromFullDto(TicketFullDto fullTicket);
-
-    List<TicketEntity> convertFromFullDtos(List<TicketFullDto> fullTickets);
 
     List<TicketFullDto> convertToFullDto(List<TicketEntity> ticketEntityList);
 

@@ -31,4 +31,8 @@ public class TicketFullDto extends BaseDto {
 
     private boolean virtualActive;
 
+    private Long sessionId;
+
+    private Long seatId;
+
 }

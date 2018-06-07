@@ -51,6 +51,7 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     public void createTicket(TicketEntity ticketEntity) {
+        System.out.println("ticket entity seatId" + ticketEntity.getSeat());
         ticketEntity.setBarcode(BarcodeGenerator.generateStringBarcode(ticketEntity));
         setTicketCoefficients(ticketEntity);
         ticketRepository.save(validateTicket(ticketEntity));

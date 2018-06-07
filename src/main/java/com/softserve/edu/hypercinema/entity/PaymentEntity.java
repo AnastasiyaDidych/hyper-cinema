@@ -25,7 +25,7 @@ public class PaymentEntity extends BaseEntity {
 //    private String holderName;
 //    private boolean defaultPayment;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="order_id", nullable = false)
-    private OrderEntity order;
+//    @OneToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name="order_id", nullable = false)
+//    private OrderEntity order;
 }
