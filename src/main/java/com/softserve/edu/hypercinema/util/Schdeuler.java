@@ -17,7 +17,7 @@ public class Schdeuler {
     @Autowired
     SessionRepository sessionRepository;
 
-    @Scheduled(fixedRate = 60000)
+    @Scheduled(fixedRate = 300000)
     public void changeActive() {
         List<SessionEntity> sessionEntities = sessionRepository.findAllByActiveAndDate(true, LocalDate.now());
         for (int i = 0; i < sessionEntities.size(); i++) {
@@ -30,7 +30,7 @@ public class Schdeuler {
 
     @Scheduled(fixedRate = 86400000)
     public void changeActiveByDay() {
-        List<SessionEntity> sessionEntities = sessionRepository.findAll();
+        List<SessionEntity> sessionEntities = sessionRepository.findAllByActive(true);
         for (int i = 0; i < sessionEntities.size(); i++) {
             if (sessionEntities.get(i).getDate().isBefore(LocalDate.now())) {
                 sessionEntities.get(i).setActive(false);

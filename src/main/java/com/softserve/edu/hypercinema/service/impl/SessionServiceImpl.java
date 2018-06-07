@@ -1,7 +1,7 @@
 package com.softserve.edu.hypercinema.service.impl;
 
 import com.softserve.edu.hypercinema.constants.CoefficientType;
-import com.softserve.edu.hypercinema.constants.SeatStatus;
+import com.softserve.edu.hypercinema.constants.SeatType;
 import com.softserve.edu.hypercinema.converter.ScheduleConverter;
 import com.softserve.edu.hypercinema.dto.Schedule;
 import com.softserve.edu.hypercinema.dto.SessionDto;
@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -29,6 +30,7 @@ import java.util.List;
 public class SessionServiceImpl  implements SessionService {
 
     private final MathContext mc = new MathContext(3);
+    private final int priceScale = 0;
 
     private final String MOVIE_ALREADY_EXISTS_MESSAGE = "movie already exist";
     private final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -161,17 +163,19 @@ public class SessionServiceImpl  implements SessionService {
         for (BigDecimal coef : coefs) {
             total = total.multiply(coef, mc);
         }
-        return total;
+        return roundPrice(total);
     }
 
     @Override
     public BigDecimal getVipPrice(SessionEntity sessionEntity) {
-        return getBasePrice(sessionEntity).multiply(CoefficientType.VIP.getValue(), mc);
+        BigDecimal price =  getBasePrice(sessionEntity).multiply(CoefficientType.VIP.getValue(), mc);
+        return roundPrice(price);
     }
 
     @Override
     public BigDecimal getVirtualPrice(SessionEntity sessionEntity) {
-        return getBasePrice(sessionEntity).multiply(CoefficientType.VIRTUAL.getValue(), mc);
+        BigDecimal price = getBasePrice(sessionEntity).multiply(CoefficientType.VIRTUAL.getValue(), mc);
+        return roundPrice(price);
     }
 
     @Override
@@ -222,7 +226,7 @@ public class SessionServiceImpl  implements SessionService {
     public BigDecimal getVipSeatCoef(SeatEntity seatEntity) {
 
         BigDecimal coef = CoefficientType.DEF.getValue();
-        if (seatEntity.getType().equalsIgnoreCase(SeatStatus.VIP.getStatus())) {
+        if (seatEntity.getType().equalsIgnoreCase(SeatType.VIP.getType())) {
             coef = CoefficientType.VIP.getValue();
         }
         return coef;
@@ -231,7 +235,7 @@ public class SessionServiceImpl  implements SessionService {
     public BigDecimal getBaseSeatCoef(SeatEntity seatEntity) {
 
         BigDecimal coef = CoefficientType.DEF.getValue();
-        if (seatEntity.getType().equalsIgnoreCase(SeatStatus.BASE.getStatus())) {
+        if (seatEntity.getType().equalsIgnoreCase(SeatType.BASE.getType())) {
             coef = CoefficientType.BASE.getValue();
         }
         return coef;
@@ -240,7 +244,7 @@ public class SessionServiceImpl  implements SessionService {
     public BigDecimal getVirtualSeatCoef(SeatEntity seatEntity) {
 
         BigDecimal coef = CoefficientType.DEF.getValue();
-        if (seatEntity.getType().equalsIgnoreCase(SeatStatus.VIRTUAL.getStatus())) {
+        if (seatEntity.getType().equalsIgnoreCase(SeatType.VIRTUAL.getType())) {
             coef = CoefficientType.VIRTUAL.getValue();
         }
         return coef;
@@ -259,8 +263,9 @@ public class SessionServiceImpl  implements SessionService {
     @Override
     public List<Schedule> schedule(){
         List<Schedule> schedules = new LinkedList<>();
-        for(int i = 0; i <= sessionRepository.getDisMovies().size(); i++){
-            Long id = new Long(i+1);
+        List<MovieEntity> disMovieList = sessionRepository.getDisMovies();
+        for(int i = 0; i < disMovieList.size(); i++){
+           Long id = disMovieList.get(i).getId();
             for(int q = 0 ; q < sessionRepository.getDisDates(id).size(); q++){
                 Schedule schedule = new Schedule();
                 schedule.setLocalDate(sessionRepository.getDisDates(id).get(q));
@@ -272,5 +277,15 @@ public class SessionServiceImpl  implements SessionService {
         }
         return schedules;
     }
+
+    @Override
+    public List<SessionEntity> getAllByActive(boolean b) {
+      return sessionRepository.findAllByActive(true);
+    }
+
+    private BigDecimal roundPrice(BigDecimal price){
+        return price.setScale(priceScale, RoundingMode.UP);
+    }
+
 }
 

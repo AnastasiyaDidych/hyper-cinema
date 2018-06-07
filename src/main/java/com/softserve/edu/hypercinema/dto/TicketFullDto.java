@@ -35,4 +35,7 @@ public class TicketFullDto extends BaseDto {
 
     private Long seatId;
 
+    private String userEmail;
+
+
 }

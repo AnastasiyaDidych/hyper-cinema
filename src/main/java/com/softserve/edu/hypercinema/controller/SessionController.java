@@ -43,7 +43,7 @@ public class SessionController {
     }
 
 
-    @GetMapping
+    @GetMapping("/allsessions")
     @PreAuthorize("hasRole('USER')")
     public List<SessionDto> getSessions() {
         return sessionConverter.convertToDto(sessionService.getSessions());
@@ -70,8 +70,14 @@ public class SessionController {
 
     @GetMapping("/schedule")
     @PreAuthorize("hasRole('USER')")
-    public List<Schedule> test1() {
+    public List<Schedule> getSchedules() {
         return sessionService.schedule();
+    }
+
+    @GetMapping
+    @PreAuthorize("hasRole('USER')")
+    public List<SessionDto> getActiveSessions(){
+        return sessionConverter.convertToDto(sessionService.getAllByActive(true));
     }
 
 }

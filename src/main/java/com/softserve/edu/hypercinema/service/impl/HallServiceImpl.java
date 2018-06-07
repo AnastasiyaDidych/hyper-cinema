@@ -33,6 +33,7 @@ public class HallServiceImpl implements HallService {
         if (hallEntity.getCapacity() < 0) {
             throw new InvalidDataException("Invalid value for capacity. Only positive values");
         }
+        hallEntity.setType("static");
         hallRepository.saveAndFlush(hallEntity);
         fillHall(hallEntity);
     }
@@ -56,16 +57,6 @@ public class HallServiceImpl implements HallService {
 
 
     private void fillHall(HallEntity hallEntity) {
-        if (hallEntity.getType().equalsIgnoreCase(HallTypes.STATIC.toString())) {
-            fillStaticHall(hallEntity);
-        } else {
-            //logic
-        }
-    }
-
-
-    private void fillStaticHall(HallEntity hallEntity) {
-
         final int row_capacity = 10;
         int capacity = hallEntity.getCapacity(); //101
 
@@ -88,7 +79,6 @@ public class HallServiceImpl implements HallService {
                         .type(i == rows ? "VIP" : "base")
                         .build());
             }
-
         }
     }
 

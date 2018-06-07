@@ -1,6 +1,7 @@
 package com.softserve.edu.hypercinema.service.impl;
 
 import com.softserve.edu.hypercinema.constants.CoefficientType;
+import com.softserve.edu.hypercinema.constants.SeatType;
 import com.softserve.edu.hypercinema.entity.*;
 import com.softserve.edu.hypercinema.exception.AccessViolationException;
 import com.softserve.edu.hypercinema.exception.OrderNotFoundException;
@@ -13,7 +14,6 @@ import com.softserve.edu.hypercinema.util.AuthUtil;
 import com.softserve.edu.hypercinema.util.BarcodeGenerator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
@@ -51,10 +51,14 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     public void createTicket(TicketEntity ticketEntity) {
-        System.out.println("ticket entity seatId" + ticketEntity.getSeat());
+
+        if (!ticketEntity.getSeat().getType().equals(SeatType.VIRTUAL.getType())) {
+            validateTicket(ticketEntity);
+        }
+
         ticketEntity.setBarcode(BarcodeGenerator.generateStringBarcode(ticketEntity));
         setTicketCoefficients(ticketEntity);
-        ticketRepository.save(validateTicket(ticketEntity));
+        ticketRepository.save(ticketEntity);
     }
 
     @Override
@@ -81,7 +85,7 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public List<TicketEntity> getUnavailableTickets(Long sessionId){
+    public List<TicketEntity> getUnavailableTickets(Long sessionId) {
         return ticketRepository.findAllTicketsBySessionId(sessionId);
     }
 
@@ -96,8 +100,7 @@ public class TicketServiceImpl implements TicketService {
         return ticketRepository.findAll();
     }
 
-
-    public List<TicketEntity> getMyTickets(Authentication authentication){
+    public List<TicketEntity> getMyTickets(Authentication authentication) {
         UserEntity user = userService.getUser(authentication);
         return ticketRepository.findAllTicketsByUserId(user.getId());
     }
@@ -105,9 +108,6 @@ public class TicketServiceImpl implements TicketService {
     @Override
     public void updateTicket(Long id, TicketEntity ticketEntity) {
         TicketEntity ticketEntity1 = getTicket(id);
-        if (ticketEntity1 == null) {
-            throw new TicketNotFoundException(TICKET_NOT_FOUND_MESSAGE + id);
-        }
         ticketEntity.setId(id);
         ticketEntity.setOrder(ticketEntity1.getOrder());
         createTicket(ticketEntity);
@@ -118,17 +118,15 @@ public class TicketServiceImpl implements TicketService {
         ticketRepository.deleteById(id);
     }
 
-
-
-    private TicketEntity validateTicket(TicketEntity ticketEntity) {
-
+    private void validateTicket(TicketEntity ticketEntity) {
         List<TicketEntity> tickets = ticketRepository.findAllTicketBySessionIdAndSeatId(
                 ticketEntity.getSession().getId(),
                 ticketEntity.getSeat().getId());
         if (!tickets.isEmpty()) {
+            log.error("Ticket not valid");
             throw new TicketUnavaiableException(TICKET_UNAVAILABLE_MESSAGE);
         }
-        return ticketEntity;
+        log.info("Ticket valid");
     }
 
     public void setTicketCoefficients(TicketEntity ticket) {
@@ -170,7 +168,7 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public Page<TicketEntity> getTicketsByPage(Pageable pageable){
+    public Page<TicketEntity> getTicketsByPage(Pageable pageable) {
         return ticketRepository.findAll(pageable);
     }
 
